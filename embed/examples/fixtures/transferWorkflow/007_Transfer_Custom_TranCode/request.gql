@@ -1,0 +1,68 @@
+mutation TransferWorkflow(
+ $creditAccountId: UUID! = "3be5bca0-8297-4289-818b-a921bcdbf72d"
+ $debitAccountId: UUID! = "eba175af-f98a-46b7-ba9d-45f99d505445"
+ $journalId: UUID! = "822cb59f-ce51-4837-8391-2af3b7a5fc51"
+) {  
+  pending: workflow {
+    executeTask(
+      input: {
+        task: "PENDING"
+        workflowId: "bb4c53a9-0b3d-47e5-a823-6536eba7c4ea"
+        executionId: "5368ff5e-48b5-4c69-a6c3-d4efcf3804ef"
+        params: {
+          crAccount: $creditAccountId
+          drAccount: $debitAccountId
+          journalId: $journalId
+          amount: "100.00"
+          currency: "USD"
+          effective: "2023-11-15"
+          metadata: "{}"
+          tranCode: "SAMPLE_TRANSFER_PENDING"
+        }
+      }
+    ) {
+      state
+      transactions(first: 4) {
+        transactionId
+        entries(first:100) {
+          nodes {
+            accountId
+            layer
+            amount{
+              units
+              currency
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  settle: workflow {
+    executeTask(
+      input: {
+        task: "SETTLE"
+        workflowId: "bb4c53a9-0b3d-47e5-a823-6536eba7c4ea"
+        executionId: "5368ff5e-48b5-4c69-a6c3-d4efcf3804ef"
+        params: {
+          tranCode: "SAMPLE_TRANSFER_SETTLED"
+        }
+      }
+    ) {
+      state
+      transactions(first: 4) {
+        transactionId
+        entries(first:100) {
+          nodes {
+            accountId
+            layer
+            amount{
+              units
+              currency
+            }
+          }
+        }
+      }
+    }
+  }
+}

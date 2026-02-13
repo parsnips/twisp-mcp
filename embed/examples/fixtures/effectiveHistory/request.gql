@@ -1,0 +1,114 @@
+mutation Setup($bookTransferId: UUID! = "uuid.New()" @cel) {
+  createJournal(
+    input: {
+      journalId: "00000000-0000-0000-0000-000000000000"
+      name: "General Ledger"
+      description: "Primary journal for Zuzu."
+      config: { enableEffectiveBalances: true }
+    }
+  ) {
+    journalId
+    name
+    description
+    status
+  }
+
+  cash: createAccount(
+    input: {
+      accountId: "f4a3cb70-9ace-4885-a3ca-d0b3a37bd847"
+      name: "cash"
+      code: "cash"
+      normalBalanceType: DEBIT
+    }
+  ) {
+    accountId
+  }
+  a: createAccount(
+    input: {
+      accountId: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+      name: "position 1"
+      code: "position 1"
+      normalBalanceType: CREDIT
+    }
+  ) {
+    accountId
+    name
+  }
+  b: createAccount(
+    input: {
+      accountId: "bf716346-9eee-4ec5-bbc3-64c47de7d929"
+      name: "position 2"
+      code: "position 2"
+      normalBalanceType: CREDIT
+    }
+  ) {
+    accountId
+    name
+  }
+  c: createAccount(
+    input: {
+      accountId: "a87a685a-5ece-4651-b5bc-867c23415f6f"
+      name: "position 3"
+      code: "position 3"
+      normalBalanceType: CREDIT
+      config: { enableConcurrentPosting: true }
+    }
+  ) {
+    accountId
+    name
+  }
+
+  createTranCode(
+    input: {
+      tranCodeId: $bookTransferId
+      code: "BOOK_TRANSFER"
+      description: "Book transfer between two internal accounts."
+      metadata: { category: "Internal" }
+      params: [
+        { name: "crAccount", type: UUID, description: "Account to credit." }
+        { name: "drAccount", type: UUID, description: "Account to debit." }
+        { name: "amount", type: DECIMAL, description: "Amount with decimal, e.g. `1.23`." }
+        { name: "currency", type: STRING, description: "Currency used for transaction." }
+        { name: "effective", type: DATE, description: "Effective date for transaction." }
+        { name: "journalId", type: UUID, description: "Journal" }
+        {
+          name: "correlationId"
+          type: STRING
+          description: "Correlation Id"
+          default: "_unspecified_"
+        }
+        { name: "metadata", type: JSON, description: "Metadata", default: "{}" }
+        { name: "layer", type: INTEGER, description: "layer", default: 0 }
+      ]
+      transaction: {
+        journalId: "params.journalId"
+        effective: "params.effective"
+        description: "'Book transfer for $' + string(params.amount)"
+        correlationId: "string(params.correlationId != '_unspecified_' ? params.correlationId:uuid.New())"
+        metadata: "params.metadata"
+      }
+      entries: [
+        {
+          accountId: "params.drAccount"
+          units: "params.amount"
+          currency: "params.currency"
+          entryType: "'BITCOIN_REWARD_DEBIT'"
+          direction: "DEBIT"
+          layer: "params.layer"
+          metadata: "params.metadata"
+        }
+        {
+          accountId: "params.crAccount"
+          units: "params.amount"
+          currency: "params.currency"
+          entryType: "'BITCOIN_REWARD_DEBIT'"
+          direction: "CREDIT"
+          layer: "params.layer"
+          metadata: "params.metadata"
+        }
+      ]
+    }
+  ) {
+    code
+  }
+}

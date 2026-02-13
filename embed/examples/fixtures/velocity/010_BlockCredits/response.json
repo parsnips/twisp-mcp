@@ -1,0 +1,27 @@
+{
+  "data": null,
+  "errors": [
+    {
+      "extensions": {
+        "code": "BALANCE_VELOCITY_EXCEEDED",
+        "exception": {
+          "detail": {
+            "accountId": "6c6affb0-5cf5-402b-8d84-01bfc1624a2c",
+            "layer": "PENDING",
+            "limit": "-Infinity",
+            "velocityControlId": "9ae288eb-923f-4449-a18d-f315ed2d5523",
+            "velocityLimitId": "856502e0-3984-47c3-b15a-07a6f62c15c2",
+            "violatingBalance": "100.00 USD"
+          },
+          "errorMessage": "velocity -Infinity USD exceeded, balance is 100.00 USD",
+          "type": "VELOCITY_CONTROL"
+        },
+        "retriableError": false
+      },
+      "message": "input: postTransaction velocity -Infinity USD exceeded, balance is 100.00 USD",
+      "path": [
+        "postTransaction"
+      ]
+    }
+  ]
+}

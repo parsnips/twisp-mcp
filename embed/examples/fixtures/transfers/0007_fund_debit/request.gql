@@ -1,0 +1,58 @@
+mutation CreateFundDebitTranCode(
+  $settlementAccountId: Expression! = "uuid('215f6471-5329-4952-a9b4-8f7ce2bc1d2f')"
+  $tranCodeId: UUID! = "uuid.New()" @cel
+) {
+  createTranCode(
+    input: {
+      tranCodeId: $tranCodeId
+      code: "FUND_DEBIT"
+      description: "A withdrawal of funds in a the settlement account of a seller Company."
+      params: [
+        {
+          name: "accountId"
+          type: UUID
+          description: "Seller Company settlement bank account ID."
+        }
+        {
+          name: "amount"
+          type: DECIMAL
+          description: "Amount with decimal, e.g. `1.23`."
+        }
+        {
+          name: "effective"
+          type: DATE
+          description: "Effective date for transaction."
+        }
+        {
+          name: "journalId"
+          type: UUID
+          description: "Journal"
+        }
+      ]
+      transaction: {
+        effective: "params.effective"
+        journalId: "params.journalId"
+      }
+      entries: [
+        {
+          accountId: $settlementAccountId
+          units: "params.amount"
+          currency: "'USD'"
+          entryType: "'FUND_DEBIT_DR'"
+          direction: "DEBIT"
+          layer: "SETTLED"
+        }
+        {
+          accountId: "params.accountId"
+          units: "params.amount"
+          currency: "'USD'"
+          entryType: "'FUND_DEBIT_CR'"
+          direction: "CREDIT"
+          layer: "SETTLED"
+        }
+      ]
+    }
+  ) {
+    code
+  }
+}

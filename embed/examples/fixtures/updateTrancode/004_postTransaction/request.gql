@@ -1,0 +1,27 @@
+mutation PostTransaction(
+  $accountCustomerAliciaId: UUID!
+  $accountCustomerBobbyId: UUID!
+) {
+  postTransaction(
+    input: {
+      transactionId: "23b977a2-cefc-4e00-8a8a-c25187bf6cd8"
+      tranCode: "BOOK_TRANSFER"
+      tranCodeVersion: 2
+      params: {
+        crAccount: $accountCustomerAliciaId
+        drAccount: $accountCustomerBobbyId
+        amount: "1.00"
+        currency: "USD"
+        effective: "2022-09-08"
+      }
+    }
+  ) {
+    transactionId
+    effective
+    entries(first: 2) {
+      nodes {
+        entryType
+      }
+    }
+  }
+}

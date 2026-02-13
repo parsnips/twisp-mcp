@@ -1,0 +1,30 @@
+{
+  "data": {
+    "balance": {
+      "available": {
+        "normalBalance": {
+          "units": "0.00",
+          "currency": "USD"
+        }
+      },
+      "history": {
+        "nodes": [
+          {
+            "entry": {
+              "transaction": {
+                "correlationId": "8c634629-a7c6-5a6a-9c69-628211430f0e"
+              }
+            }
+          },
+          {
+            "entry": {
+              "transaction": {
+                "correlationId": "8c634629-a7c6-5a6a-9c69-628211430f0e"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

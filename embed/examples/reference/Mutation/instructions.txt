@@ -1,0 +1,1 @@
+Create two customer wallet accounts, one for Alicia and one for Bobby. The account code should follow the format CUST.<Name>. Both accounts should have a debit-normal balance type and active status. Use variables for the account IDs. Return the account id.

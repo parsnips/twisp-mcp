@@ -1,0 +1,56 @@
+query AccountBalancesByCurrencies($exchangerAcctId: UUID!, $journalId: UUID!) {
+  account(id: $exchangerAcctId) {
+    code
+    usd_bal: balance(journalId: $journalId, currency: "USD") {
+      settled {
+        normalBalance {
+          formatted(as: { locale: "en-US", groupDigits: true })
+        }
+      }
+      history(first: 10) {
+        nodes {
+          version
+          settled {
+            normalBalance {
+              formatted(as: { locale: "en-US", groupDigits: true })
+            }
+          }
+        }
+      }
+    }
+    inr_bal: balance(journalId: $journalId, currency: "INR") {
+      settled {
+        normalBalance {
+          formatted(as: { locale: "en-US", groupDigits: true })
+        }
+      }
+      history(first: 10) {
+        nodes {
+          version
+          settled {
+            normalBalance {
+              formatted(as: { locale: "en-US", groupDigits: true })
+            }
+          }
+        }
+      }
+    }
+    jpy_bal: balance(journalId: $journalId, currency: "JPY") {
+      settled {
+        normalBalance {
+          formatted(as: { locale: "en-US", groupDigits: true })
+        }
+      }
+      history(first: 10) {
+        nodes {
+          version
+          settled {
+            normalBalance {
+              formatted(as: { locale: "en-US", groupDigits: true })
+            }
+          }
+        }
+      }
+    }
+  }
+}

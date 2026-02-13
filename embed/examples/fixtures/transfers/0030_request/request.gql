@@ -1,0 +1,17 @@
+query FindTransferTransactions($layer: String!, $transferId: String!) {
+  transactions(
+    first: 100
+    index: {name: CUSTOM}
+    where: {custom: {index: "TransactionByTransferIdAndLayer", partition: [{alias: "transfer_id", value: {eq: $transferId}}], sort: [{alias: "layer", value: {eq: $layer}}]}}
+  ) {
+    nodes {
+      transactionId
+      tranCode {
+        tranCodeId
+        code
+      }
+      effective
+      metadata
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "data": {
+    "account": {
+      "id": "ac:eyIxIjoiOTdkOGJhNTYtZjVhMi00ZjEzLTk5N2YtZmI5MzQxZGI1ZGQxIn0",
+      "accountId": "97d8ba56-f5a2-4f13-997f-fb9341db5dd1",
+      "name": "Bert - Checking",
+      "description": "Bert's checking account"
+    },
+    "accountSet": {
+      "id": "as:eyIxIjoiYTM5MGIwNWMtNTQ0Mi00ZGI3LWIxMTQtYTRlOTBlNDQ0MjUzIn0",
+      "accountSetId": "a390b05c-5442-4db7-b114-a4e90e444253",
+      "name": "set",
+      "description": "test"
+    },
+    "client": {
+      "id": "cl:eyIxIjoiYXJuOmF3czppYW06OjEyMzQ1Njc4OTAxMjpyb2xlL1MzQWNjZXNzIn0",
+      "principal": "arn:aws:iam::123456789012:role/S3Access",
+      "name": "test",
+      "policies": [
+        {
+          "effect": "ALLOW",
+          "actions": [
+            "SELECT"
+          ],
+          "resources": [
+            "*"
+          ]
+        }
+      ]
+    },
+    "balance_usd": {
+      "id": "ba:eyIxIjoiOTdkOGJhNTYtZjVhMi00ZjEzLTk5N2YtZmI5MzQxZGI1ZGQxIiwiMiI6ImU3YTdkYjU3LTEyZDctNDEzMC1hMmI2LWZmMDYxY2JmMjkxYiIsIjMiOiJVU0QifQ",
+      "accountId": "97d8ba56-f5a2-4f13-997f-fb9341db5dd1",
+      "journalId": "e7a7db57-12d7-4130-a2b6-ff061cbf291b",
+      "currency": "USD",
+      "settled": {
+        "drBalance": {
+          "units": "200.00",
+          "currency": "USD"
+        }
+      }
+    },
+    "index": {
+      "id": "ix:eyIxIjoibm9ybWFsX2JhbGFuY2UiLCIyIjoiQmFsYW5jZSJ9",
+      "name": "normal_balance",
+      "on": "Balance",
+      "partition": [
+        {
+          "alias": "journal_id"
+        },
+        {
+          "alias": "account_id"
+        }
+      ],
+      "range": [
+        {
+          "alias": "normal_balance"
+        }
+      ]
+    },
+    "journal": {
+      "id": "jl:eyIxIjoiZTdhN2RiNTctMTJkNy00MTMwLWEyYjYtZmYwNjFjYmYyOTFiIn0",
+      "journalId": "e7a7db57-12d7-4130-a2b6-ff061cbf291b",
+      "name": "main book",
+      "description": "some journal"
+    },
+    "tranCode": {
+      "id": "tc:eyIxIjoiM2ZhMjExNmUtNjc1Yi00OTcwLTk3YjItYzM2MjUyNjI5Njk1In0",
+      "tranCodeId": "3fa2116e-675b-4970-97b2-c36252629695",
+      "status": "ACTIVE",
+      "description": "A transfer between two accounts",
+      "code": "TRANSFER"
+    },
+    "transaction": {
+      "id": "tx:eyIxIjoiNWQyNDQ5MWQtODBkNC00MGJmLWFiZmYtZjAzNjg3ZmQ2YjRiIn0",
+      "transactionId": "5d24491d-80d4-40bf-abff-f03687fd6b4b",
+      "effective": "2023-01-05"
+    }
+  }
+}

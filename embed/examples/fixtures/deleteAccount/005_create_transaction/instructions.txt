@@ -1,0 +1,1 @@
+Make a transfer between Ernie and Bert's accounts using the provided account IDs. Post a transaction with a unique transaction ID, tranCode, and required parameters, including the amount and effective date. Return the transaction id, tranCodeId, effective date, and the first 2 entries with units, direction, and account names.

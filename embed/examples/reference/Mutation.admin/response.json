@@ -1,0 +1,15 @@
+{
+  "data": {
+    "admin": {
+      "preprodTenant": {
+        "accountId": "preprod"
+      },
+      "denyPolicyGroup": {
+        "name": "deny-policy-1"
+      },
+      "readPolicyGroup": {
+        "name": "read-only-policy-1"
+      }
+    }
+  }
+}

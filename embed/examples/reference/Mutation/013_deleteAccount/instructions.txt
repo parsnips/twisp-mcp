@@ -1,0 +1,1 @@
+Delete Bobby's account using the variable for the account ID. Return the account id and its status.

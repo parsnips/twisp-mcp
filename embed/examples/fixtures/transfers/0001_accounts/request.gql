@@ -1,0 +1,58 @@
+mutation CreateAccounts {
+  a:createAccount(
+    input: {
+      accountId: "215f6471-5329-4952-a9b4-8f7ce2bc1d2f"
+      name: "Offline Fund Settlement"
+      code: "GL.OFFLINE.FUND.SETTLEMENT"
+      description: "Source of funds for seller Companies"
+      normalBalanceType: DEBIT
+      config: {
+        enableConcurrentPosting: true
+      }
+    }
+  ) {
+    accountId
+  }
+  b: createAccount(
+    input: {
+      accountId: "1044bb60-3d71-4b6c-a41f-120c2febd428"
+      name: "Offline Fee Settlement"
+      code: "GL.OFFLINE.FEE.SETTLEMENT"
+      description: "Source of fee funds for buyer Companies"
+      normalBalanceType: DEBIT
+      config: {
+        enableConcurrentPosting: true
+      }
+    }
+  ) {
+    accountId
+  }
+
+  schema {
+    createIndex(
+      input: {
+        name: "TransactionByTransferIdAndLayer"
+        on: Transaction
+        unique: false
+        partition: [
+          {
+            alias: "transfer_id"
+            value: "string(document.metadata.transfer_id)"
+          }
+        ]
+        sort: [
+            {
+              sort: ASC
+              alias: "layer"
+              value: "string(document.metadata.layer)"
+            }
+          ]
+        constraints: {
+          hasCategory: "document.metadata != null && has(document.metadata.layer) && has(document.metadata.transfer_id)"
+        }
+      }
+    ) {
+      name
+    }
+  }
+}

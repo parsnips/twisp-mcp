@@ -1,0 +1,5 @@
+mutation DeleteAccountSet($accountSetCustomersId: UUID!) {
+  deleteAccountSet(id: $accountSetCustomersId) {
+    accountSetId
+  }
+}

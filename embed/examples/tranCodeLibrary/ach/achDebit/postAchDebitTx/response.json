@@ -1,0 +1,25 @@
+{
+  "data": {
+    "postTransaction": {
+      "transactionId": "7aae6811-3ae1-4d48-9d41-0b4d6fae91a2",
+      "tranCode": { "code": "ACH_DEBIT" },
+      "effective": "2022-10-03",
+      "entries": {
+        "nodes": [
+          {
+            "amount": { "money": "$4.32" },
+            "direction": "DEBIT",
+            "layer": "SETTLED",
+            "account": { "name": "Example Acct" }
+          },
+          {
+            "amount": { "money": "$4.32" },
+            "direction": "CREDIT",
+            "layer": "SETTLED",
+            "account": { "name": "ACH Settlement" }
+          }
+        ]
+      }
+    }
+  }
+}

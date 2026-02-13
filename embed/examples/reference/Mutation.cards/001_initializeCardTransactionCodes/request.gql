@@ -1,0 +1,11 @@
+mutation InitializeCardTransactionCodes($journalGLId: UUID!) {
+  cards {
+    initializeCardTransactionCodes(
+      input: { journalId: $journalGLId }
+    ) {
+      accountId
+      name
+      code
+    }
+  }
+}

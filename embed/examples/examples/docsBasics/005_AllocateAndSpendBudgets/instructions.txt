@@ -1,0 +1,1 @@
+Allocate budgets for Bert and Ernie. Post a $40 allocation to Bert's discretionary spending for Bert's budget and a $200 allocation to Ernie's expenses. Record a $44.82 Venmo payment for Bert and assign it to the "Food" category in Bert's budget. Use variables for the budget and account IDs. Return the transaction IDs.

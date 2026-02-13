@@ -1,0 +1,30 @@
+{
+  "data": {
+    "createAccount": {
+      "accountId": "644df6e3-dabf-4b08-81d9-c1862ff93123",
+      "name": "644df6e3-dabf-4b08-81d9-c1862ff93123",
+      "code": "COMPANY_BANK_ACCOUNT.644df6e3-dabf-4b08-81d9-c1862ff93123.ROLE.subcustody",
+      "description": "fc6b88740bfe58acdeaab61f269f89a5bbc9d99a9688cd051aac33e460a927c47312cb01d2",
+      "normalBalanceType": "CREDIT",
+      "metadata": {
+        "account_number": "0000000011",
+        "bank_id": "0448af9a-ddbd-4708-89c9-10f0a9fa449e",
+        "bank_reference_id": "LdC9Ygs",
+        "company_id": "75203d4f-1cde-4c47-ab73-7643fc10e7aa",
+        "company_reference_id": "YRVtriA",
+        "create_time": "2024-03-23T01:43:18.315065Z",
+        "create_user_id": "7b4dff23-066f-4200-957c-ebb1f5513d3b",
+        "delete_time": null,
+        "delete_user_id": null,
+        "description": "fc6b88740bfe58acdeaab61f269f89a5bbc9d99a9688cd051aac33e460a927c47312cb01d2",
+        "id": "644df6e3-dabf-4b08-81d9-c1862ff93123",
+        "name": null,
+        "reference_id": "YfnkFhd",
+        "role": "subcustody",
+        "routing_number": "924600199",
+        "update_time": "2024-03-23T01:43:18.315065Z",
+        "update_user_id": "7b4dff23-066f-4200-957c-ebb1f5513d3b"
+      }
+    }
+  }
+}

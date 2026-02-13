@@ -1,0 +1,75 @@
+{
+  "data": {
+    "account": {
+      "name": "Ernie Bishop - Checking",
+      "balance": {
+        "history": {
+          "nodes": [
+            {
+              "settled": {
+                "normalBalance": {
+                  "units": "2.95"
+                }
+              },
+              "version": 4
+            },
+            {
+              "settled": {
+                "normalBalance": {
+                  "units": "3.00"
+                }
+              },
+              "version": 3
+            },
+            {
+              "settled": {
+                "normalBalance": {
+                  "units": "5.25"
+                }
+              },
+              "version": 2
+            },
+            {
+              "settled": {
+                "normalBalance": {
+                  "units": "9.53"
+                }
+              },
+              "version": 1
+            }
+          ]
+        },
+        "settled": {
+          "normalBalance": {
+            "units": "2.95"
+          }
+        },
+        "version": 4
+      },
+      "entries": {
+        "nodes": [
+          {
+            "direction": "DEBIT",
+            "entryType": "TRANSFER_FEE_DR",
+            "units": "0.05"
+          },
+          {
+            "direction": "DEBIT",
+            "entryType": "TRANSFER_DR",
+            "units": "2.25"
+          },
+          {
+            "direction": "DEBIT",
+            "entryType": "ACH_DR",
+            "units": "4.28"
+          },
+          {
+            "direction": "CREDIT",
+            "entryType": "ACH_CR",
+            "units": "9.53"
+          }
+        ]
+      }
+    }
+  }
+}

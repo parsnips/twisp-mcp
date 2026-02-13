@@ -1,0 +1,22 @@
+{
+  "data": {
+    "workflow": {
+      "executeStatesLanguage": {
+        "output": {
+          "message": "Declined",
+          "variables": {
+            "balance": "-291.00",
+            "hasBalance": true,
+            "shouldVoid": true,
+            "transactionId": "772269e7-4c11-4375-bc3d-587fed54b2ea",
+            "voided": {
+              "voidTransaction": {
+                "transactionId": "a97b893f-cf69-54f8-ac51-afa5d6f789ff"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

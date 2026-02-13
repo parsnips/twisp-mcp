@@ -1,0 +1,87 @@
+mutation RDFIDebit(
+  $accountId: UUID!
+  $journalId: UUID!
+  $settlementAccountId: UUID!
+) {
+  create: workflow {
+    executeTask(
+      input: {
+        task: "CREATE"
+        workflowId: "c9085474-0b55-4bda-a279-04535d7cb8b7"
+        executionId: "e3271c9d-cdcf-4f38-af96-a3916219f611"
+        params: {
+          accountId: $accountId
+          settlementAccountId: $settlementAccountId
+          journalId: $journalId
+          amount: "1.00"
+          effective: "2023-01-01"
+          metadata: "{}"
+        }
+      }
+    ) {
+      transactions {
+        entries(first:4) {
+          nodes {
+            entryType
+            direction
+            amount {
+              units
+            }
+          }
+        }
+      }
+    }
+  }
+
+  settle: workflow {
+    executeTask(
+      input: {
+        task: "SETTLE"
+        workflowId: "c9085474-0b55-4bda-a279-04535d7cb8b7"
+        executionId: "e3271c9d-cdcf-4f38-af96-a3916219f611"
+        params: {
+          effective: "2023-01-01"
+          metadata: "{}"
+        }
+      }
+    ) {
+      transactions {
+        entries(first:4) {
+          nodes {
+            entryType
+            direction
+            amount {
+              units
+            }
+          }
+        }
+      }
+    }    
+  }
+
+  return: workflow {
+    executeTask(
+      input: {
+        task: "RETURN"
+        workflowId: "c9085474-0b55-4bda-a279-04535d7cb8b7"
+        executionId: "e3271c9d-cdcf-4f38-af96-a3916219f611"
+        params: {
+          effective: "2023-01-01"
+          metadata: "{}"
+        }
+      }
+    ) {
+      transactions {
+        entries(first:4) {
+          nodes {
+            entryType
+            direction
+            amount {
+              units
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+mutation CreateJournal($journalGLId: UUID!) {
+  createJournal(
+    input: { journalId: $journalGLId, name: "GL", description: "General Ledger", status: ACTIVE }
+  ) {
+    journalId
+    name
+    description
+    status
+  }
+}

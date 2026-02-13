@@ -1,0 +1,1 @@
+Create three checking accounts for Ernie, Bert, and Elmo using the provided UUIDs. Set the account code to follow the format <NAME>.<TYPE>.accounts_test. All accounts should have a credit-normal balance type. Add custom metadata for each account with a customIndex key. Return the account id, name, and metadata.

@@ -1,0 +1,1 @@
+Get the first 100 accounts with an externalId equal to "123". Return the accountId, externalId, name, status, and normalBalanceType for each account.

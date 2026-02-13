@@ -1,0 +1,34 @@
+{
+  "data": {
+    "iso8583": {
+      "configs": {
+        "pageInfo": {
+          "hasNextPage": false,
+          "hasPreviousPage": false
+        },
+        "edges": [
+          {
+            "node": {
+              "configId": "670504f6-0515-11f0-a441-069b540ea27c",
+              "journalId": "8b65c8dc-0515-11f0-a441-069b540ea27c",
+              "settlementAccountId": "779886bc-0515-11f0-aa78-069b540ea27c",
+              "timeZone": "America/Chicago",
+              "description": "ISO8583 Test Config 1",
+              "processor": "I2C"
+            }
+          },
+          {
+            "node": {
+              "configId": "7e0d3fa2-0515-11f0-a6b2-069b540ea27c",
+              "journalId": "8b65c8dc-0515-11f0-a441-069b540ea27c",
+              "settlementAccountId": "779886bc-0515-11f0-aa78-069b540ea27c",
+              "timeZone": "America/New_York",
+              "description": "ISO8583 Test Config 2",
+              "processor": "I2C"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

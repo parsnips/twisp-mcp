@@ -1,0 +1,28 @@
+{
+  "data": {
+    "postTransaction": {
+      "transactionId": "a71dd074-3b4e-465b-80f4-9dc111a8ecb4",
+      "tranCode": {
+        "code": "ACH_CREDIT"
+      },
+      "entries": {
+        "nodes": [
+          {
+            "accountId": "8cd11607-1104-4270-9482-ae4b8053fd5a",
+            "units": "12.87",
+            "currency": "USD",
+            "direction": "DEBIT",
+            "layer": "SETTLED"
+          },
+          {
+            "accountId": "63e766a5-4a04-4aee-a4d6-aa49350f13c6",
+            "units": "12.87",
+            "currency": "USD",
+            "direction": "CREDIT",
+            "layer": "SETTLED"
+          }
+        ]
+      }
+    }
+  }
+}

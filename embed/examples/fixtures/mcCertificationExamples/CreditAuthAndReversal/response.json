@@ -1,0 +1,11 @@
+{
+  "data": {
+    "createJournal": { "journalId": "00000000-0000-0000-0000-000000000000" },
+    "createVelocityControl": { "velocityControlId": "5193fe0c-4933-4275-b04b-7193f46ec6c9" },
+    "createVelocityLimit": { "velocityLimitId": "0ae0d32d-7b85-4bca-a088-d363d54b2eb1" },
+    "cash": { "accountId": "f4a3cb70-9ace-4885-a3ca-d0b3a37bd847" },
+    "a": { "accountId": "6c6affb0-5cf5-402b-8d84-01bfc1624a2c", "name": "card 1" },
+    "vca": { "velocityControlId": "5193fe0c-4933-4275-b04b-7193f46ec6c9" },
+    "iso": { "createConfig": { "configId": "e71f1316-08e4-11f0-be3c-069b540ea27c" } }
+  }
+}

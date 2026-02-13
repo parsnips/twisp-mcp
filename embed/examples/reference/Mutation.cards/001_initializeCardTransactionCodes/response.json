@@ -1,0 +1,11 @@
+{
+  "data": {
+    "cards": {
+      "initializeCardTransactionCodes": {
+        "accountId": "f8c3b0a4-e0f7-4057-aced-7030c0eb918a",
+        "name": "Card Settlement Account",
+        "code": "Liabilities.Settlement.Card"
+      }
+    }
+  }
+}

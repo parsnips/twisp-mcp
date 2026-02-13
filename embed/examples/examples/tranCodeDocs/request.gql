@@ -1,0 +1,37 @@
+mutation ACH_Setup {
+  generalLedger: createJournal(
+    input: {
+      journalId: "8345d4a6-e100-4f70-9a31-d458acb3553e"
+      name: "GL"
+      description: "General Ledger"
+    }
+  ) {
+    journalId
+  }
+
+  achSettlementAcct: createAccount(
+    input: {
+      accountId: "38897a35-0de5-4055-9a87-dc5256fc96b7"
+      name: "ACH Settlement"
+      code: "ACH_SETTLE"
+      description: "ACH Settlement account"
+      status: ACTIVE
+      normalBalanceType: DEBIT
+    }
+  ) {
+    accountId
+  }
+
+  exampleUserAcct: createAccount(
+    input: {
+      accountId: "fcb5a92f-cafb-4076-93dd-5df6d759a482"
+      name: "Example Acct"
+      code: "USER_ACCT"
+      description: "Example User Acct"
+      status: ACTIVE
+      normalBalanceType: DEBIT
+    }
+  ) {
+    accountId
+  }
+}

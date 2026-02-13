@@ -1,0 +1,17 @@
+mutation RemoveFromAccountSet($accountSetCustomersId: UUID!, $accountCustomerAliciaId: UUID!) {
+  removeFromAccountSet(
+    id: $accountSetCustomersId
+    member: { memberId: $accountCustomerAliciaId, memberType: ACCOUNT }
+  ) {
+    accountSetId
+    members(first: 10) {
+      nodes {
+        ... on Account {
+          accountId
+          name
+          code
+        }
+      }
+    }
+  }
+}

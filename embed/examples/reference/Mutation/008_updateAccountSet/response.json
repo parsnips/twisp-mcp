@@ -1,0 +1,23 @@
+{
+  "data": {
+    "updateAccountSet": {
+      "accountSetId": "29ef3f18-97b1-40d9-9852-27f1607b6ca8",
+      "name": "Customer Wallets",
+      "code": "CUSTOMERS.WALLETS",
+      "history": {
+        "nodes": [
+          {
+            "version": 3,
+            "name": "Customer Wallets",
+            "code": "CUSTOMERS.WALLETS"
+          },
+          {
+            "version": 2,
+            "name": "Customers",
+            "code": "Ke8_GJexQNmYUifxYHtsqIIstZ_OUUg3g5Eq87el_FE"
+          }
+        ]
+      }
+    }
+  }
+}

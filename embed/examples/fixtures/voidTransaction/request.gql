@@ -1,0 +1,79 @@
+mutation setupVoidTransaction($accountAlphaId: UUID!, $accountBetaId: UUID!) {
+  journal: createJournal(
+    input: {
+      journalId: "230ac020-45be-44cc-9220-c3045758d253"
+      name: "GL"
+      description: "GL for entries custom indexing."
+    }
+  ) {
+    journalId
+  }
+  acctAlpha: createAccount(
+    input: {
+      accountId: $accountAlphaId
+      name: "Alpha"
+      code: "ALPHA"
+      description: "Alpha account"
+      normalBalanceType: DEBIT
+      status: ACTIVE
+    }
+  ) {
+    accountId
+  }
+
+  acctBeta: createAccount(
+    input: {
+      accountId: $accountBetaId
+      name: "Beta"
+      code: "BETA"
+      description: "Beta account"
+      normalBalanceType: DEBIT
+      status: ACTIVE
+    }
+  ) {
+    accountId
+  }
+
+  createTranCode(
+    input: {
+      tranCodeId: "ea756487-dec8-4701-aca2-8c0c1a1bfbc8"
+      code: "EXAMPLE_METHOD"
+      description: "Book transfer between two internal accounts."
+      params: [
+        { name: "crAccount", type: UUID, description: "Account to credit." }
+        { name: "drAccount", type: UUID, description: "Account to debit." }
+        { name: "amount", type: DECIMAL, description: "Amount with decimal, e.g. `1.23`." }
+        { name: "currency", type: STRING, description: "Currency used for transaction." }
+        { name: "effective", type: DATE, description: "Effective date for transaction." }
+        { name: "method", type: STRING, description: "Payment method, added to entries' metadata." }
+      ]
+      transaction: {
+        effective: "params.effective"
+        description: "'Example tran code for entries with metadata'"
+        journalId: "uuid('230ac020-45be-44cc-9220-c3045758d253')"
+      }
+      entries: [
+        {
+          accountId: "params.drAccount"
+          units: "params.amount"
+          currency: "params.currency"
+          entryType: "'METHOD_DR'"
+          direction: "DEBIT"
+          layer: "SETTLED"
+          metadata: "{'method': params.method}"
+        }
+        {
+          accountId: "params.crAccount"
+          units: "params.amount"
+          currency: "params.currency"
+          entryType: "'METHOD_CR'"
+          direction: "CREDIT"
+          layer: "SETTLED"
+          metadata: "{'method': params.method}"
+        }
+      ]
+    }
+  ) {
+    tranCodeId
+  }
+}

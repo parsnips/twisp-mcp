@@ -1,0 +1,13 @@
+mutation INVALID_UUID_LENGTH {
+  createAccount(
+    input: {
+      accountId: ""
+      code: "TEST"
+      name: "TEST"
+      normalBalanceType: DEBIT
+      status: ACTIVE
+    }
+  ) {
+    accountId
+  }
+}

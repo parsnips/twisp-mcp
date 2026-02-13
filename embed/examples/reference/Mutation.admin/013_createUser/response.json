@@ -1,0 +1,11 @@
+{
+  "data": {
+    "admin": {
+      "createUser": {
+        "id": "9cc8bd28-a36d-502e-89fd-7f1410c1b90a",
+        "email": "george@twisp.com",
+        "groupIds": ["d57bd759-73d5-4452-a73e-12b590324e35"]
+      }
+    }
+  }
+}

@@ -1,0 +1,1 @@
+Query for the first journal with a code greater than or equal to an empty string. Retrieve the code, name, and description of the journal.

@@ -1,0 +1,19 @@
+mutation HappyPath($happy: String = "") {
+  createJournal(
+    input: {
+      journalId: "9957f532-405c-4681-9c0d-fc3786346206"
+      name: "HAPPY!"
+      description: "This is great!!"
+    }
+  ) {
+    name @export(as: "happy")
+  }
+  evaluate(
+    expressions: {
+      joy: "document.happy"
+    }
+    document: {
+      happy: $happy
+    }
+  )
+}

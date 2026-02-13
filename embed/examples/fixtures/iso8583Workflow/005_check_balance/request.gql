@@ -1,0 +1,19 @@
+query Balance {
+  balance(accountId: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c") {
+    available(layer: ENCUMBRANCE) {
+      normalBalance {
+        units
+        currency
+      }
+    }
+    history(first: 10) {
+      nodes {
+        entry {
+          transaction {
+            correlationId
+          }
+        }
+      }
+    }
+  }
+}

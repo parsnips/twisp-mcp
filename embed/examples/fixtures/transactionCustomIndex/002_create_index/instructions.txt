@@ -1,0 +1,1 @@
+Create a non-unique transaction index named "classification" on the Transaction schema. Partition by the document metadata classification and use a constraint that ensures 1 + 1 equals 2. Return the index name, range, partition, constraints, and uniqueness status.

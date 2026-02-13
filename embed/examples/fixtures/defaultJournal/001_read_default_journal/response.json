@@ -1,0 +1,14 @@
+{
+  "data": {
+    "journals": {
+      "nodes": [
+        {
+          "code": "DEFAULT",
+          "name": "Default Ledger",
+          "description": "The default ledger will be used unless otherwise specified"
+        }
+      ]
+    }
+  }
+}
+

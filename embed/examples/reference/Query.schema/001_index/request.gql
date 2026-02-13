@@ -1,0 +1,19 @@
+query GetSchemaIndex($indexName: String!) {
+  schema {
+    index(name: $indexName, on: Account) {
+      name
+      on
+      unique
+      range {
+        alias
+        value
+        sort
+      }
+      partition {
+        alias
+        value
+      }
+      constraints
+    }
+  }
+}

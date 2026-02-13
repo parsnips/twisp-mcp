@@ -1,0 +1,35 @@
+mutation UpdateAccount {
+  createAccount(
+    input: {
+      accountId: "3ea12e45-7df2-4293-9434-feb792affc91"
+      name: "Assets"
+      code: "ASSET"
+      description: "Test account"
+      status: ACTIVE
+      normalBalanceType: DEBIT
+    }
+  ) {
+    accountId
+  }
+
+  updateAccount(
+    id: "3ea12e45-7df2-4293-9434-feb792affc91"
+    input: {
+      name: "Asset"
+      description: "Updated test account"
+      metadata: { stripeId: "56789", externalId: "12345" }
+    }
+  ) {
+    accountId
+    name
+    description
+    metadata
+    history(first: 2) {
+      nodes {
+        version
+        name
+        description
+      }
+    }
+  }
+}

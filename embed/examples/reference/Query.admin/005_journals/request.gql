@@ -1,0 +1,18 @@
+query {
+  journals(
+    first: 1
+    index: {
+      name: CODE
+      sort: ASC
+    }
+    where: {
+      code: { gte: "" }
+    }
+  ) {
+    nodes {
+      code
+      name
+      description
+    }
+  }
+}

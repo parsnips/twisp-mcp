@@ -1,0 +1,23 @@
+{
+  "data": {
+    "accountSet": {
+      "accountSetId": "29ef3f18-97b1-40d9-9852-27f1607b6ca8",
+      "name": "Customers",
+      "description": "All customer wallets.",
+      "members": {
+        "nodes": [
+          {
+            "accountId": "ae9d36cb-dcf5-41a9-bc1e-99a1cf56ef5b",
+            "code": "CUST.Bobby",
+            "name": "Bobby"
+          },
+          {
+            "accountId": "260fd651-8819-4f99-9c8a-87d27e03ee4c",
+            "code": "CUST.Alicia",
+            "name": "Alicia"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,1 @@
+Get the first 2 accounts with a code starting with "CUST." using the code index. Retrieve accountId, code, name, description, normalBalanceType, and status for each account.

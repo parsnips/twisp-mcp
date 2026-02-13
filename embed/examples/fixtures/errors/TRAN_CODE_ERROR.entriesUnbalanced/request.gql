@@ -1,0 +1,51 @@
+mutation CreateTranCode {
+  createTranCode(
+    input: {
+      tranCodeId: "74e90f0a-5ffa-4fce-9880-1bc976b59937"
+      code: "TFR_TEST"
+      description: "Transfer $1 from one account to another"
+      params: [
+        { name: "effectiveDate", type: DATE }
+        {
+          name: "fromAccount"
+          type: UUID
+          description: "Account to send funds from."
+        }
+        { name: "toAccount", type: UUID, description: "Recipient account. Required." }
+        { name: "amount", type: DECIMAL, default: "1.00" }
+      ]
+      transaction: {
+        journalId: "uuid('822cb59f-ce51-4837-8391-2af3b7a5fc51')"
+        effective: "params.effectiveDate"
+      }
+      entries: [
+        {
+          accountId: "params.fromAccount"
+          units: "params.amount"
+          currency: "'USD'"
+          description: "metadata.tags + ' from'"
+          entryType: "'TRANSFER_DR'"
+          direction: "DEBIT"
+          layer: "SETTLED"
+        }
+      ]
+      metadata: {
+        tags: "xfer"
+      }
+    }
+  ) {
+    tranCodeId
+    code
+    transaction {
+      effective
+    }
+    entries {
+      accountId
+      units
+      entryType
+      direction
+      layer
+    }
+    metadata
+  }
+}

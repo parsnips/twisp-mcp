@@ -1,0 +1,15 @@
+{
+  "data": {
+    "createCalculation": {
+      "calculationId": "6c9fec2a-54f1-4a43-bbf8-4d9f31100c68"
+    },
+    "schema": {
+      "a": {
+        "name": "JanBalances"
+      },
+      "b": {
+        "name": "JanOnlyByPayPeriod"
+      }
+    }
+  }
+}

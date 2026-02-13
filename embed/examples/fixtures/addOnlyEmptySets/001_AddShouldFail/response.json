@@ -1,0 +1,13 @@
+{
+  "errors": [
+    {
+      "message": "sub account set must be empty",
+      "path": ["addToAccountSet"],
+      "extensions": {
+        "code": "UNKNOWN_ERROR",
+        "retriableError": true
+      }
+    }
+  ],
+  "data": null
+}

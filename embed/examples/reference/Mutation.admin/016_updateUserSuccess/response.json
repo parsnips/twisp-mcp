@@ -1,0 +1,20 @@
+{
+  "data": {
+    "admin": {
+      "users": {
+        "nodes": [
+          {
+            "email": "george@twisp.com",
+            "groupIds": ["152f0c89-6cba-53c9-955e-16d7cbc1f35e"],
+            "version": 2
+          },
+          {
+            "email": "test@twisp.com",
+            "groupIds": ["4dcef8d5-186b-4db1-aa00-8d5b2eee85f8"],
+            "version": 1
+          }
+        ]
+      }
+    }
+  }
+}

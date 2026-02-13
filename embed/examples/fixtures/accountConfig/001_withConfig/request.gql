@@ -1,0 +1,20 @@
+mutation CreateAccountMutation($a: AccountInput!, $b: AccountInput!, $c: AccountInput!) {
+  a: createAccount(input: $a) {
+    accountId
+    config {
+      enableConcurrentPosting
+    }
+  }
+  b: createAccount(input: $b) {
+    accountId
+    config {
+      enableConcurrentPosting
+    }
+  }
+  c: createAccount(input: $c) {
+    accountId
+    config {
+      enableConcurrentPosting
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "data": {
+    "schema": {
+      "a": {
+        "name": "alpha"
+      },
+      "b": {
+        "name": "beta"
+      },
+      "c": {
+        "name": "gamma"
+      },
+      "d": {
+        "name": "priority"
+      },
+      "e": {
+        "name": "tier"
+      },
+      "f": {
+        "name": "classification"
+      },
+      "g": {
+        "name": "effective"
+      }
+    }
+  }
+}

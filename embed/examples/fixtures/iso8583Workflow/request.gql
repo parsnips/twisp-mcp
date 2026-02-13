@@ -1,0 +1,52 @@
+mutation Setup {
+  journal: createJournal(
+    input: { name: "GL", description: "testing", journalId: "00000000-0000-0000-0000-000000000000" }
+  ) {
+    journalId
+  }
+  cash: createAccount(
+    input: {
+      accountId: "f4a3cb70-9ace-4885-a3ca-d0b3a37bd847"
+      name: "cash"
+      code: "cash"
+      normalBalanceType: CREDIT
+    }
+  ) {
+    accountId
+  }
+  a: createAccount(
+    input: {
+      accountId: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+      name: "position 1"
+      code: "position 1"
+      normalBalanceType: DEBIT
+    }
+  ) {
+    accountId
+    name
+  }
+  b: createAccount(
+    input: {
+      accountId: "bf716346-9eee-4ec5-bbc3-64c47de7d929"
+      name: "position 2"
+      code: "position 2"
+      normalBalanceType: DEBIT
+    }
+  ) {
+    accountId
+    name
+  }
+
+  c: createAccount(
+    input: {
+      accountId: "a87a685a-5ece-4651-b5bc-867c23415f6f"
+      name: "position 3"
+      code: "position 3"
+      normalBalanceType: DEBIT
+      config: { enableConcurrentPosting: true }
+    }
+  ) {
+    accountId
+    name
+  }
+}

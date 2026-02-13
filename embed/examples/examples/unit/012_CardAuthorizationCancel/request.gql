@@ -1,0 +1,71 @@
+mutation CardAuthorizationCancel(
+  $initialAuthorizationId: UUID!
+  $authorizationId: UUID!
+  $expireId: UUID!
+  $accountId: UUID!
+  $correlation: String
+  $amount: Decimal!
+  $effective: Date
+  $initAuthHook: JSON
+  $authHook: JSON
+  $expireHook: JSON
+){
+  # Received initial authorization webhook
+  initialAuthorization: postTransaction(
+    input:{
+      transactionId: $initialAuthorizationId
+      tranCode: "CARD_HOLD"
+      params: {
+        account: $accountId
+        amount: $amount
+        correlation: $correlation
+        effective: $effective
+        metadata: $initAuthHook
+      }
+    }
+  ) {
+    transactionId
+  }
+
+  # Recieved approved webhook
+  voidInitialAuthorization: voidTransaction(id: $initialAuthorizationId) {
+    transactionId
+  }
+
+  authorization: postTransaction(
+    input:{
+      transactionId: $authorizationId
+      tranCode: "CARD_HOLD"
+      params: {
+        account: $accountId
+        amount: $amount
+        correlation: $correlation
+        effective: $effective
+        metadata: $authHook
+      }
+    }
+  ) {
+    transactionId
+  }
+
+  # Recieved card expiry webhook
+  voidAuthorization: voidTransaction(id: $authorizationId) {
+    transactionId
+  }
+
+  expire: postTransaction(
+    input:{
+      transactionId: $expireId
+      tranCode: "CARD_HOLD_VOID"
+      params: {
+        account: $accountId
+        amount: $amount
+        correlation: $correlation
+        effective: $effective
+        metadata: $expireHook
+      }
+    }
+  ) {
+    transactionId
+  }
+}

@@ -1,0 +1,1 @@
+Evaluate the provided expressions for integer, string concatenation, decimal subtraction, and maximum value calculation. Use the given document with a greeting value of "Hello".

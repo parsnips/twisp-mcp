@@ -1,0 +1,1 @@
+Retrieve a list of indexes from the schema, limited by the specified "first" value and starting "after" the given cursor. Return the names of the fetched indexes.

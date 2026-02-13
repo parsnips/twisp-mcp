@@ -1,0 +1,10 @@
+query Configurations {
+  ach {
+    configurations(first: 100) {
+      nodes {
+        configId
+        timeZone
+      }
+    }
+  }
+}

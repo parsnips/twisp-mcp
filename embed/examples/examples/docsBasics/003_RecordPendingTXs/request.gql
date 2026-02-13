@@ -1,0 +1,60 @@
+mutation RecordPendingTXs(
+  $bertCheckingId: UUID!
+  $ernieCheckingId: UUID!
+  $settlementCheckingId: UUID!
+) {
+  recordPendingPaymentBert: postTransaction(
+    input: {
+      tranCode: "RECORD_PENDING_TX"
+      transactionId: "f55074da-15d9-5b2d-826f-37c71b9a5db2"
+      params: {
+        account: $bertCheckingId
+        settlementAccount: $settlementCheckingId
+        amount: "20.50"
+        effective: "2022-11-03"
+        transactionType: "Check Hold"
+        correlationId: "980ff6f1-2fb7-472a-b051-7f41eacc085b"
+        isDebit: "true"
+      }
+    }
+  ) {
+    transactionId
+  }
+
+  recordPendingPaymentErnie: postTransaction(
+    input: {
+      tranCode: "RECORD_PENDING_TX"
+      transactionId: "e743423d-8780-5200-9211-1694f70861d4"
+      params: {
+        account: $ernieCheckingId
+        settlementAccount: $settlementCheckingId
+        amount: "53.72"
+        effective: "2022-11-05"
+        transactionType: "Check Hold"
+        correlationId: "980ff6f1-2fb7-472a-b051-7f41eacc085b"
+        isDebit: "true"
+      }
+    }
+  ) {
+    transactionId
+  }
+
+  recordCheckClearBert: postTransaction(
+    input: {
+      tranCode: "RECORD_SETTLE_PENDING_TX"
+      transactionId: "b04b5df6-e9f7-4358-a353-cb064527bb91"
+      params: {
+        account: $bertCheckingId
+        settlementAccount: $settlementCheckingId
+        originalAmount: "20.50"
+        settledAmount: "18.45"
+        effective: "2022-11-05"
+        transactionType: "Check Clear"
+        correlationId: "980ff6f1-2fb7-472a-b051-7f41eacc085b"
+        isDebit: "true"
+      }
+    }
+  ) {
+    transactionId
+  }
+}

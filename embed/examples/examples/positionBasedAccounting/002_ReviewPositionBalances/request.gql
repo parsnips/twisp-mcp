@@ -1,0 +1,107 @@
+query ReviewPositionBalances($journalId: UUID!, $clientAAccts: UUID!, $clientBAccts: UUID!) {
+  alicia: accountSet(id: $clientAAccts) {
+    members(first: 5) {
+      nodes {
+        ... on Account {
+          code
+          name
+          usdBal: balance(currency: "USD", journalId: $journalId) {
+            settled {
+              normalBalance {
+                formatted(as: { locale: "en-US" })
+              }
+            }
+          }
+          aaplBal: balance(currency: "AAPL", journalId: $journalId) {
+            settled {
+              normalBalance {
+                formatted(as: { locale: "en-US" })
+              }
+            }
+          }
+          msftBal: balance(currency: "MSFT", journalId: $journalId) {
+            settled {
+              normalBalance {
+                formatted(as: { locale: "en-US" })
+              }
+            }
+          }
+        }
+      }
+    }
+    usdBal: balance(currency: "USD") {
+      settled {
+        normalBalance {
+          formatted(as: { locale: "en-US" })
+        }
+      }
+    }
+    aaplBal: balance(currency: "AAPL") {
+      settled {
+        normalBalance {
+          formatted(as: { locale: "en-US" })
+        }
+      }
+    }
+    msftBal: balance(currency: "MSFT") {
+      settled {
+        normalBalance {
+          formatted(as: { locale: "en-US" })
+        }
+      }
+    }
+  }
+
+  bobby: accountSet(id: $clientBAccts) {
+    members(first: 5) {
+      nodes {
+        ... on Account {
+          code
+          name
+          usdBal: balance(currency: "USD", journalId: $journalId) {
+            settled {
+              normalBalance {
+                formatted(as: { locale: "en-US" })
+              }
+            }
+          }
+          aaplBal: balance(currency: "AAPL", journalId: $journalId) {
+            settled {
+              normalBalance {
+                formatted(as: { locale: "en-US" })
+              }
+            }
+          }
+          msftBal: balance(currency: "MSFT", journalId: $journalId) {
+            settled {
+              normalBalance {
+                formatted(as: { locale: "en-US" })
+              }
+            }
+          }
+        }
+      }
+    }
+    usdBal: balance(currency: "USD") {
+      settled {
+        normalBalance {
+          formatted(as: { locale: "en-US" })
+        }
+      }
+    }
+    aaplBal: balance(currency: "AAPL") {
+      settled {
+        normalBalance {
+          formatted(as: { locale: "en-US" })
+        }
+      }
+    }
+    msftBal: balance(currency: "MSFT") {
+      settled {
+        normalBalance {
+          formatted(as: { locale: "en-US" })
+        }
+      }
+    }
+  }
+}

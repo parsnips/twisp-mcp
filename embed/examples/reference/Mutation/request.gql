@@ -1,0 +1,30 @@
+mutation MutationSetup(
+  $accountCustomerAliciaId: UUID!
+  $accountCustomerBobbyId: UUID!
+) {
+  customer_alicia: createAccount(
+    input: {
+      accountId: $accountCustomerAliciaId
+      name: "Alicia"
+      code: "CUST.Alicia"
+      description: "Alicia's customer wallet."
+      normalBalanceType: DEBIT
+      status: ACTIVE
+    }
+  ) {
+    accountId
+  }
+
+  customer_bobby: createAccount(
+    input: {
+      accountId: $accountCustomerBobbyId
+      name: "Bobby"
+      code: "CUST.Bobby"
+      description: "Bobby's customer wallet."
+      normalBalanceType: DEBIT
+      status: ACTIVE
+    }
+  ) {
+    accountId
+  }
+}

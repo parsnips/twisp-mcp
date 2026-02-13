@@ -1,0 +1,23 @@
+{
+  "accountId": "7ccb98f2-d69a-467a-b066-a8943acd0f5a",
+  "settlementAccountId": "f8c3b0a4-e0f7-4057-aced-7030c0eb918a",
+  "journalId": "00000000-0000-0000-0000-000000000000",
+  "executionId": "5e20e176-82bd-49b4-955c-c059b153b5db",
+  "webhook": {
+    "status": "PENDING",
+    "amount": 1000,
+    "acquirer_fee": 100,
+    "authorization_amount": 1000,
+    "settled_amount": 0,
+    "events": [
+      {
+        "amount": 1000,
+        "type": "AUTHORIZATION",
+        "result": "APPROVED",
+        "token": "5e20e176-82bd-49b4-955c-c059b153b5db"
+      }
+    ],
+    "created": "2022-10-01T00:00:00Z",
+    "token": "3b8937a2-bf03-4bd4-83e8-ededf56118e9"
+  }
+}

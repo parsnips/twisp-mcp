@@ -1,0 +1,88 @@
+query balances($generalJournalId: String!, $productJournalId: String!, $ernieId: String) {
+  general: balances(
+     index: {name: ACCOUNT_ID, sort: ASC}
+     where: {
+       journalId: {eq: $generalJournalId }
+       accountId: { eq: $ernieId}
+     }
+    first: 10
+  ) {
+    nodes {
+      journalId
+      settled {
+        drBalance {
+          units
+          currency
+        }
+      }
+    }
+  }
+
+  general_custom: balances(
+     index: {name: CUSTOM, sort: ASC}
+     where: {
+         custom: {
+             index: "account_journal"
+             partition: [
+                 { alias: "account_id", value: { eq: $ernieId }},
+                 { alias: "journal_id", value: { eq: $generalJournalId }},
+             ]
+         }
+    }
+    first: 10
+  ) {
+    nodes {
+      journalId
+      settled {
+        drBalance {
+          units
+          currency
+        }
+      }
+    }
+  }
+
+  product: balances(
+     index: {name: ACCOUNT_ID, sort: ASC}
+     where: {
+       journalId: {eq: $productJournalId }
+       accountId: { eq: $ernieId}
+     }
+    first: 10
+  ) {
+    nodes {
+      journalId
+      settled {
+        drBalance {
+          units
+          currency
+        }
+      }
+    }
+  }
+
+  product_custom: balances(
+     index: {name: CUSTOM, sort: ASC}
+     where: {
+         custom: {
+             index: "account_journal"
+             partition: [
+                 { alias: "account_id", value: { eq: $ernieId }},
+                 { alias: "journal_id", value: { eq: $productJournalId }},
+             ]
+         }
+    }
+    first: 10
+  ) {
+    nodes {
+      journalId
+      settled {
+        drBalance {
+          units
+          currency
+        }
+      }
+    }
+  }
+
+}

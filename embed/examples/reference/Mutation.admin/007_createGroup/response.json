@@ -1,0 +1,11 @@
+{
+  "data": {
+    "admin": {
+      "createGroup": {
+        "name": "empty-policy-1",
+        "description": "A group with an empty policy",
+        "policy": "[]"
+      }
+    }
+  }
+}

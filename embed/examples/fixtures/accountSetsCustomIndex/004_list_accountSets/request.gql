@@ -1,0 +1,49 @@
+query accountSets {
+  partition: accountSets(
+    index: {name: CUSTOM, sort: ASC}
+    where: {custom: {index: "priority", partition: { alias: "priority", value: {eq: "top"}}}}
+    first: 10
+  ) {
+    nodes {
+      accountSetId
+      name
+      metadata
+    }
+  }
+
+  combined_top: accountSets(
+    index: {name: CUSTOM, sort: ASC}
+    where: {custom: {index: "priority-nickname", partition: { alias: "priority", value: {eq: "top"}}, sort: { alias: "nickname", value: {lte: ""}}}}
+    first: 10
+  ) {
+    nodes {
+      accountSetId
+      name
+      metadata
+    }
+  }
+
+  combined_low: accountSets(
+    index: {name: CUSTOM, sort: ASC}
+    where: {custom: {index: "priority-nickname", partition: { alias: "priority", value: {eq: "low"}}, sort: { alias: "nickname", value: {gt: "beta"}}}}
+    first: 10
+  ) {
+    nodes {
+      accountSetId
+      name
+      metadata
+    }
+  }
+
+  sort: accountSets(
+    index: {name: CUSTOM, sort: ASC}
+    where: {custom: {index: "nickname", sort: { alias: "nickname", value: {lte: "beta"}}}}
+    first: 10
+  ) {
+    nodes {
+      accountSetId
+      name
+      metadata
+    }
+  }
+}

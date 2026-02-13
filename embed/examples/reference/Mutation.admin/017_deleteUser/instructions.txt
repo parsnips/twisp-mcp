@@ -1,0 +1,1 @@
+Delete the user with the email "george@twisp.com" in the admin namespace. Return the email.

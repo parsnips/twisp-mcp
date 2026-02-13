@@ -1,0 +1,45 @@
+mutation createIndexes {
+  schema {
+    a: createIndex(
+      input: {name: "alpha", on: Account, unique: false, partition: [{alias: "alpha",value:"string(document.metadata.customIndex.alpha)"}], sort: [], constraints: {}}
+    ) {
+      name
+    }
+
+    b: createIndex(
+      input: {name: "beta", on: Account, unique: false, partition: [{alias: "beta", value: "string(document.metadata.customIndex.alpha)"}], sort: [{alias: "grade", value: "string(document.metadata.customIndex.grade)",sort:ASC}], constraints: {}}
+    ) {
+      name
+    }
+
+    c:createIndex(
+      input: {name: "gamma", on: Account, unique: false, partition: [], sort: [{alias: "grade", value: "string(document.metadata.customIndex.grade)",sort:ASC}], constraints: {}}
+    ) {
+      name
+    }
+
+    d: createIndex(
+      input: {name: "priority", on: AccountSet, unique: false, partition: [{alias: "priority", value: "string(document.metadata.priority)"}], sort: [], constraints: {}}
+    ) {
+      name
+    }
+
+    e: createIndex(
+      input: {name: "tier", on: TranCode, unique: false, partition: [{alias: "tier", value: "string(document.metadata.tier)"}], sort: [], constraints: {}}
+    ) {
+      name
+    }
+
+    f: createIndex(
+      input: {name: "classification", on: Transaction, unique: false, partition: [{alias: "classification", value: "string(document.metadata.classification)"}], sort: [], constraints: {a: "1 + 1 == 2"}}
+    ) {
+      name
+    }
+
+    g: createIndex(
+      input: {name: "effective", on: Transaction, unique: false, partition: [], sort: [{alias: "effective", value: "date(document.effective)", sort: ASC}], constraints: {}}
+    ) {
+      name
+    }
+  }
+}

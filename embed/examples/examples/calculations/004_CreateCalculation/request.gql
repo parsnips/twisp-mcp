@@ -1,0 +1,23 @@
+mutation CreateCalculation {
+  createCalculation(
+    input:{
+      calculationId: "5867b5dd-fc69-416c-80f5-62e8a53610d5"
+      code: "PER_EFFECTIVE_DATE"
+      description: "Track balances per PER_EFFECTIVE_DATE in an account."
+      dimensions: [
+        {
+          alias: "effectiveDate"
+          value: "context.vars.transaction.effective"
+        }
+      ]
+    }
+  ) {
+    calculationId
+    code
+    description
+    dimensions {
+      alias
+      value
+    }
+  }
+}

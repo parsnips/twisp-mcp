@@ -1,0 +1,29 @@
+query checkBalances($accountAlphaId: UUID!, $accountBetaId: UUID!) {
+  alpha: balance(
+    accountId: $accountAlphaId
+    journalId: "230ac020-45be-44cc-9220-c3045758d253"
+  ) {
+    settled {
+      drBalance {
+        units
+      }
+      crBalance {
+        units
+      }
+    }
+  }
+
+  beta: balance(
+    accountId: $accountBetaId
+    journalId: "230ac020-45be-44cc-9220-c3045758d253"
+  ) {
+    settled {
+      drBalance {
+        units
+      }
+      crBalance {
+        units
+      }
+    }
+  }
+}

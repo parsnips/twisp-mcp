@@ -1,0 +1,16 @@
+{
+  "data": {
+    "transactions": {
+      "nodes": [
+        {
+          "transactionId": "39d2288d-96f9-40c7-b587-e7e75df083fb",
+          "tranCodeId": "22ac3a38-1f70-4bbf-a599-1e5566839f4b",
+          "effective": "2022-09-21",
+          "metadata": {
+            "classification": "internal"
+          }
+        }
+      ]
+    }
+  }
+}

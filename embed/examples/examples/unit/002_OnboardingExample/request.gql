@@ -1,0 +1,141 @@
+# OnboardCustomerDepositAccountCard does exactly that:
+# - Creates  Account Set and Default Account for Customer
+# - Creates Account Set and Default Account for Deposit Account
+# - Adds Deposit Account to Customer
+# - Creates Account Set and Default Account for Card
+# - Adds Card to Deposit Account
+# This includes adding Unit metadata json. This can be
+# broken up into multiple mutations in response to a webhook
+# or used as-is in some kind of long running coordinated process
+# to onboard a customer.
+mutation OnboardCustomerDepositAccountCard(
+  $customerAccountSetId: UUID!
+  $customerAccountId: UUID!
+  $customerAccountCode: String!
+  $depositAccountSetId: UUID!
+  $depositAccountId: UUID!
+  $depositAccountCode: String!
+  $cardAccountSetId: UUID!
+  $cardAccountId: UUID!
+  $cardAccountCode: String!
+  $description: String
+  $customerMetadata: JSON
+  $depositMetadata: JSON
+  $cardMetadata: JSON
+  $journalId: UUID! = "00000000-0000-0000-0000-000000000000"
+  $customerAccountSetName: String! = "Customer Account Set" 
+  $customerAccountName: String! = "Customer Default Account" 
+  $depositAccountSetName: String! = "Deposit Account Set" 
+  $depositAccountName: String! = "Deposit Default Account"
+  $cardAccountSetName: String! = "Card Account Set" 
+  $cardAccountName: String! = "Card Default Account"
+) {
+  # Onboard Customer
+  customerSet:createAccountSet(
+    input: {
+      accountSetId: $customerAccountSetId
+      name: $customerAccountSetName
+      description: $description
+      metadata: $customerMetadata
+      journalId: $journalId
+    }
+  ) {
+    accountSetId
+  }
+  customerDefault:createAccount(
+    input: {
+      accountId: $customerAccountId
+      name: $customerAccountName
+      description: $description
+      code:$customerAccountCode
+      accountSetIds: [$customerAccountSetId]
+      metadata: $customerMetadata
+    }
+  ) {
+    accountId
+  }
+
+  # Onboard Deposit Account
+  depositSet:createAccountSet(
+    input: {
+      accountSetId: $depositAccountSetId
+      name: $depositAccountSetName
+      description: $description
+      metadata: $depositMetadata
+      journalId: $journalId
+    }
+  ) {
+    accountSetId
+  }
+  depositDefault:createAccount(
+    input: {
+      accountId: $depositAccountId
+      name: $depositAccountName
+      description: $description
+      code:$depositAccountCode
+      metadata: $depositMetadata
+    }
+  ) {
+    accountId
+  }
+  depositToCustomer:addToAccountSet(
+    id: $customerAccountSetId
+    member: {
+      memberType: ACCOUNT_SET
+      memberId: $depositAccountSetId
+    }
+  ) {
+    accountSetId
+  }
+  defaultDepositToSet:addToAccountSet(
+    id: $depositAccountSetId
+    member: {
+      memberType: ACCOUNT
+      memberId: $depositAccountId
+    }
+  ) {
+    accountSetId
+  }
+
+  # Onboard Card
+  cardSet:createAccountSet(
+    input: {
+      accountSetId: $cardAccountSetId
+      name: $cardAccountSetName
+      description: $description
+      metadata: $cardMetadata
+      journalId: $journalId
+    }
+  ) {
+    accountSetId
+  }
+  cardDefault:createAccount(
+    input: {
+      accountId: $cardAccountId
+      name: $cardAccountName
+      description: $description
+      code:$cardAccountCode
+      metadata: $cardMetadata
+    }
+  ) {
+    accountId
+  }
+  cardToDeposit:addToAccountSet(
+    id: $depositAccountSetId
+    member: {
+      memberType: ACCOUNT_SET
+      memberId: $cardAccountSetId
+    }
+  ) {
+    accountSetId
+  }
+  defaultCardToSet:addToAccountSet(
+    id: $cardAccountSetId
+    member: {
+      memberType: ACCOUNT
+      memberId: $cardAccountId
+    }
+  ) {
+    accountSetId
+  }
+}

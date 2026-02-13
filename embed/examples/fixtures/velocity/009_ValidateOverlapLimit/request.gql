@@ -1,0 +1,95 @@
+mutation ValidateOverlapLimit {  
+  createVelocityLimit(
+    input: {
+      velocityLimitId: "8ca960e9-1536-443e-84a3-7e796f3b23e6"
+      name: "Test"
+      description: "Test."
+      window: [
+        {alias:"year", value:"context.vars.transaction.effective.getYear()" }
+        {alias:"month", value:"context.vars.transaction.effective.getMonth()"}
+        {alias:"day", value:"context.vars.transaction.effective.getDay()"}
+      ]
+      currency: "USD"
+
+      ## Other params
+      limit: {
+        # limits cannot overlap
+        balance: [
+          # Temporary limit
+          {
+            layer: "PENDING"
+            amount: "params.tempAmount"
+            normalBalanceType: "DEBIT"
+            start: "params.tempStart"
+            end: "params.tempEnd"
+          }
+          # Permanent limit
+          {
+            layer: "PENDING"
+            amount: "params.amount"
+            normalBalanceType: "DEBIT"
+            start: "params.start"
+          }
+        ]
+      }
+      params: [
+        {
+          name: "amount"
+          type: DECIMAL
+          description: "amount"
+          default: "300.00"
+        }
+        {
+          name: "start"
+          type: TIMESTAMP
+          description: "start after temporary end."
+        }
+        {
+          name: "tempAmount"
+          type: DECIMAL
+          description: "temporary amount"
+          default: "0.00"
+        }
+        {
+          name: "tempStart"
+          type: TIMESTAMP
+          description: "temporary start"
+        }
+        {
+          name: "tempEnd"
+          type: TIMESTAMP
+          description: "temporary end"
+        }        
+      ]
+    }
+  ) {
+    velocityLimitId
+  }
+
+  createVelocityControl(
+    input: {
+      velocityControlId: "ccc4db82-c1ab-470b-917d-dd7ad98ede86"
+      name: "Test"
+      description: "Test"
+      enforcement: {
+        action: REJECT
+      }
+      velocityLimitIds: ["8ca960e9-1536-443e-84a3-7e796f3b23e6"]
+    }
+  ) {
+    velocityControlId
+  }
+
+
+  attachVelocityControl(
+    accountId: "480ff40e-016c-4677-80ee-2b62bd34182d"
+    velocityControlId: "ccc4db82-c1ab-470b-917d-dd7ad98ede86"
+    params: {
+      start: "2020-01-01T00:00:00.000Z"
+      tempStart: "2019-12-01T00:00:00.000Z"
+      tempEnd: "2021-01-02T00:00:00.000Z"
+    }
+  ) {
+    velocityControlId
+  }
+}

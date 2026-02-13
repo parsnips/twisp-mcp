@@ -1,0 +1,14 @@
+{
+  "data": {
+    "updateJournal": {
+      "journalId": "822cb59f-ce51-4837-8391-2af3b7a5fc51",
+      "description": "_The_ ledger. The only one.",
+      "history": {
+        "nodes": [
+          { "version": 2, "description": "_The_ ledger. The only one." },
+          { "version": 1, "description": "General Ledger" }
+        ]
+      }
+    }
+  }
+}

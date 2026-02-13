@@ -1,0 +1,33 @@
+query balances($generalJournalId: String!) {
+  general_journal: balances(
+    index: {name: CUSTOM, sort: ASC}
+    where: {
+      custom: {
+        index: "normal_balance",
+        partition: { alias: "journal_id", value: { eq: $generalJournalId }}
+        sort: { alias: "normal_balance", value: { lte: "0" }}
+      }
+    }
+    first: 10
+  ) {
+    nodes {
+      journalId
+      accountId
+      settled {
+        crBalance {
+          units
+          currency
+        }
+        drBalance {
+          units
+          currency
+        }
+        normalBalance {
+          units
+          currency
+        }
+      }
+    }
+  }
+}
+

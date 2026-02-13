@@ -1,0 +1,10 @@
+{
+  "errors": [
+    {
+      "message": "Expected {, found Int",
+      "locations": [{ "line": 1, "column": 10 }],
+      "extensions": { "code": "GRAPHQL_PARSE_FAILED" , "retriableError": false}
+    }
+  ],
+  "data": null
+}

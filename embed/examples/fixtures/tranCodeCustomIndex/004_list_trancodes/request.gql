@@ -1,0 +1,13 @@
+query tranCodes {
+  tranCodes(
+    index: {name: CUSTOM, sort: ASC}
+    where: {custom: {index: "tier", partition: {alias: "tier", value: {eq: "banking"}}}}
+    first: 10
+  ) {
+    nodes {
+      tranCodeId
+      code
+      metadata
+    }
+  }
+}

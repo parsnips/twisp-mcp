@@ -1,0 +1,22 @@
+{
+  "data": {
+    "authorization": {
+      "transactionId": "9588d5a5-26a2-4ed0-84bb-384f4097c7f5"
+    },
+    "initialAuthorization": {
+      "transactionId": "3175506b-d828-4deb-ae6b-5aabeebd438d"
+    },
+    "partialSettle": {
+      "transactionId": "6daad172-6ae7-4ddd-843c-e5e0455fb6da"
+    },
+    "updateHold": {
+      "transactionId": "3c9faea9-1807-4867-967a-0fadd0b18521"
+    },
+    "voidAuthorization": {
+      "transactionId": "bcbf86b3-101c-5605-b872-6587d381c477"
+    },
+    "voidInitialAuthorization": {
+      "transactionId": "4f87f582-d440-558b-801d-4176f0056cc8"
+    }
+  }
+}

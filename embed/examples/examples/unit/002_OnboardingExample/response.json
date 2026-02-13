@@ -1,0 +1,34 @@
+{
+  "data": {
+    "customerSet": {
+      "accountSetId": "6669bc2c-84c1-4b76-9985-a33adeb00eae"
+    },
+    "customerDefault": {
+      "accountId": "ee5a7fa7-f336-4f70-b7e8-60473562e179"
+    },
+    "depositSet": {
+      "accountSetId": "80659068-3ac1-452a-b2da-2566e95283f8"
+    },
+    "depositDefault": {
+      "accountId": "f0e4d71e-fc44-41ea-8e10-bd4b039885f1"
+    },
+    "depositToCustomer": {
+      "accountSetId": "6669bc2c-84c1-4b76-9985-a33adeb00eae"
+    },
+    "defaultDepositToSet": {
+      "accountSetId": "80659068-3ac1-452a-b2da-2566e95283f8"
+    },
+    "cardSet": {
+      "accountSetId": "f141c872-7c66-4e6e-982c-fa1c45d94766"
+    },
+    "cardDefault": {
+      "accountId": "7a17b0f1-b04f-46a4-ba45-d52a861c21d9"
+    },
+    "cardToDeposit": {
+      "accountSetId": "80659068-3ac1-452a-b2da-2566e95283f8"
+    },
+    "defaultCardToSet": {
+      "accountSetId": "f141c872-7c66-4e6e-982c-fa1c45d94766"
+    }
+  }
+}

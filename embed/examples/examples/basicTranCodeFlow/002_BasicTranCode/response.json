@@ -1,0 +1,24 @@
+{
+  "data": {
+    "createTranCode": {
+      "tranCodeId": "53c7a411-9070-42c8-81cf-ea37ebe63182",
+      "code": "ACH_CREDIT",
+      "entries": [
+        {
+          "accountId": "uuid('8cd11607-1104-4270-9482-ae4b8053fd5a')",
+          "units": "params.amount",
+          "entryType": "'ACH_DR'",
+          "direction": "DEBIT",
+          "layer": "SETTLED"
+        },
+        {
+          "accountId": "params.account",
+          "units": "params.amount",
+          "entryType": "'ACH_CR'",
+          "direction": "CREDIT",
+          "layer": "SETTLED"
+        }
+      ]
+    }
+  }
+}

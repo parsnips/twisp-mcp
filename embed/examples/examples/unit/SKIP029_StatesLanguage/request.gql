@@ -1,0 +1,15 @@
+mutation PostCheckAndVoid(
+  $authorizationVariables: JSON!
+  $machine: StateMachine!
+) {
+  workflow {
+    executeStatesLanguage(
+      input: {
+        input: $authorizationVariables
+        machine: $machine
+      }
+    ) {
+      output
+    }
+  }
+}

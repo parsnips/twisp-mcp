@@ -1,0 +1,78 @@
+mutation ProcessISO8583Auth(
+  $cardReference: String! = "100194444740300"
+  # account to post transaction to resolves to bf716346-9eee-4ec5-bbc3-64c47de7d929
+  $accountId: UUID! = "00000000-0000-0000-0000-000000000000"
+  $configId: UUID! = "e71f1316-08e4-11f0-be3c-069b540ea27c"
+  # Functions as a request identifier... for idempotency around handling a single message.
+  $executionId: UUID! = "ae194c00-1f35-11f0-9db8-069b540ea27b"
+  $today: Date! = "2025-01-01"
+  # The moov.io JSON representation of the ISO message. W/Shared SPEC
+  $isoReq: JSON!
+) {
+  # look up account by external id
+  account: queries {
+    accounts(
+      index: { name: EXTERNAL_ID }
+      where: { externalId: { eq: $cardReference } }
+      first: 1
+    ) {
+      nodes {
+        # export the accountid to the accountId variable
+        accountId @export(as: "accountId")
+      }
+    }
+  }
+
+  # Execute Workflow
+  create: workflow {
+    execute(
+      input: {
+        task: "PROCESS_MESSAGE"
+        code: "ISO_8583"
+        executionId: $executionId
+        params: { configId: $configId, accountId: $accountId, effective: $today, isoReq: $isoReq }
+      }
+    ) {
+      executionId
+    }
+  }
+
+  # If any exceptions, was a decline
+  exceptions: queries {
+    transaction(id: $executionId) {
+      exceptions {
+        type
+        detail
+      }
+    }
+  }
+
+  # return the current balance.. $500
+  pending: queries {
+    balance(accountId: $accountId) {
+      pending {
+        normalBalance {
+          units
+        }
+      }
+    }
+  }
+
+  settled: queries {
+    balance(accountId: $accountId) {
+      settled {
+        normalBalance {
+          units
+        }
+      }
+    }
+  }
+
+  # Velocity
+  velocity: queries {
+    velocity(accountId: $accountId, window: {}) {
+      spent
+      remaining
+    }
+  }
+}

@@ -1,0 +1,4 @@
+1. Query the first 10 account sets with a custom index named "priority" where the partition value for priority equals "top". Return account set id, name, and metadata for each node.
+2. Query the first 10 account sets with a custom index named "priority-nickname" where the partition value for priority equals "top" and the sort value for nickname is less than or equal to an empty string. Return account set id, name, and metadata for each node.
+3. Query the first 10 account sets with a custom index named "priority-nickname" where the partition value for priority equals "low" and the sort value for nickname is greater than "beta". Return account set id, name, and metadata for each node.
+4. Query the first 10 account sets with a custom index named "nickname" where the sort value for nickname is less than or equal to "beta". Return account set id, name, and metadata for each node.

@@ -1,0 +1,1 @@
+Get the first 10 active tranCodes using the status index. Retrieve code and metadata for each tranCode.

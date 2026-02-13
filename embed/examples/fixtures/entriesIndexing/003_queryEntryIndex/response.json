@@ -1,0 +1,44 @@
+{
+  "data": {
+    "methodVisa": {
+      "nodes": [
+        {
+          "accountId": "61ba5969-5e24-464f-8cf8-87776949b189",
+          "direction": "DEBIT",
+          "metadata": {
+            "method": "VISA"
+          }
+        },
+        {
+          "accountId": "73c7ede6-c675-4f66-a5fe-671bbf958cd9",
+          "direction": "CREDIT",
+          "metadata": {
+            "method": "VISA"
+          }
+        },
+        {
+          "accountId": "73c7ede6-c675-4f66-a5fe-671bbf958cd9",
+          "direction": "DEBIT",
+          "metadata": {
+            "method": "VISA"
+          }
+        },
+        {
+          "accountId": "61ba5969-5e24-464f-8cf8-87776949b189",
+          "direction": "CREDIT",
+          "metadata": {
+            "method": "VISA"
+          }
+        }
+      ]
+    },
+    "acctAlphaAndDebit": {
+      "nodes": [
+        {
+          "accountId": "73c7ede6-c675-4f66-a5fe-671bbf958cd9",
+          "direction": "DEBIT"
+        }
+      ]
+    }
+  }
+}

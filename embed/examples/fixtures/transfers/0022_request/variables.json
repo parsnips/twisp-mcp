@@ -1,0 +1,10 @@
+{
+  "metadata": {},
+  "amount": 100,
+  "currency": "USD",
+  "effective": "2024-03-22",
+  "journalId": "99f321ef-a18d-420e-8030-deac1ffa8304",
+  "tranCode": "FUND_CREDIT",
+  "transactionId": "566fb11d-f04f-47be-8174-8b6517273b88",
+  "accountId": "20b45d7a-576a-4448-a393-5c0cf88c2f30"
+}

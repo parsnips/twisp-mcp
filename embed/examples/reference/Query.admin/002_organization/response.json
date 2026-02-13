@@ -1,0 +1,11 @@
+{
+  "data": {
+    "admin": {
+      "organization": {
+        "id": "932343ab-33ee-410d-9663-7ddaec4d5bfa",
+        "name": "test_org",
+        "description": "this is a test organization"
+      }
+    }
+  }
+}

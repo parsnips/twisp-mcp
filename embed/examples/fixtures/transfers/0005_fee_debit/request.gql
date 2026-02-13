@@ -1,0 +1,58 @@
+mutation CreateFeeDebitTranCode(
+  $settlementAccountId: Expression! = "uuid('1044bb60-3d71-4b6c-a41f-120c2febd428')"
+  $tranCodeId: UUID! = "uuid.New()" @cel
+) {
+  createTranCode(
+    input: {
+      tranCodeId: $tranCodeId
+      code: "FEE_DEBIT"
+      description: "A withdrawal of fee from the fee settlement account of a buyer Company."
+      params: [
+        {
+          name: "accountId"
+          type: UUID
+          description: "Buyer Company fee settlement bank account ID."
+        }
+        {
+          name: "amount"
+          type: DECIMAL
+          description: "Amount with decimal, e.g. `1.23`."
+        }
+        {
+          name: "effective"
+          type: DATE
+          description: "Effective date for transaction."
+        }
+        {
+          name: "journalId"
+          type: UUID
+          description: "Journal"
+        }
+      ]
+      transaction: {
+        effective: "params.effective"
+        journalId: "params.journalId"
+      }
+      entries: [
+        {
+          accountId: $settlementAccountId
+          units: "params.amount"
+          currency: "'USD'"
+          entryType: "'FEE_DEBIT_DR'"
+          direction: "DEBIT"
+          layer: "SETTLED"
+        }
+        {
+          accountId: "params.accountId"
+          units: "params.amount"
+          currency: "'USD'"
+          entryType: "'FEE_DEBIT_CR'"
+          direction: "CREDIT"
+          layer: "SETTLED"
+        }
+      ]
+    }
+  ) {
+    code
+  }
+}

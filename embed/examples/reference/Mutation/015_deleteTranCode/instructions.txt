@@ -1,0 +1,1 @@
+Delete the transaction code using the variable for the transaction code ID. Return the transaction code id and its status.

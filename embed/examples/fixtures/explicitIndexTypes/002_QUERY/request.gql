@@ -1,0 +1,17 @@
+query GetByMid($mid: String! = "stripe:5") {
+  accounts(
+    index: { name: CUSTOM }
+    where: {
+      custom: {
+        index: "Account.metadata.mids"
+        partition: [{ alias: "mids", value: { eq: $mid } }]
+      }
+    }
+    first: 1
+  ) {
+    nodes {
+      accountId
+      metadata
+    }
+  }
+}

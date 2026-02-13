@@ -1,0 +1,52 @@
+query ($ernieId: UUID!, $bertId: UUID!) {
+  # fmt.Printf("%s:%s\n", "ba", base64.RawStdEncoding.EncodeToString([]byte(`{"1":"1fd1dd3e-33fe-4ef5-9d58-676ef8d306b6"}`)))
+  ernie_bal_gid: node(id: "ba:eyIxIjoiMWZkMWRkM2UtMzNmZS00ZWY1LTlkNTgtNjc2ZWY4ZDMwNmI2In0") {
+    ... on Balance {
+      accountId
+      settled {
+        drBalance {
+          units
+        }
+      }
+    }
+  }
+
+
+
+  ernieAcct: account(id: $ernieId) {
+    balance {
+      settled {
+        normalBalance {
+          units
+        }
+      }
+    }
+  }
+
+  ernie: balance(accountId: $ernieId, currency: "USD") {
+    settled {
+      normalBalance {
+        units
+      }
+    }
+  }
+
+  bertAcct: account(id: $bertId) {
+    balance {
+      settled {
+        normalBalance {
+          units
+        }
+      }
+    }
+  }
+
+  bert: balance(accountId: $bertId, currency: "USD") {
+    settled {
+      normalBalance {
+        units
+      }
+    }
+  }
+
+}

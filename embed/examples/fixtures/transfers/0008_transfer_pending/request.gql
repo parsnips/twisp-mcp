@@ -1,0 +1,75 @@
+mutation CreateTransferPendingTranCode(
+  $tranCodeId: UUID! = "0906ac6c-ba7c-493b-8a4c-9e9955593121"
+) {
+  createTranCode (
+    input: {
+      tranCodeId: $tranCodeId
+      code: "TRANSFER_PENDING"
+      description: "Transfer of funds from one account to another at a different bank."
+      params: [
+        {
+          name: "fromAccountId"
+          type: UUID
+          description: "Sender's account ID."
+        }
+        {
+          name: "toAccountId"
+          type: UUID
+          description: "Receiver's account ID."
+        }
+        {
+          name: "amount"
+          type: DECIMAL
+          description: "Amount with decimal, e.g. `1.23`."
+        }
+        {
+          name: "effective"
+          type: DATE
+          description: "Effective date for transaction."
+        }
+        {
+          name: "journalId"
+          type: UUID
+          description: "Journal"
+        }
+        {
+          name: "correlationId"
+          type: STRING
+          description: "Correlation Id"
+        }
+        {
+          name: "metadata"
+          type: JSON
+          description: "metadata"
+          default: "{}"
+        }
+      ]
+      transaction: {
+        correlationId: "params.correlationId"
+        effective: "params.effective"
+        journalId: "params.journalId"
+        metadata: "params.metadata"
+      }
+      entries: [
+        {
+          accountId: "uuid(params.fromAccountId)"
+          units: "params.amount"
+          currency: "'USD'"
+          entryType: "'TRANSFER_DR'"
+          direction: "DEBIT"
+          layer: "PENDING"
+        }
+        {
+          accountId: "uuid(params.toAccountId)"
+          units: "params.amount"
+          currency: "'USD'"
+          entryType: "'TRANSFER_CR'"
+          direction: "CREDIT"
+          layer: "PENDING"
+        }
+      ]
+    }
+  ) {
+    code
+  }
+}

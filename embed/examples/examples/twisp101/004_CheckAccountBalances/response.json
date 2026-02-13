@@ -1,0 +1,16 @@
+{
+  "data": {
+    "ernie": {
+      "name": "Ernie Bishop - Checking",
+      "balance": null
+    },
+    "bert": {
+      "name": "Bert - Checking",
+      "balance": null
+    },
+    "assets": {
+      "name": "Assets",
+      "balance": null
+    }
+  }
+}

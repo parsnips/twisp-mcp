@@ -1,0 +1,10 @@
+{
+  "data": {
+    "admin": {
+      "updateUser": {
+        "email": "george@twisp.com",
+        "groupIds": ["152f0c89-6cba-53c9-955e-16d7cbc1f35e"]
+      }
+    }
+  }
+}

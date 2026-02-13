@@ -1,0 +1,27 @@
+query GetTransaction {
+  transaction(id: "434696a7-56e5-4e14-a97a-884820690a22") {
+    description
+    effective
+    tranCode {
+      code
+    }
+    journal {
+      name
+    }
+    metadata
+    entries(first: 10) {
+      nodes {
+        sequence
+        entryType
+        layer
+        direction
+        account {
+          name
+        }
+        amount {
+          formatted(as: { locale: "en-US" })
+        }
+      }
+    }
+  }
+}

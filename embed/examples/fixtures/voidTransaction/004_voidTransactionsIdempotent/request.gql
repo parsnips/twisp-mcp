@@ -1,0 +1,11 @@
+mutation voidTransactionsIdempotent {
+  tx1: voidTransaction(id: "6dad06b7-be1f-4461-a4e9-44049a9cd74c") {
+    transactionId
+    voidOf
+  }
+
+  tx2: voidTransaction(id: "31962347-1b2e-46b5-ad3d-f5adf172c30d") {
+    transactionId
+    voidOf
+  }
+}

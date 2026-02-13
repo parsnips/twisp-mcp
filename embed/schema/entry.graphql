@@ -1,0 +1,210 @@
+extend type Query {
+  "Get a single entry by its `entryId`."
+  entry("Unique identifier." id: UUID!): Entry
+
+  "Select one or more entries. Specify the index to use and apply filters to your query."
+  entries(
+    """
+    Select from a list of pre-defined indexes. For optimal performance, choose specific indexes on unique fields over more general ones.
+    """
+    index: EntryIndexInput!
+    """
+    Filter the query according to specified conditions. Depending on the index chosen, different filters will be allowed.
+    """
+    where: EntryFilterInput
+    """
+    Return the first n-edges of a search. Use `after` to paginate forward.
+    """
+    first: Int
+    """
+    Return previous n-edges of a search relative to the `before` cursor.
+    **NOTE:** only available on search indexes.
+    """
+    last: Int
+    """
+    Cursor to paginate forward through a search result.
+    When no cursor is provided, the query uses the default starting cursor.
+    """
+    after: String
+    """
+    Cursor to paginate backwards through a search result.
+
+    **NOTE:** Only available on search indexes.
+    """
+    before: String
+  ): EntryConnection!
+}
+
+extend type Mutation {
+  "Update an existing ledger entry. To ensure data integrity, only a subset of fields are allowed."
+  updateEntry("Unique identifier." id: UUID!, input: EntryUpdateInput!): Entry!
+}
+
+"""
+An entry represents one side of a transaction in a ledger. In other systems, these may be called "ledger lines" or "journal entries".
+
+Entries always have an account, amount, and direction (CREDIT or DEBIT). In addition, Twisp uses the concept of "entry types" to assign every entry to a categorical type.
+
+Twisp enforces double-entry accounting, which in practice means that entries can only be entered in the context of a Transaction. Posting a transaction will create _at least 2_ ledger entries.
+"""
+type Entry implements Node {
+  """
+  Globally unique identifier for a record to support Global Object Identification.
+  Uses format `en:<key>` where `key` is `base64(json({ 1: entryId }))`.
+  """
+  id: ID!
+
+  "Unique identifier for the ledger entry."
+  entryId: UUID!
+
+  "Unique identifier for the transaction which posted this entry. Every entry is associated with a transaction."
+  transactionId: UUID!
+
+  "ID of the account to be debited/credited."
+  accountId: UUID!
+
+  "The journal identifier of the ledger entry."
+  journalId: UUID!
+
+  "Type code for the entry."
+  entryType: EntryType!
+
+  "The layer on which this entry is recorded (SETTLED, PENDING, or ENCUMBRANCE)."
+  layer: Layer!
+
+  "Syntactic sugar for `amount { units }`."
+  units: Decimal!
+
+  "Syntactic sugar for `amount { currency }`."
+  currency: CurrencyCode!
+
+  "Amount of the ledger entry using the currency-supported Money type."
+  amount: Money!
+
+  "The side of the ledger (DEBIT or CREDIT) this entry is posted on."
+  direction: DebitOrCredit!
+
+  """
+  The order in which this entry was posted within the context of a transaction.
+
+  This order is auto-generated at time of posting and is determined by the position of the entries posted within the transaction.
+  """
+  sequence: Int!
+
+  "Description of the ledger entry."
+  description: String!
+
+  "Arbitrary structured data about this entry."
+  metadata: JSON
+
+  "Account sets this entry was posted to."
+  parentAccountIds: [UUID!]
+
+  "Date and time when the entry was posted."
+  created: Timestamp!
+
+  "Time of the last change. Especially useful when reviewing the `history`."
+  modified: Timestamp!
+
+  "The current version number of this entry. Previous versions are tracked in `history`."
+  version: Int!
+
+  _recordId: UUID!
+  _balanceRecordId: UUID!
+  _balanceRecordVersion: Int!
+
+  "Reference to the account to be debited/credited."
+  account: Account! @goField(forceResolver: true)
+
+  "Reference to the resulting balance from the entry."
+  balance: Balance @goField(forceResolver: true)
+
+  "Reference to the journal of the entry."
+  journal: Journal! @goField(forceResolver: true)
+
+  """
+  History of changes to this Entry record.
+  Because ledgers are immutable and append-only, all changes are recorded as sequenced versions of the record, providing an unbroken lineage of the current state.
+  """
+  history(
+    "Number of nodes to return on the connection."
+    first: Int!
+    "Cursor indicating the start point to retrieve nodes. When no cursor is provided, the query uses the default starting cursor."
+    after: String
+  ): EntryConnection! @goField(forceResolver: true)
+
+  "Reference to the transaction which posted this entry."
+  transaction: Transaction! @goField(forceResolver: true)
+}
+
+"""
+Connection to a list of Entry nodes.
+Access Entry nodes directly through the `nodes` field, or access information about the connection edges with the `edges` field.
+Use `pageInfo` to paginate responses using the cursors provided.
+"""
+type EntryConnection implements Connection {
+  nodes: [Entry]!
+  edges: [EntryConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+"""
+Edges represent links connecting a parent or query field to a list of Entry nodes.
+They contain a reference to the Entry node and metadata like the `cursor` position for the edge.
+"""
+type EntryConnectionEdge {
+  "Cursor position at this edge."
+  cursor: String!
+  "Reference to the Entry node at this edge."
+  node: Entry
+}
+
+"Specify the pre-defined EntryIndex and sort order to use in a query."
+input EntryIndexInput {
+  name: EntryIndex!
+  sort: SortOrder
+}
+
+"Indexes for querying Entries. To optimize query performance and apply desired filters, choose the appropriate index."
+enum EntryIndex {
+  "Index by `entryId` field. Must supply an `entryId: { eq: <id> }` filter to the `where` object."
+  ENTRY_ID
+  "Index by `transactionId` field. Must supply an `transactionId: { eq: <id> }` filter to the `where` object."
+  TRANSACTION_ID
+  "Use a custom-defined index. Must supply a `custom` filter to the `where` object."
+  CUSTOM
+  "Use eventually consisent search. Must supply a `search` filter to the `where` object."
+  SEARCH
+}
+
+"""
+Filter conditions to apply to an entry query.
+Filters are only applied if the field is used by the specified index.
+"""
+input EntryFilterInput {
+  "Filter on the `entryId` field. Required when using index `EntryIndex.ENTRY_ID`."
+  entryId: FilterValue
+  # TODO: Not currently applied in any index
+  # "Specify the Journal to use with `eq`. Required for all indexes."
+  journalId: FilterValue
+  # TODO: Not currently applied in any index
+  # "Filter on the `currency` field. Only available when using index `N/A`."
+  currency: FilterValue
+  # TODO: Not currently applied in any index
+  # "Filter on the `layer` field. Only available when using index `N/A`."
+  layer: FilterValue
+  "Filter on the `transactionId` field. Required when using index `EntryIndex.TRANSACTION_ID`."
+  transactionId: FilterValue
+  "Filter conditions for a custom index. Only available when using index `EntryIndex.CUSTOM`."
+  custom: CustomIndexFilter
+  "Filter conditions for a search.  Only available when using index `EntryIndex.SEARCH`."
+  search: SearchFilter
+}
+
+"Entry fields to update."
+input EntryUpdateInput {
+  "Description of the entry."
+  description: String
+  "Metadata attached to this entry."
+  metadata: JSON
+}

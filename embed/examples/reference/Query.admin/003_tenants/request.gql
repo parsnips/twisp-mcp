@@ -1,0 +1,11 @@
+query GetAdminTenants {
+  admin {
+    tenants(first: 5) {
+      nodes {
+        name
+        organizationId
+        description
+      }
+    }
+  }
+}

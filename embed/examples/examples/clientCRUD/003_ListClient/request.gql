@@ -1,0 +1,9 @@
+{
+  auth {
+    clients(first:1) {
+      nodes {
+        principal
+      }
+    }
+  }
+}

@@ -1,0 +1,1 @@
+Retrieve the first 10 tenants in the admin namespace. For each tenant, return the accountId, name, description, and version.

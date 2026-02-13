@@ -1,0 +1,20 @@
+{
+  "data": {
+    "createJournal": {
+      "journalId": "8b65c8dc-0515-11f0-a441-069b540ea27c"
+    },
+    "createAccount": {
+      "accountId": "779886bc-0515-11f0-aa78-069b540ea27c"
+    },
+    "config1": {
+      "createConfig": {
+        "configId": "670504f6-0515-11f0-a441-069b540ea27c"
+      }
+    },
+    "config2": {
+      "createConfig": {
+        "configId": "7e0d3fa2-0515-11f0-a6b2-069b540ea27c"
+      }
+    }
+  }
+}

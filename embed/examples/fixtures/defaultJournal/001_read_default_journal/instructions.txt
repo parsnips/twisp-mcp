@@ -1,0 +1,1 @@
+Retrieve the first journal with the code "DEFAULT" sorted by code in ascending order. Return the code, name, and description of the journal.

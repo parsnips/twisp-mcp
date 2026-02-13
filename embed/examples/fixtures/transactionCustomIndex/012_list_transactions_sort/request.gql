@@ -1,0 +1,14 @@
+query transactions {
+  transactions(
+    index: {name: CUSTOM, sort: ASC}
+    where: {custom: {index: "effective", sort: {alias: "effective", value: {gte: "2022-10-21"}}}}
+    first: 10
+  ) {
+    nodes {
+      transactionId
+      tranCodeId
+      effective
+      metadata
+    }
+  }
+}

@@ -1,0 +1,1 @@
+Create a non-unique account index named "alpha". The index should be created on the Account schema and have a partition with an alias "alpha" and a value based on the customIndex.alpha string. Add a constraint that validates "1 + 1 == 2". Return the index name, range, partition, constraints, and unique status.

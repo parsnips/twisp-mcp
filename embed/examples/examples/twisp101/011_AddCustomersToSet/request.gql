@@ -1,0 +1,19 @@
+mutation AddCustomersToSet(
+  $customersId: UUID!
+  $ernieId: UUID!
+  $bertId: UUID!
+) {
+  addErnie: addToAccountSet(
+    id: $customersId
+    member: { memberType: ACCOUNT, memberId: $ernieId }
+  ) {
+    accountSetId
+  }
+
+  addBert: addToAccountSet(
+    id: $customersId
+    member: { memberType: ACCOUNT, memberId: $bertId }
+  ) {
+    accountSetId
+  }
+}

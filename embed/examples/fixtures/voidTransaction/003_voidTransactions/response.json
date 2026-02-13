@@ -1,0 +1,60 @@
+{
+  "data": {
+    "tx1": {
+      "transactionId": "e400fd05-218d-531b-9c2d-f3dbdf319570",
+      "voidOf": "6dad06b7-be1f-4461-a4e9-44049a9cd74c",
+      "entries": {
+        "nodes": [
+          {
+            "accountId": "61ba5969-5e24-464f-8cf8-87776949b189",
+            "entryType": "METHOD_DR_VOID",
+            "units": "-10.00",
+            "currency": "USD",
+            "direction": "DEBIT",
+            "metadata": {
+              "method": "VISA"
+            }
+          },
+          {
+            "accountId": "73c7ede6-c675-4f66-a5fe-671bbf958cd9",
+            "entryType": "METHOD_CR_VOID",
+            "units": "-10.00",
+            "currency": "USD",
+            "direction": "CREDIT",
+            "metadata": {
+              "method": "VISA"
+            }
+          }
+        ]
+      }
+    },
+    "tx2": {
+      "transactionId": "b0045720-ffbe-552f-94e3-816866e7a266",
+      "voidOf": "31962347-1b2e-46b5-ad3d-f5adf172c30d",
+      "entries": {
+        "nodes": [
+          {
+            "accountId": "73c7ede6-c675-4f66-a5fe-671bbf958cd9",
+            "entryType": "METHOD_DR_VOID",
+            "units": "-15.00",
+            "currency": "USD",
+            "direction": "DEBIT",
+            "metadata": {
+              "method": "VISA"
+            }
+          },
+          {
+            "accountId": "61ba5969-5e24-464f-8cf8-87776949b189",
+            "entryType": "METHOD_CR_VOID",
+            "units": "-15.00",
+            "currency": "USD",
+            "direction": "CREDIT",
+            "metadata": {
+              "method": "VISA"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

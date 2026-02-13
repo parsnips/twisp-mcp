@@ -1,0 +1,1 @@
+Create an ACH credit transaction code with the given ACH credit ID. Include deposit account ID, amount, effective date, and currency code as parameters. Use the provided journal ID and ACH settlement account ID for the transaction and entries. The entries should have a debit ACH_DR entry and a credit ACH_CR entry, both in the settled layer. Return the transaction code ID.

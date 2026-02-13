@@ -1,0 +1,72 @@
+mutation CardAuthorizationUpdate(
+  $initialAuthorizationId: UUID!
+  $authorizationId: UUID!
+  $updateId: UUID!
+  $accountId: UUID!
+  $correlation: String
+  $amount: Decimal!
+  $updateAmount: Decimal
+  $effective: Date
+  $initAuthHook: JSON
+  $authHook: JSON
+  $updateHook: JSON
+){
+  # Received initial authorization webhook
+  initialAuthorization: postTransaction(
+    input:{
+      transactionId: $initialAuthorizationId
+      tranCode: "CARD_HOLD"
+      params: {
+        account: $accountId
+        amount: $amount
+        correlation: $correlation
+        effective: $effective
+        metadata: $initAuthHook
+      }
+    }
+  ) {
+    transactionId
+  }
+
+  # Recieved approved webhook
+  voidInitialAuthorization: voidTransaction(id: $initialAuthorizationId) {
+    transactionId
+  }
+
+  authorization: postTransaction(
+    input:{
+      transactionId: $authorizationId
+      tranCode: "CARD_HOLD"
+      params: {
+        account: $accountId
+        amount: $amount
+        correlation: $correlation
+        effective: $effective
+        metadata: $authHook
+      }
+    }
+  ) {
+    transactionId
+  }
+
+  # Received update webhook
+  voidApprovedAuth: voidTransaction(id: $authorizationId) {
+    transactionId
+  }
+
+  update: postTransaction(
+    input:{
+      transactionId: $updateId
+      tranCode: "CARD_HOLD_REPLACE"
+      params: {
+        account: $accountId
+        amount: $updateAmount
+        correlation: $correlation
+        effective: $effective
+        metadata: $updateHook
+      }
+    }
+  ) {
+    transactionId
+  }
+}

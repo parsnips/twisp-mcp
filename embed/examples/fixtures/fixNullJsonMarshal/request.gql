@@ -1,0 +1,18 @@
+mutation HandlesNullJSONArgs(
+  $someDate: Date! = "2020-01-01"
+  $unsetJSON: JSON
+  $someUUID: UUID = "uuid('68e50b17-73be-40f2-83eb-1589bcd22097')" @cel
+) {
+  evaluate(
+    expressions: {
+      date: "document.date"
+      json: "document.json"
+      id: "document.id"
+    }
+    document: {
+      date: $someDate
+      json: $unsetJSON
+      id: $someUUID
+    }
+  )
+}

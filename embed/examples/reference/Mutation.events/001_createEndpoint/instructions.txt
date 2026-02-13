@@ -1,0 +1,1 @@
+Create an endpoint with the provided endpoint ID, URL, description and subscriptions. Allows subscription to all account and balance events that occur in Twisp to be sent to the  URL as a webhook.

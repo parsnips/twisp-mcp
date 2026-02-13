@@ -1,0 +1,10 @@
+{
+  "errors": [
+    {
+      "message": "input: deleteAccountSet member of set 9436a994-7783-11f0-b279-069b540ea27d",
+      "path": ["deleteAccountSet"],
+      "extensions": { "code": "BAD_REQUEST", "retriableError": false }
+    }
+  ],
+  "data": { "deleteAccountSet": null }
+}

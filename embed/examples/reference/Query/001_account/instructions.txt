@@ -1,0 +1,1 @@
+Retrieve the account information for the account with the specified ID. Include the accountId, code, name, description, normalBalanceType, and status in the response.

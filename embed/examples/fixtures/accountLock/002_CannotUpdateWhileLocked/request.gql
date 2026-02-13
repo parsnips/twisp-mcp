@@ -1,0 +1,6 @@
+mutation CannotUpdateWhileLocked {
+  updateAccount(id: "3ef1c898-b4f9-11f0-a105-069b540ea27c", input: { name: "changed" }) {
+    name
+    status
+  }
+}

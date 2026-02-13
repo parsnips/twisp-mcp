@@ -1,0 +1,1 @@
+Post a deposit transaction using the ACH credit transaction code. Provide the transaction ID, account ID, amount, and effective date. Return the transaction ID, tranCode ID, effective date, and the first two entries with units, direction, and account name.

@@ -1,0 +1,1 @@
+Create an account with a given ID, name, code, description, status, and normal balance type. Then, update the same account by changing the name, description, and adding metadata. Finally, retrieve the account ID, name, description, metadata, and the first two history records including version, name, and description.

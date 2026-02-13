@@ -1,0 +1,52 @@
+mutation CreateDepositAccount(
+  $customerAccountSetId: UUID!
+  $depositAccountSetId: UUID!
+  $depositAccountId: UUID!
+  $depositAccountCode: String!
+  $journalId: UUID! = "00000000-0000-0000-0000-000000000000"
+  $depositAccountSetName: String! = "Deposit Account Set" 
+  $depositAccountName: String! = "Deposit Default Account"
+  $depositMetadata: JSON
+  $description: String = "create a deposit account."
+) {
+  depositSet:createAccountSet(
+    input: {
+      accountSetId: $depositAccountSetId
+      name: $depositAccountSetName
+      description: $description
+      metadata: $depositMetadata
+      journalId: $journalId
+    }
+  ) {
+    accountSetId
+  }
+  depositDefault:createAccount(
+    input: {
+      accountId: $depositAccountId
+      name: $depositAccountName
+      description: $description
+      code:$depositAccountCode
+      metadata: $depositMetadata
+    }
+  ) {
+    accountId
+  }
+  depositToCustomer:addToAccountSet(
+    id: $customerAccountSetId
+    member: {
+      memberType: ACCOUNT_SET
+      memberId: $depositAccountSetId
+    }
+  ) {
+    accountSetId
+  }
+  defaultDepositToSet:addToAccountSet(
+    id: $depositAccountSetId
+    member: {
+      memberType: ACCOUNT
+      memberId: $depositAccountId
+    }
+  ) {
+    accountSetId
+  }
+}

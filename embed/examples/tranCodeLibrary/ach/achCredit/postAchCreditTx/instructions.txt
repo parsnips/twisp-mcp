@@ -1,0 +1,1 @@
+Post an ACH credit transaction with the given user account ID, amount, and effective date. Use the transaction ID "66fcf002-f815-4608-ad38-8455a46d7f02" and the transaction code "ACH_CREDIT". Return the transaction id, transaction code, effective date, amount (in formatted dollars), direction, layer, and account name for the first two entries.

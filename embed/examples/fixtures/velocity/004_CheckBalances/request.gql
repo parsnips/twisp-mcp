@@ -1,0 +1,61 @@
+query CheckBalances(
+  $calculationId: UUID! = "uuid.NewSHA1(uuid(VelocityNamespace), bytes(uuid('b57b238f-6fd8-42d0-8a99-f88fadf377aa'))+bytes(uuid('370ac19b-a48c-4480-9b1f-18c39d214a0a'))+bytes(uuid('00000000-0000-0000-0000-000000000000')))"
+    @cel
+) {
+  viaBalance: balance(
+    accountId: "480ff40e-016c-4677-80ee-2b62bd34182d"
+    calculationId: $calculationId
+    dimension: { year: "2022", month: "9" }
+  ) {
+    available(layer: ENCUMBRANCE) {
+      normalBalance {
+        units
+      }
+    }
+  }
+
+  viaVelocityWithLimitId: velocity(
+    accountId: "480ff40e-016c-4677-80ee-2b62bd34182d"
+    velocityLimitId: "370ac19b-a48c-4480-9b1f-18c39d214a0a"
+    window: { year: "2022", month: "9" }
+  ) {
+    spent
+    remaining
+    entries(first: 4) {
+      nodes {
+        amount {
+          units
+        }
+      }
+    }
+  }
+
+  viaVelocityWithoutLimitId: velocity(
+    accountId: "480ff40e-016c-4677-80ee-2b62bd34182d"
+    window: { year: "2022", month: "9" }
+  ) {
+    spent
+    remaining
+    entries(first: 4) {
+      nodes {
+        amount {
+          units
+        }
+      }
+    }
+  }
+
+  viaAccount: account(id: "480ff40e-016c-4677-80ee-2b62bd34182d") {
+    velocity(window: { year: "2022", month: "9" }) {
+      spent
+      remaining
+      velocityLimit {
+        limit {
+          balance {
+            amount
+          }
+        }
+      }
+    }
+  }
+}

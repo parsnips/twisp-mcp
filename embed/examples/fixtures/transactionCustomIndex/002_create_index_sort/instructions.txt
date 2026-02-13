@@ -1,0 +1,1 @@
+Create a non-unique transaction index named "effective" on the Transaction schema. Sort by the document effective date in ascending order and use a constraint that ensures 1 + 1 equals 2. Return the index name, range, partition, constraints, and uniqueness status.

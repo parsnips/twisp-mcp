@@ -1,0 +1,9 @@
+query GetJournalsInvalidStatus {
+  journals(index: {name: STATUS}, where: {status: {eq:"FOO"}}, first: 100) {
+    nodes {
+      name
+      status
+      created
+    }
+  }
+}

@@ -1,0 +1,11 @@
+mutation Delete {
+  # delete the root
+  # NOTE: right now removing from an account set is
+  # hampered by some correctness issues that we need to fix.
+  root: deleteAccountSet(id: "9436a994-7783-11f0-b279-069b540ea27d") {
+    accountSetId
+  }
+  target: deleteAccountSet(id: "9fa30480-7783-11f0-bbb5-069b540ea27d") {
+    accountSetId
+  }
+}

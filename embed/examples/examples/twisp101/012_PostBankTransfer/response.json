@@ -1,0 +1,43 @@
+{
+  "data": {
+    "postTransaction": {
+      "transactionId": "9c328550-bba3-423b-a58a-b3f9786a80ae",
+      "entries": {
+        "nodes": [
+          {
+            "units": "2.25",
+            "direction": "DEBIT",
+            "entryType": "TRANSFER_DR",
+            "account": {
+              "name": "Ernie Bishop - Checking"
+            }
+          },
+          {
+            "units": "2.25",
+            "direction": "CREDIT",
+            "entryType": "TRANSFER_CR",
+            "account": {
+              "name": "Bert - Checking"
+            }
+          },
+          {
+            "units": "0.05",
+            "direction": "DEBIT",
+            "entryType": "TRANSFER_FEE_DR",
+            "account": {
+              "name": "Ernie Bishop - Checking"
+            }
+          },
+          {
+            "units": "0.05",
+            "direction": "CREDIT",
+            "entryType": "TRANSFER_FEE_CR",
+            "account": {
+              "name": "Revenues"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

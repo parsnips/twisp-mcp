@@ -1,0 +1,1 @@
+Create a bank transfer transaction code with a specified tranCode ID, code, description, and parameters. Set up a journal and entries for the transfer, including a transfer fee. Return the tranCode ID.

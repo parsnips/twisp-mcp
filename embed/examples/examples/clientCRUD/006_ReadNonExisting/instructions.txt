@@ -1,0 +1,1 @@
+Retrieve the client in the auth namespace with the principal "arn:aws:iam::048962233173:user/github.action". Return the principal.

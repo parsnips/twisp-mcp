@@ -1,0 +1,6 @@
+{
+  "data": {
+    "create": { "createConfig": { "configId": "e71f1316-08e4-11f0-be3c-069b540ea27c" } },
+    "update": { "updateConfig": { "timeZone": "America/Los_Angeles" } }
+  }
+}

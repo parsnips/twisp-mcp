@@ -1,0 +1,885 @@
+extend type Mutation {
+  "Mutations in the `schema` namespace are used to manage custom indexes, aggregates, and historical indexes. Use the `schema` namespace to create and delete indexes and aggregates."
+  schema: SchemaMutation!
+}
+
+extend type Query {
+  "Queries in the `schema` namespace are used to retrieve information about custom indexes, aggregates, and historical indexes."
+  schema: SchemaQuery!
+}
+
+type SchemaMutation {
+  """
+  Create a custom index for querying records. Currently available for indexing Account, AccountSet, Balance, Entry, Transaction, and TranCode record types.
+
+  To query the index, use the `CUSTOM` index type for the applicable resource query and supply the filter inputs specified by the index.
+
+  Custom indexes can be created using fields on the root level of the record like `Account.modified` as well as nested fields within documents like the `metadata` object.
+
+  Depending on the parameters defined, custom indexes may be structured to return a single record or a sorted list of records.
+
+  Note that due to the scaling properties of the underlying database, a single partition supports a fixed amount of read bandwidth and individual write operations per second. Beyond that threshold, throttling will occur. Visit scaling properties for more information.
+
+  When designing custom indexes, care must be taken to ensure that reads and writes are spread across a sufficient number of partitions to support peak workloads. In practice, partitioning by account is usually sufficient. Our technical support staff is available for guidance on partition design patterns at [support@twisp.com](mailto:support@twisp.com).
+
+  To learn more about indexes within the Twisp FLDB, see [Index-First Design](https://www.twisp.com/docs/infrastructure/ledger-database#index-first-design) in the docs.
+  """
+  createIndex(input: CreateIndexInput!): Index! @goField(forceResolver: true)
+
+  """
+  Create a custom index for querying all versions of records' histories.
+
+  Because the Twisp FLDB is an [immutable, append-only data store](https://www.twisp.com/docs/infrastructure/ledger-database#append-only-immutability), changing the data within any record results in a new version of that record, leaving the original version intact in history.
+
+  While regular indexes (such as those created by the `schema.createIndex` mutation) will index the most recent version of records, a historical index will index every version. This allows for defining sophisticated indexes to enable queries such as:
+
+  - Retrieving account balances when the balance amount was negative.
+  - Finding records' state when a particular value is set in their metadata.
+  - Pulling time-delimited sets of balance activity.
+
+  Partitions on historical indexes will by definition be larger than their equivalent partitions for regular indexes as they will contain not just the latest version of a record but also every previous version.
+  """
+  createHistoricalIndex(input: CreateIndexInput!): Index! @goField(forceResolver: true)
+
+  """
+  Create a search index for full text search support.
+
+  Full text search indexes are powered by opensearch. These indexes are eventually consistent, but have the ability to
+  execute complex queries utilizing the opensearch indexing engine.
+  """
+  createSearchIndex(input: CreateSearchIndexInput!): Index! @goField(forceResolver: true)
+
+  "Update a search index"
+  updateSearchIndex(
+    name: String!
+    on: IndexOnEnum!
+    opensearchSchema: OpensearchSchemaInput!
+  ): Index @goField(forceResolver: true)
+
+  "Delete an existing index."
+  deleteIndex(name: String!, on: IndexOnEnum!): Index @goField(forceResolver: true)
+
+  """
+  Create an view for a set of source tables.
+
+  Views are materialized views that are defined by a CEL-expression map and get triggered by changes to one or more source tables.
+  They allow for creating denormalized data structures that are automatically updated whenever source data changes.
+
+  Each view has:
+  - A document schema defined as a map of CEL expressions
+  - Source table(s) that trigger updates to the view
+  - Optional dimension(s) for partitioning and uniqueness constraints
+  - Optional filters that determine when the view should be updated
+
+  When source data changes, the view is automatically recalculated based on the provided CEL expressions.
+  """
+  createView(input: CreateViewInput!): View! @goField(forceResolver: true)
+
+  "Delete an existing view."
+  deleteView(name: String!): View @goField(forceResolver: true)
+}
+
+type SchemaQuery {
+  "Get a single index by `name`."
+  index(
+    "Unique identifier of this index. Typically human readable."
+    name: String!
+    "The type of record this index applies to."
+    on: IndexOnEnum!
+  ): Index @goField(forceResolver: true)
+
+  "List all indexes, ordered by `name`."
+  indexes(
+    "Number of nodes to return on the connection."
+    first: Int!
+    "Cursor indicating the start point to retrieve nodes. When no cursor is provided, the query uses the default starting cursor."
+    after: String
+  ): IndexConnection! @goField(forceResolver: true)
+
+  "Get a single view by `name`."
+  view("Unique identifier of this view. Typically human readable." name: String!): View
+    @goField(forceResolver: true)
+
+  "List all views, ordered by `name`."
+  views(
+    "Number of nodes to return on the connection."
+    first: Int!
+    "Cursor indicating the start point to retrieve nodes. When no cursor is provided, the query uses the default starting cursor."
+    after: String
+  ): ViewConnection! @goField(forceResolver: true)
+}
+
+input CreateIndexInput {
+  "Unique identifier of this index. Typically human readable."
+  name: String!
+
+  "The type of record this index applies to."
+  on: IndexOnEnum!
+
+  "Indicates if this index is populated asynchronously."
+  async: Boolean
+
+  """
+  Indicates if this index is a search index -- `unique`, `partition`
+  and `sort` are ignored.
+  """
+  search: Boolean
+
+  "Indicates if this index is unique."
+  unique: Boolean
+
+  "The partition key used for this index."
+  partition: [PartitionKeyInput]!
+
+  """
+  Specifies the number of shards for partition write scaling.
+
+  This parameter defines how many shards the partition key is
+  automatically split into, similarly to RAID-style disk striping.
+  Increasing this value allows the index to distribute write
+  throughput across multiple shards while sacrificing global sort
+  order on the partition.
+
+  For instance, setting `partitionShardCount` to 4 splits each unique
+  partition into four shards, effectively allowing 4000 writes per
+  second for a single partition key.
+  """
+  partitionShardCount: Int
+
+  "The sort key to use for supporting range queries."
+  sort: [IndexKeyInput]!
+
+  """
+  Map of named CEL expressions specifying the conditions for including
+  a record in this index.
+
+  Records are only included in the index if _all_ expressions evaluate
+  to `true`, i.e. they are combined with a logical AND. Each
+  expression must return a boolean value.
+
+  For example, a custom index on a `metadata.category` field might use
+  the constraints `{ hasCategory: "has(document.metadata.category)" }`
+  to ensure that only records whose `metadata` document has a defined
+  value for the `category` field are included.
+  """
+  constraints: ExpressionMap
+}
+
+input CreateSearchIndexInput {
+  "Unique identifier of this index. Typically human readable."
+  name: String!
+
+  "The type of record this index applies to."
+  on: IndexOnEnum!
+
+  """
+  Map of named CEL expressions specifying the conditions for including a record in this index.
+
+  Records are only included in the index if _all_ expressions evaluate to `true`, i.e. they are combined with a logical AND. Each expression must return a boolean value.
+
+  For example, a custom index on a `metadata.category` field might use the constraints `{ hasCategory: "has(document.metadata.category)" }` to ensure that only records whose `metadata` document has a defined value for the `category` field are included.
+  """
+  constraints: ExpressionMap
+
+  """
+  The Opensearch CEL expression schema to apply to the document prior to indexing. Only available on search indexes.
+  """
+  opensearchSchema: OpensearchSchemaInput
+}
+
+"""
+"""
+type Index implements Node {
+  """
+  Globally unique identifier for a record to support Global Object Identification.
+  Uses format `ix:<key>` where `key` is `base64(json({ 1: name, 2: on }))`.
+  """
+  id: ID!
+
+  "Unique identifier of this index. Typically human readable."
+  name: String!
+
+  "The type of record this index applies to."
+  on: IndexOnEnum!
+
+  "Indicates if this index is populated asynchronously."
+  async: Boolean!
+
+  "Indicates if this index is unique."
+  unique: Boolean!
+
+  "Indicates if this index is a search index."
+  search: Boolean!
+
+  "Indicates if this index is historical, i.e. created with `schema.createHistoricalIndex`."
+  historical: Boolean!
+
+  """
+  For non-search indexes, the partition key used for this index.
+  """
+  partition: [PartitionKey]
+
+  """
+  For non-search indexes, the range key to use for query/sorting.
+  """
+  range: [IndexKey]
+
+  """
+  The Opensearch CEL expression schema to apply to the document prior to indexing.
+  Only available on search indexes.
+  """
+  opensearchSchema: JSON
+
+  """
+  Map of named CEL expressions specifying the conditions for including a record in this index.
+
+  Records are only included in the index if _all_ expressions evaluate to `true`, i.e. they are combined with a logical AND. Each expression must return a boolean value.
+
+  For example, a custom index on a `metadata.category` field might use the constraints `{ hasCateogory: "has(document.metadata.category)" }` to ensure that only records whose `metadata` document has a defined value for the `category` field are included.
+  """
+  constraints: ExpressionMap
+
+  """
+  Twisp generated internal index identifier.
+  """
+  indexId: UUID!
+
+  "The current version number of this index."
+  version: Int!
+
+  _recordId: UUID!
+}
+
+"""
+Connection to a list of Index nodes.
+Access Index nodes directly through the `nodes` field, or access information about the connection edges with the `edges` field.
+Use `pageInfo` to paginate responses using the cursors provided.
+"""
+type IndexConnection implements Connection {
+  nodes: [Index]!
+  edges: [IndexConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+"""
+Edges represent links connecting a parent or query field to a list of Index nodes.
+They contain a reference to the Index node and metadata like the `cursor` position for the edge.
+"""
+type IndexConnectionEdge {
+  "Cursor position at this edge."
+  cursor: String!
+  "Reference to the Index node at this edge."
+  node: Index
+}
+
+"""
+Specify a named expression to sort the records within a custom index.
+
+Used for sorting and for querying by range conditions.
+"""
+input IndexKeyInput {
+  "Identifier for this key. Should be a short, human-readable name."
+  alias: String!
+  """
+  CEL expression which resolves to the value that is to be sorted.
+
+  Within the expression, the `document` object represents the record. To sort by a field on the record, use `document.<field_name>`.
+  """
+  value: Expression!
+  "Whether the sort is in ascending or descending order."
+  sort: SortOrder!
+
+  """
+  Optionally provide explicit type for value. Useful for metadata values which may be list of monomorphic types.
+
+  @example("type: STRING")
+  """
+  type: IndexDataType
+}
+
+"A named expression used for sorting and range conditions."
+type IndexKey {
+  "Identifier for this key."
+  alias: String!
+  """
+  CEL expression which resolves to the value that is to be sorted.
+
+  Within the expression, the `document` object represents the record.
+  """
+  value: Expression!
+  "Whether the sort is in ascending or descending order."
+  sort: SortOrder!
+
+  """
+  Explicit type for sort key.
+  """
+  type: IndexDataType
+}
+
+"Specify a named expression to define a partition key."
+input PartitionKeyInput {
+  "Identifier for this partition key. Should be a short, human-readable name."
+  alias: String!
+  """
+  CEL expression which resolves to the value that is to be used for the partition key.
+
+  Within the expression, the `document` object represents the record. To access a field on the document, use `document.<field_name>`.
+  """
+  value: Expression!
+
+  """
+  Optionally provide explicit type for value. Useful for metadata values which may be list of monomorphic types.
+
+  @example("type: STRING")
+  """
+  type: IndexDataType
+}
+
+"A named expression defining a partition key."
+type PartitionKey {
+  "Identifier for this partition key."
+  alias: String!
+  """
+  CEL expression which resolves to the value that is to be used for the partition key.
+
+  Within the expression, the `document` object represents the record.
+  """
+  value: Expression!
+
+  """
+  Resolved type of this partition element.
+  """
+  type: IndexDataType
+}
+
+"Record types which support custom indexes."
+enum IndexOnEnum {
+  Account
+  AccountSet
+  Balance
+  Transaction
+  TranCode
+  Entry
+}
+
+"Query conditions for a custom index."
+input CustomIndexFilter {
+  "The `name` of the custom index to use."
+  index: String!
+  "Query conditions for specifying the index partition to use."
+  partition: [CustomIndexFilterValue!]
+  "Query conditions for specifying sort order."
+  sort: [CustomIndexFilterValue!]
+}
+
+"Filter conditionals for querying the partition or sort key of a custom index."
+input CustomIndexFilterValue {
+  "Identifier for the key to apply the filter to."
+  alias: String!
+  "Conditions to apply at this key."
+  value: FilterValue
+}
+
+input OpensearchSchemaInput {
+  mappings: OpensearchSchemaObjectMappingInput!
+}
+
+input OpensearchSchemaMappingsInput {
+  key: String!
+  value: OpensearchSchemaMappingInput!
+}
+
+"""
+Use one of `binaryType`, `numericType`, `booleanType`,`dateType`, `objectType` or `stringType`.
+"""
+input OpensearchSchemaMappingInput {
+  binaryType: OpensearchSchemaBinaryMappingInput
+  numericType: OpensearchSchemaNumericMappingInput
+  booleanType: OpensearchSchemaBooleanMappingInput
+  dateType: OpensearchSchemaDateMappingInput
+  objectType: OpensearchSchemaObjectMappingInput
+  stringType: OpensearchSchemaStringMappingInput
+}
+
+enum OpensearchSchemaBinaryMappingType {
+  BINARY
+}
+
+input OpensearchSchemaBinaryMappingInput {
+  type: OpensearchSchemaBinaryMappingType!
+  """
+  The CEL expression to index for the document.
+  @example("document.is_void")
+  """
+  celExpression: Expression!
+}
+
+enum OpensearchSchemaNumericMappingType {
+  BYTE
+  DOUBLE
+  FLOAT
+  HALF_FLOAT
+  INTEGER
+  LONG
+  UNSIGNED_LONG
+  SHORT
+}
+
+input OpensearchSchemaNumericMappingInput {
+  type: OpensearchSchemaNumericMappingType!
+  """
+  The CEL expression to index for the document.
+  @example("document.amount.units()")
+  """
+  celExpression: Expression!
+}
+
+enum OpensearchSchemaBooleanMappingType {
+  BOOLEAN
+}
+
+input OpensearchSchemaBooleanMappingInput {
+  type: OpensearchSchemaBooleanMappingType!
+  celExpression: Expression!
+}
+
+enum OpensearchSchemaDateMappingType {
+  DATE
+  DATE_NANOS
+}
+
+input OpensearchSchemaDateMappingInput {
+  type: OpensearchSchemaDateMappingType!
+  """
+  The CEL expression to index for the document.
+  @example("document.effective")
+  """
+  celExpression: Expression!
+}
+
+enum OpensearchSchemaObjectMappingType {
+  OBJECT
+}
+
+input OpensearchSchemaObjectMappingInput {
+  type: OpensearchSchemaObjectMappingType!
+  properties: [OpensearchSchemaMappingsInput]
+}
+
+enum OpensearchSchemaStringMappingType {
+  KEYWORD
+  TEXT
+  MATCH_ONLY_TEXT
+  TOKEN_COUNT
+  WILDCARD
+}
+
+input OpensearchSchemaStringMappingInput {
+  type: OpensearchSchemaStringMappingType!
+  """
+  The CEL expression to index for the document.
+  @example("document.description")
+  """
+  celExpression: Expression!
+  """
+  Provide multi-field mappings for this field.
+  """
+  fields: [OpensearchSchemaMultiFieldsInput!]
+}
+
+input OpensearchSchemaStringMultiFieldInput {
+  type: OpensearchSchemaStringMappingType!
+}
+
+input OpensearchSchemaMultiFieldsInput {
+  key: String!
+  value: OpensearchSchemaMultiFieldInput!
+}
+
+input OpensearchSchemaMultiFieldInput {
+  stringType: OpensearchSchemaStringMultiFieldInput
+}
+
+"""
+Input for creating a new view materialized view.
+"""
+input CreateViewInput {
+  """
+  Unique identifier of this view. Will be used as the table name in the public namespace.
+  Should be a short, human-readable name.
+  """
+  name: String!
+
+  """
+  Cel Expressions and Type that define the aggregation.
+
+  `context.source` will have the triggering document.
+  """
+  document: [DocumentElementInput!]!
+
+  """
+  List of source tables that trigger updates to this view.
+  When records in these tables are inserted, updated, or deleted, the view will be recalculated.
+  """
+  sources: [ViewSourceInput!]!
+
+  """
+  Partition for this aggregation.
+
+  Use `context.source` for defining the index.
+  """
+  partition: [PartitionKeyInput!]!
+
+  """
+  Sort for this aggregation.
+
+  Use `context.source` for defining the index.
+  """
+  sort: [IndexKeyInput!]!
+
+  """
+  Map of named CEL expressions that filter when the view should be updated.
+  Only source changes that satisfy all filter conditions will trigger an update to the view.
+  Each expression must return a boolean value.
+
+  Default: { enabled: "true" } (all changes trigger an update)
+  """
+  filters: ExpressionMap
+
+  """
+  Human readable description of this view.
+  """
+  description: String! = ""
+
+  """
+  Extra config options for view.
+  """
+  config: ViewConfigInput
+
+  """
+  A CEL expression to normalize the source object by.
+  If provided, must evaluate to a list. The trigger will be repeated for
+  each item in the list and the value will be available on `context.trigger.normalize`.
+
+  If evaluates to an empty list, will behave as if the normalize expression not provided.
+  """
+  normalize: Expression
+
+  indexes: [ViewIndexInput!]
+
+  searchIndexes: [ViewSearchIndexInput!]
+}
+
+enum ViewTriggerEnum {
+  OnSelect
+  OnInsert
+  OnUpdate
+  OnDelete
+}
+
+"""
+Enum of source tables that can trigger view updates.
+"""
+enum ViewEntity {
+  Account
+  AccountSet
+  Balance
+  Entry
+  Transaction
+  TranCode
+}
+
+input ViewSourceInput {
+  entity: ViewEntity!
+  triggers: [ViewTriggerEnum!]!
+}
+
+type ViewSource {
+  entity: ViewEntity!
+  triggers: [ViewTriggerEnum!]!
+}
+
+"""
+Filter input for querying view entries.
+"""
+input ViewFilter {
+  """
+  Use the index filter for standard index queries.
+  """
+  index: ViewIndexFilter
+  """
+  Use the search filter for search index queries.
+  """
+  search: SearchFilter
+}
+
+input ViewIndexFilter {
+  """
+  Name of the index to use. If not provided, the standard index is queried.
+  """
+  index: String
+  """
+  Specify the partition of view index.
+  """
+  partition: [CustomIndexFilterValue!]
+
+  """
+  Speficy the sort of the view index.
+  """
+  sort: [CustomIndexFilterValue!]
+}
+
+"""
+Represents an view materialized view.
+"""
+type View implements Node {
+  """
+  Globally unique identifier for a record to support Global Object Identification.
+  Uses format `ag:<name>`.
+  """
+  id: ID!
+
+  """
+  Unique identifier of this view. Typically human readable.
+  """
+  name: String!
+
+  """
+  The document produced by this view.
+  """
+  document: [DocumentElement!]!
+
+  """
+  List of source tables that trigger updates to this view.
+  """
+  sources: [ViewSource!]!
+
+  """
+  Dimensions define the partition for the view.
+  """
+  partition: [PartitionKey!]!
+
+  "The sort key to use for supporting range queries."
+  sort: [IndexKey!]!
+
+  """
+  Filters that determine when the view should be updated.
+  Only source changes that satisfy these conditions will trigger an update.
+  """
+  filters: ExpressionMap
+
+  #
+  """
+  Human readable description of this view.
+  """
+  description: String
+
+  #
+  """
+  Creation timestamp of this view.
+  """
+  created: Timestamp!
+
+  #
+  """
+  Lat modified timestamp of this view.
+  """
+  modified: Timestamp!
+
+  #
+  """
+  Configuration including concurrent enablement.
+  """
+  config: ViewConfig!
+  """
+  Twisp generated internal view identifier.
+  """
+  viewId: UUID!
+
+  """
+  Expression that this view is normalized by.
+  """
+  normalize: Expression
+
+  indexes: [ViewIndex!]
+
+  searchIndexes: [ViewSearchIndex!]
+
+  """
+  The current version number of this view.
+  """
+  version: Int!
+
+  _recordId: UUID!
+}
+
+"""
+Connection to a list of View nodes.
+Access View nodes directly through the `nodes` field, or access information about the connection edges with the `edges` field.
+Use `pageInfo` to paginate responses using the cursors provided.
+"""
+type ViewConnection implements Connection {
+  nodes: [View]!
+  edges: [ViewConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+"""
+Edges represent links connecting a parent or query field to a list of View nodes.
+They contain a reference to the View node and metadata like the `cursor` position for the edge.
+"""
+type ViewConnectionEdge {
+  """
+  Cursor position at this edge.
+  """
+  cursor: String!
+
+  """
+  Reference to the View node at this edge.
+  """
+  node: View
+}
+
+type ViewConfig {
+  enableConcurrentPosting: Boolean!
+}
+
+input ViewConfigInput {
+  enableConcurrentPosting: Boolean! = true
+}
+
+type ViewIndex {
+  """
+  Twisp generated internal index identifier.
+  """
+  indexId: UUID!
+
+  "Unique identifier of this index. Typically human readable."
+  name: String!
+
+  "Indicates if this index is unique."
+  unique: Boolean
+
+  "The partition key used for this index."
+  partition: [PartitionKey]!
+
+  """
+  Specifies the number of shards for partition write scaling.
+
+  This parameter defines how many shards the partition key is
+  automatically split into, similarly to RAID-style disk striping.
+  Increasing this value allows the index to distribute write
+  throughput across multiple shards while sacrificing global sort
+  order on the partition.
+
+  For instance, setting `partitionShardCount` to 4 splits each unique
+  partition into four shards, effectively allowing 4000 writes per
+  second for a single partition key.
+  """
+  partitionShardCount: Int
+
+  "The sort key to use for supporting range queries."
+  sort: [IndexKey]!
+
+  """
+  Map of named CEL expressions specifying the conditions for including
+  a record in this index.
+
+  Records are only included in the index if _all_ expressions evaluate
+  to `true`, i.e. they are combined with a logical AND. Each
+  expression must return a boolean value.
+
+  For example, a custom index on a `metadata.category` field might use
+  the constraints `{ hasCategory: "has(document.metadata.category)" }`
+  to ensure that only records whose `metadata` document has a defined
+  value for the `category` field are included.
+  """
+  constraints: ExpressionMap
+}
+
+input ViewIndexInput {
+  "Unique identifier of this index. Typically human readable."
+  name: String!
+
+  "Indicates if this index is unique."
+  unique: Boolean
+
+  "The partition key used for this index."
+  partition: [PartitionKeyInput]!
+
+  """
+  Specifies the number of shards for partition write scaling.
+
+  This parameter defines how many shards the partition key is
+  automatically split into, similarly to RAID-style disk striping.
+  Increasing this value allows the index to distribute write
+  throughput across multiple shards while sacrificing global sort
+  order on the partition.
+
+  For instance, setting `partitionShardCount` to 4 splits each unique
+  partition into four shards, effectively allowing 4000 writes per
+  second for a single partition key.
+  """
+  partitionShardCount: Int
+
+  "The sort key to use for supporting range queries."
+  sort: [IndexKeyInput]!
+
+  """
+  Map of named CEL expressions specifying the conditions for including
+  a record in this index.
+
+  Records are only included in the index if _all_ expressions evaluate
+  to `true`, i.e. they are combined with a logical AND. Each
+  expression must return a boolean value.
+
+  For example, a custom index on a `metadata.category` field might use
+  the constraints `{ hasCategory: "has(document.metadata.category)" }`
+  to ensure that only records whose `metadata` document has a defined
+  value for the `category` field are included.
+  """
+  constraints: ExpressionMap
+}
+
+type ViewSearchIndex {
+  """
+  Twisp generated internal index identifier.
+  """
+  indexId: UUID!
+
+  "Unique identifier of this index. Typically human readable."
+  name: String!
+
+  """
+  Map of named CEL expressions specifying the conditions for including a record in this index.
+
+  Records are only included in the index if _all_ expressions evaluate to `true`, i.e. they are combined with a logical AND. Each expression must return a boolean value.
+
+  For example, a custom index on a `metadata.category` field might use the constraints `{ hasCategory: "has(document.metadata.category)" }` to ensure that only records whose `metadata` document has a defined value for the `category` field are included.
+  """
+  constraints: ExpressionMap
+
+  """
+  The Opensearch CEL expression schema to apply to the document prior to indexing. Only available on search indexes.
+  """
+  opensearchSchema: JSON!
+}
+
+input ViewSearchIndexInput {
+  "Unique identifier of this index. Typically human readable."
+  name: String!
+
+  """
+  Map of named CEL expressions specifying the conditions for including a record in this index.
+
+  Records are only included in the index if _all_ expressions evaluate to `true`, i.e. they are combined with a logical AND. Each expression must return a boolean value.
+
+  For example, a custom index on a `metadata.category` field might use the constraints `{ hasCategory: "has(document.metadata.category)" }` to ensure that only records whose `metadata` document has a defined value for the `category` field are included.
+  """
+  constraints: ExpressionMap
+
+  """
+  The Opensearch CEL expression schema to apply to the document prior to indexing. Only available on search indexes.
+  """
+  opensearchSchema: OpensearchSchemaInput!
+}

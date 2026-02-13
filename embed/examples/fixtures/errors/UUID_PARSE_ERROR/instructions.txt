@@ -1,0 +1,1 @@
+Attempt to create an account with an invalid empty string UUID. Use "TEST" for the code and name, set the normalBalanceType to DEBIT, and status to ACTIVE. Return the accountId.

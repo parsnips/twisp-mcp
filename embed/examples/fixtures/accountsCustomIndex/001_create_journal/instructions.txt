@@ -1,0 +1,1 @@
+Create a general ledger journal with the given UUID. The journal should be named "General Ledger" and have a description of "Primary journal for Zuzu." Return the journalId, name, description, and status.

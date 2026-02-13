@@ -1,0 +1,80 @@
+mutation Setup(
+  $configId: UUID! = "e71f1316-08e4-11f0-be3c-069b540ea27c"
+  $journalId: UUID! = "000000000-0000-0000-0000-0000000000000"
+  $settlementAccountId: UUID! = "f4a3cb70-9ace-4885-a3ca-d0b3a37bd847"
+  $timeZone: String! = "America/Chicago" #  $spec: JSON
+) {
+  createJournal(
+    input: { journalId: "00000000-0000-0000-0000-000000000000", name: "GL", description: "DEFAULT" }
+  ) {
+    journalId
+  }
+  createVelocityControl(
+    input: {
+      velocityControlId: "5193fe0c-4933-4275-b04b-7193f46ec6c9"
+      name: "TEST"
+      description: "Credit limit"
+      enforcement: { action: VOID }
+    }
+  ) {
+    velocityControlId
+  }
+  createVelocityLimit(
+    input: {
+      velocityLimitId: "0ae0d32d-7b85-4bca-a088-d363d54b2eb1"
+      name: "Credit Limit"
+      description: "Max Balance"
+      window: []
+      currency: "USD"
+      params: [{ name: "limit", type: DECIMAL, default: "1000.00", description: "credit limit" }]
+      limit: { balance: [{ layer: PENDING, amount: "params.limit", normalBalanceType: DEBIT }] }
+      velocityControlIds: ["5193fe0c-4933-4275-b04b-7193f46ec6c9"]
+    }
+  ) {
+    velocityLimitId
+  }
+  cash: createAccount(
+    input: {
+      accountId: "f4a3cb70-9ace-4885-a3ca-d0b3a37bd847"
+      name: "cash"
+      code: "cash"
+      normalBalanceType: CREDIT
+      config: { enableConcurrentPosting: true }
+    }
+  ) {
+    accountId
+  }
+  a: createAccount(
+    input: {
+      accountId: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+      externalId: "100194444740300"
+      name: "card 1"
+      code: "card 1"
+      normalBalanceType: DEBIT
+    }
+  ) {
+    accountId
+    name
+  }
+  vca: attachVelocityControl(
+    velocityControlId: "5193fe0c-4933-4275-b04b-7193f46ec6c9"
+    accountId: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+    params: {}
+  ) {
+    velocityControlId
+  }
+  iso: iso8583 {
+    createConfig(
+      input: {
+        configId: $configId
+        journalId: $journalId
+        settlementAccountId: $settlementAccountId
+        timeZone: $timeZone
+        processor: I2C
+        #processorSpec: $spec
+      }
+    ) {
+      configId
+    }
+  }
+}

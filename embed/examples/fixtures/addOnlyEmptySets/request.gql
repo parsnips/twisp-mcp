@@ -1,0 +1,47 @@
+mutation Setup {
+  createJournal(
+    input: { journalId: "a37d7274-0b55-11f0-9c56-069b540ea27c", name: "test", description: "test" }
+  ) {
+    journalId
+  }
+  set1: createAccountSet(
+    input: {
+      accountSetId: "f2a7145e-0b55-11f0-8437-069b540ea27c"
+      journalId: "a37d7274-0b55-11f0-9c56-069b540ea27c"
+      name: "set1"
+      description: "set1"
+    }
+  ) {
+    accountSetId
+  }
+
+  set2: createAccountSet(
+    input: {
+      accountSetId: "c8645918-0b55-11f0-b54b-069b540ea27c"
+      journalId: "a37d7274-0b55-11f0-9c56-069b540ea27c"
+      name: "set2"
+      description: "set2"
+    }
+  ) {
+    accountSetId
+  }
+
+  set2a: createAccountSet(
+    input: {
+      accountSetId: "d77467a8-0b56-11f0-b3d4-069b540ea27c"
+      journalId: "a37d7274-0b55-11f0-9c56-069b540ea27c"
+      name: "set2a"
+      description: "set2a"
+    }
+  ) {
+    accountSetId
+  }
+
+  # Should succesed
+  add1: addToAccountSet(
+    id: "c8645918-0b55-11f0-b54b-069b540ea27c"
+    member: { memberType: ACCOUNT_SET, memberId: "d77467a8-0b56-11f0-b3d4-069b540ea27c" }
+  ) {
+    accountSetId
+  }
+}

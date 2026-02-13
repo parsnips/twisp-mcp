@@ -1,0 +1,90 @@
+mutation RDFICredit(
+  $accountId: UUID!
+  $journalId: UUID!
+  $settlementAccountId: UUID!
+) {
+  # ACH is in file effective for future, put in PENDING layer
+  create: workflow {
+    executeTask(
+      input: {
+        task: "CREATE"
+        workflowId: "44d71180-6db2-437e-9083-6ba672f41ba2"
+        executionId: "779b773c-f7a3-41f3-905b-5934dcda8932"
+        params: {
+          accountId: $accountId
+          settlementAccountId: $settlementAccountId
+          journalId: $journalId
+          amount: "1.00"
+          effective: "2023-01-01"
+          metadata: "{}"
+        }
+      }
+    ) {
+      transactions {
+        entries(first:4) {
+          nodes {
+            entryType
+            direction
+            amount {
+              units
+            }
+          }
+        }
+      }
+    }
+  }
+
+  # Reached the effective date, put into SETTLED layer.
+  settle: workflow {
+    executeTask(
+      input: {
+        task: "SETTLE"
+        workflowId: "44d71180-6db2-437e-9083-6ba672f41ba2"
+        executionId: "779b773c-f7a3-41f3-905b-5934dcda8932"
+        params: {
+          effective: "2023-01-01"
+          metadata: "{}"
+        }
+      }
+    ) {
+      transactions {
+        entries(first:4) {
+          nodes {
+            entryType
+            direction
+            amount {
+              units
+            }
+          }
+        }
+      }
+    }
+  }
+
+  # Initiate a return of funds to the settlement account.
+  return: workflow {
+    executeTask(
+      input: {
+        task: "RETURN"
+        workflowId: "44d71180-6db2-437e-9083-6ba672f41ba2"
+        executionId: "779b773c-f7a3-41f3-905b-5934dcda8932"
+        params: {
+          effective: "2023-01-01"
+          metadata: "{}"
+        }
+      }
+    ) {
+      transactions {
+        entries(first:4) {
+          nodes {
+            entryType
+            direction
+            amount {
+              units
+            }
+          }
+        }
+      }
+    }
+  }
+}

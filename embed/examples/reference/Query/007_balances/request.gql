@@ -1,0 +1,20 @@
+query GetBalances($journalGLId: String!, $accountCustomerAliciaId: String!) {
+  balances(
+    index: { name: ACCOUNT_ID }
+    where: { accountId: { eq: $accountCustomerAliciaId }, journalId: { eq: $journalGLId } }
+    first: 20
+  ) {
+    nodes {
+      entry {
+        entryType
+      }
+      currency
+      settled {
+        normalBalance {
+          formatted(as: { locale: "en-US" })
+        }
+      }
+      version
+    }
+  }
+}

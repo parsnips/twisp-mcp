@@ -1,0 +1,34 @@
+mutation CreateEntityAccount(
+  $accountSetId: UUID!
+  $accountId: UUID!
+  $code: String!
+  $description: String
+  $metadata: JSON
+  $journalId: UUID! = "00000000-0000-0000-0000-000000000000"
+  $accountSetName: String! = "Entity Account Set" 
+  $accountName: String! = "Entity Default Account" 
+) {
+  createAccountSet(
+    input: {
+      accountSetId: $accountSetId
+      name: $accountSetName
+      description: $description
+      metadata: $metadata
+      journalId: $journalId
+    }
+  ) {
+    accountSetId
+  }
+  createAccount(
+    input: {
+      accountId: $accountId
+      name: $accountName
+      description: $description
+      code:$code
+      accountSetIds: [$accountSetId]
+      metadata: $metadata
+    }
+  ) {
+    accountId
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "data": {
+    "createJournal": {
+      "journalId": "99f321ef-a18d-420e-8030-deac1ffa8304",
+      "name": "test_twisp_daily_process_deposit_confirmed (2024-03-23T01:43:17.924782)",
+      "description": "",
+      "status": "ACTIVE",
+      "code": null,
+      "version": 1
+    }
+  }
+}

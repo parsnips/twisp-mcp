@@ -1,0 +1,45 @@
+mutation ACHDebitTC(
+  $achDebitId: UUID!
+  $journalId: Expression!
+  $achSettlementAcctId: Expression!
+) {
+  achDebit: createTranCode(
+    input: {
+      tranCodeId: $achDebitId
+      code: "ACH_DEBIT"
+      description: "An ACH debit from an account."
+      params: [
+        { name: "account", type: UUID, description: "Deposit account ID." }
+        { name: "amount", type: DECIMAL, description: "Amount with decimal, e.g. `1.23`." }
+        { name: "effective", type: DATE, description: "Effective date for ACH transaction." }
+        {
+          name: "currency"
+          type: STRING
+          description: "Currency code for entries. Defaults to 'USD'."
+          default: "USD"
+        }
+      ]
+      transaction: { journalId: $journalId, effective: "params.effective" }
+      entries: [
+        {
+          accountId: "params.account"
+          units: "params.amount"
+          currency: "params.currency"
+          entryType: "'ACH_DR'"
+          direction: "DEBIT"
+          layer: "SETTLED"
+        }
+        {
+          accountId: $achSettlementAcctId
+          units: "params.amount"
+          currency: "params.currency"
+          entryType: "'ACH_CR'"
+          direction: "CREDIT"
+          layer: "SETTLED"
+        }
+      ]
+    }
+  ) {
+    tranCodeId
+  }
+}

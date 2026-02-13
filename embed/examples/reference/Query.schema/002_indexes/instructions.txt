@@ -1,0 +1,1 @@
+Get the first 10 schema indexes and include the index name, range, partition, on, constraints, and unique properties in the response.

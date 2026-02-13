@@ -1,0 +1,55 @@
+mutation CreateCreditAccount(
+  $balanceSetId: UUID!
+  $payableSetId: UUID!
+  $defaultAccountId: UUID!
+  $lineAccountId: UUID!
+  $defaultCode: String!
+  $lineCode: String!
+  $metadata: JSON
+  $journalId: UUID! = "00000000-0000-0000-0000-000000000000"
+) {
+  balanceSet: createAccountSet(
+    input: {
+      accountSetId: $balanceSetId
+      name: "Credit Balance"
+      description: "Credit balance roll up for this credit account."
+      metadata: $metadata
+      journalId: $journalId
+    }
+  ) {
+    accountSetId
+  }
+  payableSet: createAccountSet(
+    input: {
+      accountSetId: $payableSetId
+      name: "Payable Balance"
+      description: "Outstanding balance owed by account holder."
+      metadata: $metadata
+      journalId: $journalId
+    }
+  ) {
+    accountSetId
+  }
+  lineAcct: createAccount(
+    input: {
+      accountId: $lineAccountId
+      name: "Credit Line"
+      description: "Apply credit limit to this account."
+      code: $lineCode
+      metadata: $metadata
+    }
+  ) {
+    accountId
+  }
+  defaultAccount: createAccount(
+    input: {
+      accountId: $defaultAccountId
+      name: "Default"
+      description: "Default credit account"
+      code:$defaultCode
+      metadata: $metadata
+    }
+  ) {
+    accountId
+  }  
+}

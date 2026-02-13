@@ -1,0 +1,62 @@
+{
+  "data": {
+    "reject1": {
+      "executeTask": {
+        "state": {
+          "PENDING": {
+            "correlationId": "5368ff5e-48b5-4c69-a6c3-d4efcf3804ef",
+            "created": "2025-07-16T18:37:42.741146Z",
+            "description": "Book transfer for $100.00",
+            "effective": "2023-11-15",
+            "journalId": "822cb59f-ce51-4837-8391-2af3b7a5fc51",
+            "metadata": {
+              "params": {
+                "amount": "100.00",
+                "crAccount": "3be5bca0-8297-4289-818b-a921bcdbf72d",
+                "currency": "USD",
+                "drAccount": "eba175af-f98a-46b7-ba9d-45f99d505445",
+                "effective": "2023-11-15",
+                "journalId": "822cb59f-ce51-4837-8391-2af3b7a5fc51",
+                "metadata": "{}",
+                "tranCode": "SAMPLE_TRANSFER_PENDING"
+              },
+              "transfer_state": "PENDING"
+            },
+            "modified": "2025-07-16T18:37:42.741146Z",
+            "properties": {},
+            "tranCodeId": "82eaf23c-bcbc-4f48-bee4-9720a81cb3de",
+            "tranCodeVersion": 1,
+            "transactionId": "64ffc9d1-220c-585a-b1fa-4005ab197331",
+            "voidedBy": "e270ef86-9ab4-52dc-a3dc-331616ad4767"
+          },
+          "REJECT": {
+            "correlationId": "5368ff5e-48b5-4c69-a6c3-d4efcf3804ef",
+            "created": "2025-07-16T18:37:42.896819Z",
+            "effective": "2023-11-15",
+            "journalId": "822cb59f-ce51-4837-8391-2af3b7a5fc51",
+            "metadata": { "transfer_state": "REJECT" },
+            "modified": "2025-07-16T18:37:42.896819Z",
+            "properties": {},
+            "tranCodeId": "7b434191-bf1e-49e4-b9ca-9deadeb51392",
+            "tranCodeVersion": 1,
+            "transactionId": "ec6cae50-194b-58ab-8f93-c5ca48e07374"
+          },
+          "SETTLE": {
+            "correlationId": "5368ff5e-48b5-4c69-a6c3-d4efcf3804ef",
+            "created": "2025-07-16T18:37:42.741146Z",
+            "description": "Book transfer for $100.00",
+            "effective": "2023-11-15",
+            "journalId": "822cb59f-ce51-4837-8391-2af3b7a5fc51",
+            "metadata": { "transfer_state": "SETTLE" },
+            "modified": "2025-07-16T18:37:42.741146Z",
+            "properties": {},
+            "tranCodeId": "b8632f0f-2040-4845-81e8-3db542644705",
+            "tranCodeVersion": 1,
+            "transactionId": "af74e8da-02c9-5ef9-8850-3bf7a735bb22"
+          }
+        }
+      }
+    },
+    "reject2": { "executeTask": { "state": {} } }
+  }
+}

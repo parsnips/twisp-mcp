@@ -1,0 +1,14 @@
+query GetISO8583Config {
+  iso8583 {
+    config(configId: "670504f6-0515-11f0-a441-069b540ea27c") {
+      id
+      configId
+      journalId
+      settlementAccountId
+      timeZone
+      description
+      processor
+      version
+    }
+  }
+}

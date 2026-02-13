@@ -1,0 +1,16 @@
+{
+  "data": {
+    "balance": {
+      "settled": {
+        "normalBalance": {
+          "formatted": "-$21.00"
+        }
+      },
+      "pending": {
+        "normalBalance": {
+          "formatted": "-$41.00"
+        }
+      }
+    }
+  }
+}

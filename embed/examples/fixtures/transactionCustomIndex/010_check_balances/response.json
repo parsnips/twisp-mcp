@@ -1,0 +1,24 @@
+{
+  "data": {
+    "ernie": {
+      "name": "Ernie Bishop - Checking",
+      "balance": {
+        "settled": {
+          "normalBalance": {
+            "units": "-370.35"
+          }
+        }
+      }
+    },
+    "bert": {
+      "name": "Bert - Checking",
+      "balance": {
+        "settled": {
+          "normalBalance": {
+            "units": "370.35"
+          }
+        }
+      }
+    }
+  }
+}

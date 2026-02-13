@@ -1,0 +1,55 @@
+mutation Setup {
+  createJournal(
+    input: { journalId: "00000000-0000-0000-0000-000000000000", name: "GL", description: "GL" }
+  ) {
+    journalId
+  }
+  schema {
+    createIndex(
+      input: {
+        name: "mids"
+        on: AccountSet
+        unique: false
+        partition: [
+          {
+            alias: "mids"
+            value: "document.metadata.mids.transformList(k, v, string(k)+':'+string(v))"
+            type: STRING
+          }
+        ]
+        sort: [{ alias: "created", value: "document.created", sort: ASC }]
+        constraints: { hasMids: "has(document.metadata.mids) && size(document.metadata.mids) > 0 " }
+        partitionShardCount: 1
+      }
+    ) {
+      partition {
+        alias
+        value
+      }
+    }
+  }
+
+  a: createAccountSet(
+    input: {
+      accountSetId: "991a2204-3be4-11f0-a829-069b540ea27d"
+      name: "991a2204-3be4-11f0-a829-069b540ea27d"
+      code: "991a2204-3be4-11f0-a829-069b540ea27d"
+      description: "991a2204-3be4-11f0-a829-069b540ea27d"
+      metadata: { mids: { worldpay: 1, stripe: 5 } }
+    }
+  ) {
+    accountSetId
+  }
+
+  b: createAccountSet(
+    input: {
+      accountSetId: "a2ec6dbe-3be4-11f0-9b10-069b540ea27d"
+      name: "a2ec6dbe-3be4-11f0-9b10-069b540ea27d"
+      code: "a2ec6dbe-3be4-11f0-9b10-069b540ea27d"
+      description: "a2ec6dbe-3be4-11f0-9b10-069b540ea27d"
+      metadata: { mids: { worldpay: 2, authorize: 10 } }
+    }
+  ) {
+    accountSetId
+  }
+}

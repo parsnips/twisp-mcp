@@ -1,0 +1,16 @@
+{
+  "data": {
+    "iso8583": {
+      "config": {
+        "id": "iso8583:config:670504f6-0515-11f0-a441-069b540ea27c",
+        "configId": "670504f6-0515-11f0-a441-069b540ea27c",
+        "journalId": "8b65c8dc-0515-11f0-a441-069b540ea27c",
+        "settlementAccountId": "779886bc-0515-11f0-aa78-069b540ea27c",
+        "timeZone": "America/Chicago",
+        "description": "ISO8583 Test Config 1",
+        "processor": "I2C",
+        "version": 1
+      }
+    }
+  }
+}

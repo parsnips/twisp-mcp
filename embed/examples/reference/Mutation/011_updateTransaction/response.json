@@ -1,0 +1,14 @@
+{
+  "data": {
+    "updateTransaction": {
+      "transactionId": "6b5e47b6-60d2-49bf-8210-0e4c3dd3ec68",
+      "metadata": { "reconciled": true },
+      "history": {
+        "nodes": [
+          { "version": 2, "metadata": { "reconciled": true } },
+          { "version": 1, "metadata": {} }
+        ]
+      }
+    }
+  }
+}

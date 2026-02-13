@@ -1,0 +1,15 @@
+mutation UpdateAccount {
+  updateAccount(
+    id: "3ea12e45-7df2-4293-9434-feb792affc91"
+    input: {
+      name: "Asset"
+      description: "Updated test account"
+      metadata: { externalId: "00000", visaId: "99999" }
+    }
+  ) {
+    accountId
+    name
+    description
+    metadata
+  }
+}

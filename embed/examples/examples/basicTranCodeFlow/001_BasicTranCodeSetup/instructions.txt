@@ -1,0 +1,1 @@
+Create a general ledger journal with a unique ID, name "GL", and description "General Ledger". Then create an ACH settlement account and a customer account, both with unique IDs, status as ACTIVE, and appropriate names and descriptions. The settlement account should have a debit-normal balance type, while the customer account should have a credit-normal balance type.

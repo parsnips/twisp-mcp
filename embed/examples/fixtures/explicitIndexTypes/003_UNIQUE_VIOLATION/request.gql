@@ -1,0 +1,13 @@
+mutation ThrowsUniqueConstraintViolation {
+  createAccount(
+    input: {
+      accountId: "beaffb02-3cb0-11f0-90f0-069b540ea27d"
+      name: "beaffb02-3cb0-11f0-90f0-069b540ea27d"
+      code: "beaffb02-3cb0-11f0-90f0-069b540ea27d"
+      description: "beaffb02-3cb0-11f0-90f0-069b540ea27d"
+      metadata: { mids: ["worldpay:1", "stripe:6"] }
+    }
+  ) {
+    accountId
+  }
+}

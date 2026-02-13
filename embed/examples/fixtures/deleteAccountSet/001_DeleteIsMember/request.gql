@@ -1,0 +1,5 @@
+mutation DeleteIsMember {
+  deleteAccountSet(id: "9fa30480-7783-11f0-bbb5-069b540ea27d") {
+    accountSetId
+  }
+}

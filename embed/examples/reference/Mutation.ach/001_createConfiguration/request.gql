@@ -1,0 +1,24 @@
+mutation CreateConfiguration {
+  ach {
+    createConfiguration(
+      input:{
+        configId: "1dc71d60-f463-4bb6-b82a-ab42e2f923ff"
+        endpointId: "b84512f1-a67e-4dc2-94dd-66c48b4d13fb"
+        settlementAccountId: "37f7e8a6-171f-411d-ad59-7b1f40f505ea"
+        exceptionAccountId: "3171b0c2-6e9f-41aa-a5a6-ee927deb27cf"
+        suspenseAccountId:"3171b0c2-6e9f-41aa-a5a6-ee927deb27cf"
+        feeAccountId:"62808a87-0b11-4dce-8877-767b70f029af"
+        journalId: "00000000-0000-0000-0000-000000000000"
+        odfiHeaderConfiguration: {
+          immediateDestination: "026009593"
+          immediateDestinationName: "ACME BANK"
+          immediateOrigin: "111000173"
+          immediateOriginName: "ZUZU"
+        }
+        timeZone: "America/Los_Angeles"
+      }
+    ) {
+      configId
+    }
+  }
+}

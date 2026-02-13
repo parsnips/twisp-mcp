@@ -1,0 +1,51 @@
+mutation ERRORS_SETUP {
+  createAccount(
+    input: {
+      accountId: "7052f9fd-dd15-40d0-b0b6-df8c4c372e41"
+      code: "TESTACCT"
+      name: "TESTACCT"
+      normalBalanceType: DEBIT
+      status: ACTIVE
+    }
+  ) {
+    accountId
+  }
+
+  createTranCode(
+    input: {
+      tranCodeId: "7c436096-8d2c-4e50-b7a8-fec60894db9f"
+      code: "TESTTC"
+      description: "TESTTC"
+      params: [
+        { name: "effectiveDate", type: DATE }
+        { name: "accountId", type: UUID }
+      ]
+      transaction: {
+        journalId: "uuid('822cb59f-ce51-4837-8391-2af3b7a5fc51')"
+        effective: "params.effectiveDate"
+      }
+      entries: [
+        {
+          accountId: "uuid('7052f9fd-dd15-40d0-b0b6-df8c4c372e41')"
+          units: "decimal('1.00')"
+          currency: "'USD'"
+          description: "'TESTDESC'"
+          entryType: "'TESTTC_DR'"
+          direction: "DEBIT"
+          layer: "SETTLED"
+        }
+        {
+          accountId: "params.accountId"
+          units: "decimal('1.00')"
+          currency: "'USD'"
+          description: "'TESTDESC'"
+          entryType: "'TESTTC_CR'"
+          direction: "CREDIT"
+          layer: "SETTLED"
+        }
+      ]
+    }
+  ) {
+    tranCodeId
+  }
+}

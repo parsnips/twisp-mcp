@@ -1,0 +1,5 @@
+Review the position balances for Alicia and Bobby by:
+
+1. Querying the account set for each client.
+2. Fetching the first 5 members for each account set and displaying the account code, name, and settled normal balance.
+3. Retrieving the settled normal balance for each client in USD, AAPL, and MSFT currencies and displaying them in a human-readable format.

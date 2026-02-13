@@ -1,0 +1,29 @@
+{
+  "data": {
+    "journals": {
+      "nodes": [
+        {
+          "code": "CUST.Armand"
+        },
+        {
+          "code": "CUST.Bradly"
+        },
+        {
+          "code": "CUST.Brittany"
+        },
+        {
+          "code": "CUST.Camila"
+        },
+        {
+          "code": "CUST.Carrie"
+        }
+      ],
+      "pageInfo": {
+        "hasPreviousPage": false,
+        "hasNextPage": true,
+        "startCursor": "AN70l6_nkaCU5AFDVVNULkFybWFuZAABAAAA_wD_AP8A_wD_AP8A_wD_AP8A_wD_AP8A_wD_AP8A_wABIg",
+        "endCursor": "Ad70l6_nkaCU5AFDVVNULkNhcnJpZQABAAAA_wD_AP8A_wD_AP8A_wD_AP8A_wD_AP8A_wD_AP8A_wABIg"
+      }
+    }
+  }
+}

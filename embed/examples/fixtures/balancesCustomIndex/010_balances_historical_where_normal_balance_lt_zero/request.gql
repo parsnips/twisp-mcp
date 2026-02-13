@@ -1,0 +1,104 @@
+query balances($generalJournalId: String!, $bertId: String!, $ernieId: String!) {
+  general_journal_bert: balances(
+    index: {name: CUSTOM, sort: ASC}
+    where: {
+      custom: {
+        index: "normal_balance_historical",
+        partition: [
+          { alias: "journal_id", value: { eq: $generalJournalId }}
+          { alias: "account_id", value: { eq: $bertId }}
+        ]
+        sort: { alias: "normal_balance", value: { lt: "0" }}
+      }
+    }
+    first: 10
+  ) {
+    nodes {
+      journalId
+      accountId
+      settled {
+        crBalance {
+          units
+          currency
+        }
+        drBalance {
+          units
+          currency
+        }
+        normalBalance {
+          units
+          currency
+        }
+      }
+    }
+  }
+
+  general_journal_ernie_desc: balances(
+    index: {name: CUSTOM, sort: DESC}
+    where: {
+      custom: {
+        index: "normal_balance_historical",
+        partition: [
+          { alias: "journal_id", value: { eq: $generalJournalId }}
+          { alias: "account_id", value: { eq: $ernieId }}
+        ]
+        sort: { alias: "normal_balance", value: { lt: "0" }}
+      }
+    }
+    first: 10
+  ) {
+    nodes {
+      journalId
+      accountId
+      settled {
+        crBalance {
+          units
+          currency
+        }
+        drBalance {
+          units
+          currency
+        }
+        normalBalance {
+          units
+          currency
+        }
+      }
+    }
+  }
+
+  general_journal_ernie: balances(
+    index: {name: CUSTOM, sort: ASC}
+    where: {
+      custom: {
+        index: "normal_balance_historical",
+        partition: [
+          { alias: "journal_id", value: { eq: $generalJournalId }}
+          { alias: "account_id", value: { eq: $ernieId }}
+        ]
+        sort: { alias: "normal_balance", value: { lt: "0" }}
+      }
+    }
+    first: 10
+  ) {
+    nodes {
+      journalId
+      accountId
+      settled {
+        crBalance {
+          units
+          currency
+        }
+        drBalance {
+          units
+          currency
+        }
+        normalBalance {
+          units
+          currency
+        }
+      }
+    }
+  }
+}
+

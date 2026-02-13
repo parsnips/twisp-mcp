@@ -1,0 +1,1 @@
+Update the client with the principal "arn:aws:iam::048962233173:user/github.action" in the auth namespace. Change the allowed actions to SELECT, INSERT, and UPDATE on "financial.*" resources. Update the assertions to isFalse with value "true". Return the principal, actions, and updated assertions.

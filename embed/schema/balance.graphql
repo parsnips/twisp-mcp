@@ -1,0 +1,262 @@
+extend type Query {
+  "Get a balance for an account."
+  balance(
+    "ID of the journal for the balance. If omitted, the default journal will be used."
+    journalId: UUID
+
+    "ID of the account for the balance."
+    accountId: UUID!
+
+    "Currency of the balance."
+    currency: CurrencyCode! = "USD"
+
+    "If provided, look up based on calculation id and dimensions for calculation."
+    calculationId: UUID
+
+    "If provided, look up based on calculation id and dimensions for calculation. The values in this should be string representation of values."
+    dimension: JSON
+
+    "If enabled and provided, look up balances based on effective date."
+    effective: Effective
+
+    "If concurrent enabled, compute balance with all visible transactions."
+    materialize: Boolean
+
+    "If concurrent enabled, the isolation level of the balance returned."
+    type: BalanceType
+  ): Balance
+
+  "Select one or more balances. Specify the index to use and apply filters to your query."
+  balances(
+    """
+    Select from a list of pre-defined indexes. For optimal performance, choose specific indexes on unique fields over more general ones.
+    """
+    index: BalanceIndexInput!
+
+    """
+    Filter the query according to specified conditions. Depending on the index chosen, different filters will be allowed.
+    """
+    where: BalanceFilterInput
+
+    "Number of nodes to return on the connection."
+    first: Int!
+
+    "Cursor indicating the start point to retrieve nodes. When no cursor is provided, the query uses the default starting cursor."
+    after: String
+  ): BalanceConnection!
+}
+
+input Effective {
+  """
+  Cumulative account balance as of a particular effective date.
+  @example("2023-10-17")
+  """
+  cumulative: Date
+
+  """
+  Account balance of a particular effective time period. Supported periods are in formats: `YYYY`, `YYYY-MM`, `YYYY-MM-DD`.
+  Useful for reconciliation/balances files.
+  @example("2023-10")
+  """
+  period: String
+
+  """
+  Effective account balances over a range of time periods. Useful for income statement.
+  @example({gte: "2023-10", lte: "2023-12"})
+  """
+  range: PeriodRange
+}
+
+input PeriodRange {
+  lte: String
+  gte: String
+}
+
+type BalanceAmount {
+  "Sum of all amounts for entries on the DEBIT side of the ledger."
+  drBalance: Money!
+
+  "Sum of all amounts for entries on the CREDIT side of the ledger."
+  crBalance: Money!
+
+  """
+  The "normal balance" for an account is different for credit normal and debit normal accounts.
+
+  For credit normal accounts, the normal balance is equal to `crBalance - drBalance`.
+  For debit normal accounts, the normal balance is the reverse: `drBalance - crBalance`.
+  """
+  normalBalance: Money!
+
+  "ID of the most recent entry used to calculate the balance on this layer."
+  entryId: UUID!
+
+  "Time of the last change of balance on this layer."
+  modified: Timestamp!
+}
+
+"""
+Balances are auto-calculated sums of the entries for a given account.
+
+Every balance record maintains a `drBalance` for entries on the debit side of the ledger and a `crBalance` for credit entries.
+
+Additionally, every account has a `normalBalance`, which is equal to `crBalance - drBalance` for credit normal accounts, and `drBalance - crBalance` for debit normal accounts.
+
+Each account can have balances across all three layers: SETTLED, PENDING, and ENCUMBRANCE.
+"""
+type Balance implements Node {
+  """
+  Globally unique identifier for a record to support Global Object Identification.
+  Uses format `ba:<key>` where `key` is `base64(json({ 1: accountId, 2: journalId, 3: currency }))`
+  The journalId and currency are optional and will use the default values if they are missing
+  """
+  id: ID!
+
+  "ID of the journal within which the balance is calculated."
+  journalId: UUID!
+
+  "ID of the account for which the balance is calculated."
+  accountId: UUID!
+
+  "ID of the most recent entry used to calculate the balance."
+  entryId: UUID!
+
+  """
+  The currency of the balance amounts.
+
+  Balances represent the sum of entries using the same currency. Multi-currency ledgers will therefore have different balances for each currency.
+  """
+  currency: CurrencyCode!
+
+  "The balance amounts on the settled layer."
+  settled: BalanceAmount!
+
+  "The balance amounts on the pending layer."
+  pending: BalanceAmount!
+
+  "The balance amounts on the encumbrance layer."
+  encumbrance: BalanceAmount!
+
+  "The dimensions that make up this balance calculation"
+  dimensions: JSON
+
+  "The calculationId of this balance"
+  calculationId: UUID!
+
+  "The balance amounts available by combining the provided layer with all layers above."
+  available(layer: Layer!): BalanceAmount! @goField(forceResolver: true)
+
+  "Date and time when the balance was first created."
+  created: Timestamp!
+
+  "Time of the last change. Especially useful when reviewing the `history`."
+  modified: Timestamp!
+
+  "The current version number of this balance. Previous versions are tracked in `history`."
+  version: Int!
+
+  _direction: DebitOrCredit!
+  _recordId: UUID!
+
+  _effectiveBalances: [Balance!]
+
+  "Reference to the balance's account."
+  account: Account! @goField(forceResolver: true)
+
+  "Reference to the most recent entry used to calculate the balance."
+  entry: Entry! @goField(forceResolver: true)
+
+  "All ledger entries for this balance."
+  entries(
+    "Number of nodes to return on the connection."
+    first: Int!
+    "Cursor indicating the start point to retrieve nodes. When no cursor is provided, the query uses the default starting cursor."
+    after: String
+  ): EntryConnection! @goField(forceResolver: true)
+
+  "Reference to the balance's journal."
+  journal: Journal! @goField(forceResolver: true)
+
+  """
+  History of changes to this Balance record.
+  Because ledgers are immutable and append-only, all changes are recorded as sequenced versions of the record, providing an unbroken lineage of the current state.
+  """
+  history(
+    "Number of nodes to return on the connection."
+    first: Int!
+    "Cursor indicating the start point to retrieve nodes. When no cursor is provided, the query uses the default starting cursor."
+    after: String
+    "Filter the history query according to specified conditions."
+    where: BalanceHistoryFilterInput
+  ): BalanceConnection! @goField(forceResolver: true)
+}
+
+"""
+Connection to a list of Balance nodes.
+Access Balance nodes directly through the `nodes` field, or access information about the connection edges with the `edges` field.
+Use `pageInfo` to paginate responses using the cursors provided.
+"""
+type BalanceConnection implements Connection {
+  nodes: [Balance]!
+  edges: [BalanceConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+"""
+Edges represent links connecting a parent or query field to a list of Balance nodes.
+They contain a reference to the Balance node and metadata like the `cursor` position for the edge.
+"""
+type BalanceConnectionEdge {
+  "Cursor position at this edge."
+  cursor: String!
+  "Reference to the Balance node at this edge."
+  node: Balance
+}
+
+"Specify the pre-defined BalanceIndex and sort order to use in a query."
+input BalanceIndexInput {
+  name: BalanceIndex!
+  sort: SortOrder
+}
+
+"Indexes for querying Balances. To optimize query performance and apply desired filters, choose the appropriate index."
+enum BalanceIndex {
+  "Index by `accountId` field. Must supply an `accountId: { eq: <id> }` filter to the `where` object."
+  ACCOUNT_ID
+  "Index by `calculationId` and `dimension` fields in addition to account."
+  CALCULATION
+  "Use a custom-defined index. Must supply a `custom` filter to the `where` object."
+  CUSTOM
+  "Use eventually consisent search. Must supply a `search` filter to the `where` object."
+  SEARCH
+}
+
+"""
+Filter conditions to apply to a balance query.
+Filters are only applied if the field is used by the specified index.
+"""
+input BalanceFilterInput {
+  "Specify the Journal to use with `eq`. If omitted, the default journal will be used."
+  journalId: FilterValue
+  "Filter on the `accountId` field. Required when using index `BalanceIndex.ACCOUNT_ID`."
+  accountId: FilterValue
+  "Filter on the `currency` field."
+  currency: FilterValue
+  "Filter on `calculationId` field when using `BalanceIndex.DIMENSION`"
+  calculationId: FilterValue
+  "Filter on `dimension` field when using `BalanceIndex.Dimension`"
+  dimension: DimensionFilterValue
+  "Filter conditions for a custom index. Only available when using index `BalanceIndex.CUSTOM`."
+  custom: CustomIndexFilter
+  "Filter conditions for a search.  Only available when using index `BalanceIndex.SEARCH`."
+  search: SearchFilter
+}
+
+"""
+Filter conditions to apply to a balance history query.
+"""
+input BalanceHistoryFilterInput {
+  "Filter on the `modified` timestamp."
+  modified: FilterValue
+  "Filter on the transaction commit timestamp for the specific balance record version."
+  committed: FilterValue
+}

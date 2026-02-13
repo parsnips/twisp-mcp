@@ -1,0 +1,40 @@
+mutation ClearingTranCode(
+  $clearing: TranCodeInput!
+){
+  createTranCode(
+    input: $clearing
+  ) {
+    ...TC
+  }
+}
+
+fragment TC on TranCode {
+  tranCodeId
+  code
+  description
+  params {
+    name
+    type
+    default
+    description
+  }
+  transaction {
+    effective
+    journalId
+    correlationId
+    externalId
+    description
+    metadata
+  }
+  entries {
+    entryType
+    accountId
+    layer
+    direction
+    units
+    currency
+    description
+    metadata
+    condition
+  }
+}

@@ -1,0 +1,89 @@
+mutation Setup {
+  endUser: createAccount(
+    input:{
+      accountId: "6b879478-27e0-4fde-9038-ef81b028bb51"
+      code: "end-user"
+      name: "end-user"
+    }
+  ) {
+    accountId
+  }
+  settlement: createAccount(
+    input:{
+      accountId: "37f7e8a6-171f-411d-ad59-7b1f40f505ea"
+      code: "settlement"
+      name: "settlement"
+    }
+  ) {
+    accountId
+  }
+  suspense: createAccount(
+    input:{
+      accountId: "3171b0c2-6e9f-41aa-a5a6-ee927deb27cf"
+      code: "suspense"
+      name: "suspense"
+    }
+  ) {
+    accountId
+  }
+  fee: createAccount(
+    input:{
+      accountId: "b8cb0c63-5d8d-4ea9-8532-e20aa26aaa98"
+      code: "fee"
+      name: "fee"
+    }
+  ) {
+    accountId
+  }
+  journal: createJournal(
+    input:{
+      journalId: "00000000-0000-0000-0000-000000000000"
+      code: "DEFAULT"
+      name: "DEFUALT"
+    }
+  ) {
+    journalId
+  }
+
+  events {
+    createEndpoint(
+      input: {
+        endpointId: "b84512f1-a67e-4dc2-94dd-66c48b4d13fb"
+        status: ENABLED
+        endpointType: ACH_PROCESSOR
+        url: "https://webhook.site/ach-testing"
+        subscription: []
+        description: "ACH webhook processor"
+      }
+    ) {
+      endpointId
+      status
+      endpointType
+      url
+      subscription
+      description
+    }
+  }
+    ach {
+    createConfiguration(
+      input:{
+        configId: "1dc71d60-f463-4bb6-b82a-ab42e2f923ff"
+        endpointId: "b84512f1-a67e-4dc2-94dd-66c48b4d13fb"
+        settlementAccountId: "37f7e8a6-171f-411d-ad59-7b1f40f505ea"
+        exceptionAccountId: "3171b0c2-6e9f-41aa-a5a6-ee927deb27cf"
+        suspenseAccountId:"3171b0c2-6e9f-41aa-a5a6-ee927deb27cf"
+        feeAccountId:"b8cb0c63-5d8d-4ea9-8532-e20aa26aaa98"
+        journalId: "00000000-0000-0000-0000-000000000000"
+        odfiHeaderConfiguration: {
+          immediateDestination: "026009593"
+          immediateDestinationName: "ACME BANK"
+          immediateOrigin: "111000173"
+          immediateOriginName: "ZUZU"
+        }
+        timeZone: "America/Los_Angeles"
+      }
+    ) {
+      configId
+    }
+  }
+}

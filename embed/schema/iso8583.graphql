@@ -1,0 +1,270 @@
+extend type Mutation {
+  iso8583: ISO8583Mutation!
+}
+
+extend type Query {
+  iso8583: ISO8583Query!
+}
+
+type ISO8583Query {
+  """
+  Read an existing ISO8583 configuration.
+  """
+  config(
+    """
+    Unique identifier.
+    @example("670504f6-0515-11f0-a441-069b540ea27c")
+    """
+    configId: UUID!
+  ): ISO8583Config @goField(forceResolver: true)
+
+  """
+  List all ISO8583 configurations.
+  """
+  configs(
+    "Number of nodes to return on the connection."
+    first: Int!
+    "Cursor indicating the start point to retrieve nodes. When no cursor is provided, the query uses the default starting cursor."
+    after: String
+    "Sort order for results."
+    sort: SortOrder
+  ): ISO8583ConfigConnection! @goField(forceResolver: true)
+}
+
+type ISO8583Mutation {
+  """
+  Create a configuration for ISO8583 processing. Defines settlement account, journal, and timezone.
+  """
+  createConfig(input: ISO8583CreateConfigInput!): ISO8583Config @goField(forceResolver: true)
+
+  """
+  Update configuration for ISO8583 processing.
+  """
+  updateConfig(configId: UUID!, input: ISO8583UpdateConfigInput!): ISO8583Config
+    @goField(forceResolver: true)
+
+  """
+  Remove configuration.
+  """
+  deleteConfig(id: UUID!): ISO8583Config @goField(forceResolver: true)
+}
+
+input ISO8583UpdateConfigInput {
+  """
+  IANA Timezone identifier for the configuration.
+  @example("America/Chicago")
+  """
+  timeZone: String
+
+  """
+  Balance to use for balance inquiry and partial authorizations.
+  """
+  openToBuyConfig: OpenToBuyConfigInput
+
+  """
+  Processor type for this configuration.
+  """
+  processor: ISO8583ProcessorType
+
+  """
+  Processor configuration.
+  """
+  processorSpec: JSON
+
+  """
+  Description of this configuration.
+  """
+  description: String
+}
+
+input ISO8583CreateConfigInput {
+  """
+  Unique identifier for this configuration.
+  """
+  configId: UUID!
+
+  """
+  Journal to post settlements into.
+  """
+  journalId: UUID!
+
+  """
+  ISO8583 Settlement Account.
+  """
+  settlementAccountId: UUID!
+
+  """
+  IANA Timezone identifier for the configuration.
+  @example("America/Chicago")
+  """
+  timeZone: String!
+
+  """
+  Description of this configuration.
+  """
+  description: String
+
+  """
+  Processor type for this configuration.
+  """
+  processor: ISO8583ProcessorType!
+
+  """
+  Processor configuration.
+  """
+  processorSpec: JSON
+
+  """
+  Balance to use for balance inquiry and partial authorizations.
+  """
+  openToBuyConfig: OpenToBuyConfigInput
+}
+
+enum ISO8583ProcessorType {
+  UNSPECIFIED
+  VISA_DIRECT
+  GALILEO
+  MARQETA
+  LITHIC
+  HIGHNOTE
+  Q2
+  FIRST_DATA
+  I2C
+}
+
+enum OpenToBuyType {
+  "Available encumbrance balance in the normality of the account."
+  AVAILABLE_ENCUMBRANCE
+  "Available pending balance in the normality of the account."
+  AVAILABLE_PENDING
+  "Available settled balance in the normality of the account."
+  AVAILABLE_SETTLED
+  "A default windowed attached velocity control."
+  VELOCITY_BALANCE
+}
+
+input OpenToBuyConfigInput {
+  openToBuy: OpenToBuyType! = VELOCITY_BALANCE
+}
+
+type OpenToBuyConfig {
+  openToBuy: OpenToBuyType!
+}
+
+type ISO8583Config implements Node {
+  """
+  Globally unique identifier for a record to support Global Object Identification.
+  Uses format `iso8583:config:<config_id>`.
+  """
+  id: ID!
+
+  """
+  Unique identifier for this configuration.
+  """
+  configId: UUID!
+
+  """
+  ISO8583 Settlement Account.
+  """
+  settlementAccountId: UUID!
+
+  """
+  Journal to post settlements into.
+  """
+  journalId: UUID!
+
+  """
+  IANA Timezone identifier for the configuration.
+  @example("America/Chicago")
+  """
+  timeZone: String!
+
+  """
+  Description of this configuration.
+  """
+  description: String
+
+  """
+  Processor type for this configuration.
+  """
+  processor: ISO8583ProcessorType!
+
+  """
+  A moov iso8583 specification.  If not passed will use either the default
+  I2C specification (for I2C users) or the ascii87 spec.
+  """
+  processorSpec: JSON
+
+  """
+  Which balance to use for balance inquiry or partial authorizations.
+  """
+  openToBuyConfig: OpenToBuyConfig!
+
+  """
+  Timestamp of when this configuration was created.
+  """
+  created: Timestamp!
+
+  """
+  Timestamp of the last modification to this configuration.
+  """
+  modified: Timestamp!
+
+  _recordId: UUID!
+  version: Int!
+
+  """
+  History of changes to this ISO8583 configuration.
+  Because ledgers are immutable and append-only, all changes are recorded as sequenced versions of the record, providing an unbroken lineage of the current state.
+  """
+  history(
+    "Number of nodes to return on the connection."
+    first: Int!
+    "Cursor indicating the start point to retrieve nodes. When no cursor is provided, the query uses the default starting cursor."
+    after: String
+  ): ISO8583ConfigHistoryConnection! @goField(forceResolver: true)
+}
+
+"""
+Connection to a list of ISO8583 config nodes.
+Access ISO8583 config nodes directly through the `nodes` field, or access information about the connection edges with the `edges` field.
+Use `pageInfo` to paginate responses using the cursors provided.
+"""
+type ISO8583ConfigConnection implements Connection {
+  nodes: [ISO8583Config]!
+  edges: [ISO8583ConfigConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+"""
+Edges represent links connecting a parent or query field to a list of ISO8583 config nodes.
+They contain a reference to the ISO8583 config node and metadata like the `cursor` position for the edge.
+"""
+type ISO8583ConfigConnectionEdge {
+  "Cursor position at this edge."
+  cursor: String!
+  "Reference to the ISO8583 config node at this edge."
+  node: ISO8583Config
+}
+
+"""
+Connection to a list of ISO8583 config history nodes.
+Access ISO8583 config history nodes directly through the `nodes` field, or access information about the connection edges with the `edges` field.
+Use `pageInfo` to paginate responses using the cursors provided.
+"""
+type ISO8583ConfigHistoryConnection implements Connection {
+  nodes: [ISO8583Config]!
+  edges: [ISO8583ConfigHistoryConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+"""
+Edges represent links connecting a parent or query field to a list of ISO8583 config history nodes.
+They contain a reference to the ISO8583 config history node and metadata like the `cursor` position for the edge.
+"""
+type ISO8583ConfigHistoryConnectionEdge {
+  "Cursor position at this edge."
+  cursor: String!
+  "Reference to the ISO8583 config history node at this edge."
+  node: ISO8583Config
+}

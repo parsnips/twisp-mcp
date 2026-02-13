@@ -1,0 +1,17 @@
+mutation AddToAccountSet($accountSetCustomersId: UUID!, $accountCustomerAliciaId: UUID!) {
+  addToAccountSet(
+    id: $accountSetCustomersId
+    member: { memberId: $accountCustomerAliciaId, memberType: ACCOUNT }
+  ) {
+    accountSetId
+    members(first: 10) {
+      nodes {
+        ... on Account {
+          accountId
+          name
+          code
+        }
+      }
+    }
+  }
+}

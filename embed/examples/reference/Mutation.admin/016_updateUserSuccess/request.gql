@@ -1,0 +1,11 @@
+query AdminUserConfirmSuccess {
+  admin {
+    users(first: 10) {
+      nodes {
+        email
+        groupIds
+        version
+      }
+    }
+  }
+}

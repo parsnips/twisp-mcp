@@ -1,0 +1,29 @@
+{
+  "data": {
+    "journals": {
+      "nodes": [
+        {
+          "code": "CUST.Celestino"
+        },
+        {
+          "code": "CUST.Damion"
+        },
+        {
+          "code": "CUST.Eunice"
+        },
+        {
+          "code": "CUST.Jayde"
+        },
+        {
+          "code": "CUST.Martina"
+        }
+      ],
+      "pageInfo": {
+        "hasPreviousPage": true,
+        "hasNextPage": true,
+        "startCursor": "Ad70l6_nkaCU5AFDVVNULkNlbGVzdGlubwABAAAA_wD_AP8A_wD_AP8A_wD_AP8A_wD_AP8A_wD_AP8A_wABIg",
+        "endCursor": "Ad70l6_nkaCU5AFDVVNULk1hcnRpbmEAAQAAAP8A_wD_AP8A_wD_AP8A_wD_AP8A_wD_AP8A_wD_AP8AASI"
+      }
+    }
+  }
+}

@@ -1,0 +1,1 @@
+Query the first 5 admin tenants. Retrieve the name, organizationId, and description for each tenant.

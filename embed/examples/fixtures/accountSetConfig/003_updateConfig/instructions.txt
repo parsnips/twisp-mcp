@@ -1,0 +1,1 @@
+Update three account sets using the provided UUIDs and AccountSetUpdateInput variables. Return the accountSetId and enableConcurrentPosting configuration for each updated account set.

@@ -1,0 +1,13 @@
+{
+  "data": {
+    "accountSets": {
+      "nodes": [
+        {
+          "metadata": {
+            "stripeId": "001"
+          }
+        }
+      ]
+    }
+  }
+}

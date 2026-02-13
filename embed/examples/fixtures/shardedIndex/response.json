@@ -1,0 +1,17 @@
+{
+  "data": {
+    "createJournal": { "journalId": "00000000-0000-0000-0000-000000000000" },
+    "schema": {
+      "createIndex": {
+        "partition": [
+          {
+            "alias": "mids",
+            "value": "document.metadata.mids.transformList(k, v, string(k)+':'+string(v))"
+          }
+        ]
+      }
+    },
+    "a": { "accountSetId": "991a2204-3be4-11f0-a829-069b540ea27d" },
+    "b": { "accountSetId": "a2ec6dbe-3be4-11f0-9b10-069b540ea27d" }
+  }
+}

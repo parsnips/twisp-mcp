@@ -1,0 +1,17 @@
+{
+  "errors": [
+    {
+      "message": "input: invalidParams.input.params invalid JSON format",
+      "path": [
+        "invalidParams",
+        "input",
+        "params"
+      ],
+      "extensions": {
+        "code": "JSON_PARSE_ERROR",
+        "retriableError": false
+      }
+    }
+  ],
+  "data": null
+}

@@ -1,0 +1,1 @@
+Create an index with the given input data. In the response, include the name, range, partition, on, constraints, and unique fields of the created index.

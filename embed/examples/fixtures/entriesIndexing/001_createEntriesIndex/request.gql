@@ -1,0 +1,36 @@
+mutation CreateEntriesCustomIndex {
+  schema {
+    methodIndex: createIndex(
+      input: {
+        name: "Entry.metadata.method"
+        on: Entry
+        unique: false
+        partition: [{ alias: "method", value: "string(document.metadata.method)" }]
+        sort: [{ alias: "created", value: "document.created", sort: DESC }]
+        constraints: { hasMethod: "has(document.metadata.method)" }
+      }
+    ) {
+      name
+      on
+      unique
+    }
+
+    accountAndDirectionIndex: createIndex(
+      input: {
+        name: "Entry.accountAndDirection"
+        on: Entry
+        unique: false
+        constraints: { isDebit: "document.direction == DEBIT" }
+        partition: [
+          { alias: "account", value: "document.account_id" }
+          { alias: "direction", value: "document.direction" }
+        ]
+        sort: [{ alias: "created", value: "document.created", sort: DESC }]
+      }
+    ) {
+      name
+      on
+      unique
+    }
+  }
+}

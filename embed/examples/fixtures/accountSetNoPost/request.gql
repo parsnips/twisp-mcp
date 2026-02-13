@@ -1,0 +1,148 @@
+mutation AccountSetNoPost {
+  createJournal(
+    input:{
+      name: "GL"
+      description: "GL"
+      code: "GL"
+      journalId: "00000000-0000-0000-0000-000000000000"
+    }
+  ) {
+    journalId
+  }
+
+  createTranCode(
+    input: {
+      tranCodeId: "346d25cd-d298-4044-bb8b-7aabbc935ca0"
+      code: "CARD_AUTH"
+      description: "Place an authorization on an account for the amount."
+      params: [
+        {
+          name: "account"
+          type: UUID
+          description: "The account to place the hold on."
+        }
+        {
+          name: "settlementAccount"
+          type: UUID
+          default: "fabdce1f-6eb9-4630-9472-6338ed3dc6a2"
+          description: "The settlement account to use."
+        }
+        {
+          name: "journal"
+          type: UUID
+          default: "00000000-0000-0000-0000-000000000000"
+          description: "The journal to post transactions to."
+        }
+        {
+          name: "amount"
+          type: STRING
+          description: "The decimal amount of the hold."
+        }
+        {
+          name: "currency"
+          type: STRING
+          default: "USD"
+          description: "The currency of the hold amount."
+        }
+        {
+          name: "direction"
+          type: STRING
+          default: "DEBIT"
+          description: "CREDIT or DEBIT direction of hold. Usually DEBIT."
+        }
+        {
+          name: "correlation"
+          type: STRING
+          default: null
+          description: "Correlation identifier to group related transactions."
+        }
+        {
+          name: "effective"
+          type: DATE
+          default: null
+          description: "Effective date for the transaction."
+        }
+        {
+          name: "metadata"
+          type: JSON
+          default: "{}"
+          description: "Effective date for the transaction."
+        }
+      ]
+      transaction: {
+        effective: "params.effective"
+        journalId: "params.journal"
+        correlationId: "params.correlation"
+        externalId: "''"
+        description: "''"
+        metadata: "params.metadata"
+      }
+      entries: [
+        {
+          accountId: "uuid(params.account)"
+          layer: "PENDING"
+          direction: "params.direction == 'DEBIT' ? DEBIT : CREDIT"
+          units: "params.amount"
+          currency: "params.currency"
+          description: "'Authorization'"
+          metadata: "params.metadata"
+        }
+        {
+          accountId: "uuid(params.settlementAccount)"
+          layer: "PENDING"
+          direction: "params.direction == 'DEBIT' ? CREDIT : DEBIT"
+          units: "params.amount"
+          currency: "params.currency"
+          description: "'Card hold placed in settlement account.'"
+          metadata: "{}"
+        }
+      ]
+    }
+  ) {
+    code
+  }
+
+  cardSettlement: createAccount(
+    input: {
+      accountId: "fabdce1f-6eb9-4630-9472-6338ed3dc6a2"
+      code: "SETTLEMENT.VISA"
+      name: "Visa Settlement Account"
+      description: "Settlement account to use for Visa cards on bin 41200."
+      config: {
+        # Platform accounts are high concurrency, so enable concurrent posting
+        # so retries are not required for concurrent operations.
+        enableConcurrentPosting: true
+      }
+    }
+  ) {
+    accountId
+  }
+
+  createAccountSet(
+    input: {
+      name: "test"
+      description: "test"
+      journalId: "00000000-0000-0000-0000-000000000000"
+      accountSetId: "cea228ae-b69e-41dd-bf4f-27739a513d58"
+    }
+  ) {
+    accountSetId
+  }
+
+  postTransaction(
+    input: {
+      transactionId: "f319d138-9bbb-4b36-a6d1-5f3aa984b65a"
+      tranCode: "CARD_AUTH"
+      params: {
+        account: "cea228ae-b69e-41dd-bf4f-27739a513d58"
+        amount: "1.00"
+        correlation: "test"
+        effective: "2020-01-01"
+        metadata: "{}"
+      }
+    }
+  ) {
+    transactionId
+  }
+  
+}

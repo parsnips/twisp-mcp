@@ -1,0 +1,24 @@
+mutation UpdateAuthClient($authClientGithub: String!) {
+  auth {
+    updateClient(
+      principal: $authClientGithub
+      input: {
+        policies: [
+          {
+            effect: ALLOW
+            actions: [SELECT, INSERT]
+            resources: ["financial.*"]
+            assertions: { isTrue: "true" }
+          }
+        ]
+      }
+    ) {
+      policies {
+        effect
+        actions
+        resources
+        assertions
+      }
+    }
+  }
+}

@@ -1,0 +1,1 @@
+Check the account balances for Ernie and Bert using their respective account IDs and a variable for the journal ID. Retrieve the account name and settled normal balance in units for both accounts.

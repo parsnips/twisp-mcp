@@ -1,0 +1,1 @@
+Get the first 10 entries with the specified transactionId using the transaction_id index. Retrieve entryType, account name, direction, and the amount with units and currency for each entry.

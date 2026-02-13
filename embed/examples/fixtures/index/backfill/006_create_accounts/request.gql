@@ -1,0 +1,52 @@
+mutation createAccount0 {
+  a: createAccount(
+    input: {
+      accountId:"d6bf5ba6-26d4-4d96-bb73-acffb92b006d"
+      description: "test0"
+      code: "test00"
+      name:"test00"
+      metadata:{stripeId:"test00"}
+    }
+  ) {
+    name
+  }
+
+  b: createAccount(
+    input: {
+      accountId:"571d0458-fe3b-463a-9a48-a90aae5a22cf"
+      description: "test01"
+      code: "test01"
+      name:"test01"
+      metadata:{stripeId:"test01"}
+    }
+  ) {
+    name
+  }
+
+  c: createAccount(
+    input: {
+      accountId:"9197eb40-fe0f-43ab-b6b6-31255e4196c8"
+      description: "test02"
+      code: "test02"
+      name:"test02"
+      metadata:{externalKey:"test02"}
+    }
+  ) {
+    name
+  }
+
+  d: createAccountSet(
+    input:{
+      name: "test"
+      description: "test"
+      accountSetId: "391afb5e-7f5d-42b2-a0e2-d82765c6e8dc"
+      journalId: "e1e1670b-988f-4f77-9d53-b2691b967fd8"
+      metadata: {
+        stripeId: "001"
+      }
+    }
+  ) {
+    metadata
+  }
+
+}

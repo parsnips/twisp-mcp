@@ -1,0 +1,12 @@
+{
+  "errors": [
+    {
+      "message": "input: @export only available on mutations",
+      "extensions": {
+        "code": "BAD_REQUEST",
+        "retriableError": false
+      }
+    }
+  ],
+  "data": null
+}

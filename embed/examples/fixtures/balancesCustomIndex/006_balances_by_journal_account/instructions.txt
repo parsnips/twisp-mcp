@@ -1,0 +1,1 @@
+Retrieve the first 10 balances for Ernie's account in both general and product journals using the ACCOUNT_ID index. Additionally, retrieve the first 10 balances for Ernie's account in both general and product journals using a custom index named "account_journal". For each balance, return the journalId and settled drBalance with units and currency.

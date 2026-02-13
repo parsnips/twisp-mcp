@@ -1,0 +1,119 @@
+{
+  "data": {
+    "general_a": {
+      "transactionId": "39d2288d-96f9-40c7-b587-e7e75df083cb",
+      "tranCodeId": "22ac3a38-1f70-4bbf-a599-1e5566839f4b",
+      "effective": "2022-09-21",
+      "entries": {
+        "nodes": [
+          {
+            "units": "123.45",
+            "direction": "CREDIT",
+            "account": {
+              "name": "Bert - Checking"
+            }
+          },
+          {
+            "units": "123.45",
+            "direction": "DEBIT",
+            "account": {
+              "name": "Ernie Bishop - Checking"
+            }
+          }
+        ]
+      }
+    },
+    "general_b": {
+      "transactionId": "39d2288d-96f9-40c7-b587-e7e75df083cc",
+      "tranCodeId": "22ac3a38-1f70-4bbf-a599-1e5566839f4b",
+      "effective": "2022-10-21",
+      "entries": {
+        "nodes": [
+          {
+            "units": "123.45",
+            "direction": "CREDIT",
+            "account": {
+              "name": "Bert - Checking"
+            }
+          },
+          {
+            "units": "123.45",
+            "direction": "DEBIT",
+            "account": {
+              "name": "Ernie Bishop - Checking"
+            }
+          }
+        ]
+      }
+    },
+    "general_c": {
+      "transactionId": "39d2288d-96f9-40c7-b587-e7e75df083cd",
+      "tranCodeId": "22ac3a38-1f70-4bbf-a599-1e5566839f4b",
+      "effective": "2022-11-21",
+      "entries": {
+        "nodes": [
+          {
+            "units": "123.45",
+            "direction": "CREDIT",
+            "account": {
+              "name": "Bert - Checking"
+            }
+          },
+          {
+            "units": "123.45",
+            "direction": "DEBIT",
+            "account": {
+              "name": "Ernie Bishop - Checking"
+            }
+          }
+        ]
+      }
+    },
+    "product_a": {
+      "transactionId": "39d2288d-96f9-40c7-b587-e7e75df083aa",
+      "tranCodeId": "22ac3a38-1f70-4bbf-a599-1e5566839f4c",
+      "effective": "2022-09-21",
+      "entries": {
+        "nodes": [
+          {
+            "units": "1000.00",
+            "direction": "CREDIT",
+            "account": {
+              "name": "Bert - Checking"
+            }
+          },
+          {
+            "units": "1000.00",
+            "direction": "DEBIT",
+            "account": {
+              "name": "Ernie Bishop - Checking"
+            }
+          }
+        ]
+      }
+    },
+    "product_b": {
+      "transactionId": "39d2288d-96f9-40c7-b587-e7e75df083ab",
+      "tranCodeId": "22ac3a38-1f70-4bbf-a599-1e5566839f4c",
+      "effective": "2022-09-21",
+      "entries": {
+        "nodes": [
+          {
+            "units": "1300.00",
+            "direction": "CREDIT",
+            "account": {
+              "name": "Bert - Checking"
+            }
+          },
+          {
+            "units": "1300.00",
+            "direction": "DEBIT",
+            "account": {
+              "name": "Ernie Bishop - Checking"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

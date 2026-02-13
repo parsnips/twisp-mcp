@@ -1,0 +1,1 @@
+walk(if type == "object" then del(.created, .modified, .transactionId, .entryId) else . end)

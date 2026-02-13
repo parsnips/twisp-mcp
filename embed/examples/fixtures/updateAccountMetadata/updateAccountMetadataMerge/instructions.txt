@@ -1,0 +1,1 @@
+Update an existing account with the given ID by changing its name, description, and adding metadata. Retrieve the updated account's ID, name, description, and metadata.

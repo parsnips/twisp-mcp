@@ -1,0 +1,11 @@
+{
+  "journalId": "99f321ef-a18d-420e-8030-deac1ffa8304",
+  "name": "YRVtriA_iuefwfzfazelbfudirwn",
+  "description": "bank",
+  "normalBalanceType": "CREDIT",
+  "config": {
+    "enableConcurrentPosting": true
+  },
+  "accountSetId": "75203d4f-1cde-4c47-ab73-7643fc10e7aa",
+  "metadata": "{\"name\":\"iUefWfZFazeLbfUDirwn\",\"type\":\"bank\",\"website_url\":\"RIOZGgKtURdDipSTKtpz\",\"address\":{\"address_1\":\"eba20c7553b1ac472e4d9c9816863fa5f5e05c425919ebcadfd550cd398b0241d9d900fbedfee25f813fd011b6dd67af09eb18bd04f8\",\"address_2\":\"fb2fbe78093efa34a7be90c0d21049e47bb9ee43afdbd3498e2b2a0a76a146f58aac7602469c100c8f604d6d3cd61502d7c30fbc5200b64b3632ac3b5557fa1df4\",\"city\":\"230145fa752a2bb92a8fa1ddbc3ee0b5e6e135707375559ab9513b7708e556\",\"state_abbreviation\":\"WI\",\"zip\":\"10314\"},\"is_buyer\":true,\"is_seller\":false,\"create_time\":\"2024-03-23T01:43:18.016549Z\",\"create_user_id\":\"7b4dff23-066f-4200-957c-ebb1f5513d3b\",\"update_time\":\"2024-03-23T01:43:18.016549Z\",\"update_user_id\":\"7b4dff23-066f-4200-957c-ebb1f5513d3b\",\"delete_time\":null,\"delete_user_id\":null,\"legacy_id\":null,\"reference_id\":\"YRVtriA\",\"id\":\"75203d4f-1cde-4c47-ab73-7643fc10e7aa\",\"parent_company_reference_id\":null,\"parent_company_id\":null}"
+}

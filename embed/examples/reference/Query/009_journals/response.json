@@ -1,0 +1,20 @@
+{
+  "data": {
+    "journals": {
+      "nodes": [
+        {
+          "journalId": "822cb59f-ce51-4837-8391-2af3b7a5fc51",
+          "name": "GL",
+          "description": "General Ledger",
+          "status": "ACTIVE"
+        },
+        {
+          "journalId": "432d2b1b-c647-4b0a-aa78-0945241f8e6d",
+          "name": "SL",
+          "description": "Securities Ledger",
+          "status": "ACTIVE"
+        }
+      ]
+    }
+  }
+}

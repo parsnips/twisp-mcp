@@ -1,0 +1,8 @@
+{
+  "data": {
+    "allocateBudgetForBert": { "transactionId": "6403c5e0-9ee9-4ac4-ab2d-b05a2264c3e6" },
+    "allocateBudgetForErnie": { "transactionId": "f62cbecf-3826-4eae-95db-cc45b313e1a8" },
+    "recordVenmoPaymentBert": { "transactionId": "1b76219c-31cc-4776-9fa0-546b6ffe8c27" },
+    "assignVenmoToBudgetBert": { "transactionId": "95d5b790-d709-4f41-8361-43029b3e1af3" }
+  }
+}

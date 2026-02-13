@@ -1,0 +1,39 @@
+mutation ReferenceAuthSetup(
+  $authClientGithub: String!
+  $authClientReadStream: String!
+) {
+  auth {
+    client_gh: createClient(
+      input: {
+        principal: $authClientGithub
+        name: "Github"
+        policies: [
+          {
+            effect: ALLOW
+            actions: [SELECT, INSERT, UPDATE, DELETE]
+            resources: ["financial.*"]
+            assertions: { isTrue: "true" }
+          }
+        ]
+      }
+    ) {
+      principal
+    }
+
+    client_ro: createClient(
+      input: {
+        principal: $authClientReadStream
+        name: "Read Stream"
+        policies: [
+          {
+            effect: ALLOW
+            actions: [SELECT]
+            resources: ["financial.*"]
+          }
+        ]
+      }
+    ) {
+      principal
+    }
+  }
+}

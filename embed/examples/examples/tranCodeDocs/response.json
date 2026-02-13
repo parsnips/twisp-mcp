@@ -1,0 +1,7 @@
+{
+  "data": {
+    "generalLedger": { "journalId": "8345d4a6-e100-4f70-9a31-d458acb3553e" },
+    "achSettlementAcct": { "accountId": "38897a35-0de5-4055-9a87-dc5256fc96b7" },
+    "exampleUserAcct": { "accountId": "fcb5a92f-cafb-4076-93dd-5df6d759a482" }
+  }
+}

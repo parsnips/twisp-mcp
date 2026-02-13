@@ -1,0 +1,17 @@
+{
+  "data": {
+    "events": {
+      "createEndpoint": {
+        "endpointId": "345940ed-2726-4b20-88aa-820857ac0e68",
+        "status": "ENABLED",
+        "endpointType": "WEBHOOK",
+        "url": "https://webhook.site/twisp-webhook-test",
+        "subscription": [
+          "balance*",
+          "account.*"
+        ],
+        "description": "subscribe to balance and account events"
+      }
+    }
+  }
+}

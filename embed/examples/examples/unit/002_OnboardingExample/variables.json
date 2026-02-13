@@ -1,0 +1,145 @@
+{
+  "customerAccountSetId": "6669bc2c-84c1-4b76-9985-a33adeb00eae",
+  "customerAccountId": "ee5a7fa7-f336-4f70-b7e8-60473562e179",
+  "customerAccountCode": "6669bc2c-84c1-4b76-9985-a33adeb00eae.DEFAULT",
+  "customerMetadata": {
+    "type": "businessCustomer",
+    "id": "1742784",
+    "attributes": {
+      "createdAt": "2024-03-06T18:53:48.431Z",
+      "name": "Michael Parsons",
+      "address": {
+        "street": "Street name 1",
+        "city": "City",
+        "state": "CA",
+        "postalCode": "11111",
+        "country": "US"
+      },
+      "phone": {
+        "countryCode": "1",
+        "number": "5555555555"
+      },
+      "stateOfIncorporation": "CA",
+      "ein": "123456789",
+      "entityType": "Corporation",
+      "contact": {
+        "fullName": {
+          "first": "Michael",
+          "last": "Parsons"
+        },
+        "email": "michael@twisp.com",
+        "phone": {
+          "countryCode": "1",
+          "number": "5555555555"
+        }
+      },
+      "tags": {},
+      "authorizedUsers": [],
+      "status": "Active"
+    },
+    "relationships": {
+      "org": {
+        "data": {
+          "type": "org",
+          "id": "4975"
+        }
+      }
+    }
+  },
+  "depositAccountSetId": "80659068-3ac1-452a-b2da-2566e95283f8",
+  "depositAccountId": "f0e4d71e-fc44-41ea-8e10-bd4b039885f1",
+  "depositAccountCode": "80659068-3ac1-452a-b2da-2566e95283f8.DEFAULT",
+  "depositMetadata": {
+    "id": "2890313",
+    "type": "depositAccount",
+    "attributes": {
+      "hold": 0,
+      "name": "Michael Parsons",
+      "tags": {
+        "purpose": "checking"
+      },
+      "status": "Open",
+      "balance": 0,
+      "currency": "USD",
+      "available": 0,
+      "createdAt": "2024-03-13T20:47:56.985Z",
+      "updatedAt": "2024-03-13T20:47:56.985Z",
+      "routingNumber": "812345678",
+      "depositProduct": "checking"
+    },
+    "relationships": {
+      "org": {
+        "data": {
+          "id": "4975",
+          "type": "org"
+        }
+      },
+      "bank": {
+        "data": {
+          "id": "1",
+          "type": "bank"
+        }
+      },
+      "customer": {
+        "data": {
+          "id": "1742784",
+          "type": "customer"
+        }
+      }
+    }
+  },
+  "cardAccountSetId": "f141c872-7c66-4e6e-982c-fa1c45d94766",
+  "cardAccountId": "7a17b0f1-b04f-46a4-ba45-d52a861c21d9",
+  "cardAccountCode": "f141c872-7c66-4e6e-982c-fa1c45d94766.DEFAULT",
+  "cardMetadata": {
+    "id": "1790431",
+    "type": "businessDebitCard",
+    "attributes": {
+      "bin": "424242459",
+      "tags": {},
+      "email": "richard@piedpiper.com",
+      "phone": {
+        "number": "5555555555",
+        "countryCode": "1"
+      },
+      "status": "Inactive",
+      "address": {
+        "city": "Palo Alto",
+        "state": "CA",
+        "street": "5230 Newell Rd",
+        "country": "US",
+        "postalCode": "94303"
+      },
+      "fullName": {
+        "last": "Hendricks",
+        "first": "Richard"
+      },
+      "createdAt": "2024-03-13T20:56:00.442Z",
+      "dateOfBirth": "2001-08-10",
+      "last4Digits": "2860",
+      "expirationDate": "2028-03",
+      "shippingAddress": {
+        "city": "Palo Alto",
+        "state": "CA",
+        "street": "5230 Newell Rd",
+        "country": "US",
+        "postalCode": "94303"
+      }
+    },
+    "relationships": {
+      "account": {
+        "data": {
+          "id": "2890313",
+          "type": "account"
+        }
+      },
+      "customer": {
+        "data": {
+          "id": "1742784",
+          "type": "customer"
+        }
+      }
+    }
+  },
+  "description": "Onboard customer, deposit account and card"
+}

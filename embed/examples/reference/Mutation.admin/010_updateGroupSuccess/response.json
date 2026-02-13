@@ -1,0 +1,30 @@
+{
+  "data": {
+    "admin": {
+      "groups": {
+        "nodes": [
+          {
+            "name": "Admin",
+            "description": "Default Group",
+            "policy": "[{\"actions\": [\"*\"],\"effect\": \"ALLOW\",\"resources\":[\"*\"]}]"
+          },
+          {
+            "name": "deny-policy-1",
+            "description": "a group with a deny policy",
+            "policy": "[{\"actions\": [\"*\"],\"effect\": \"DENY\",\"resources\":[\"*\"]}]"
+          },
+          {
+            "name": "empty-policy-1",
+            "description": "An empty policy layer will default to the base policy.",
+            "policy": "[{\"actions\": [\"*\"],\"effect\": \"DENY\",\"resources\":[\"*\"], \"assertions\": {\"always false\": \"1 == 0\"}}]"
+          },
+          {
+            "name": "read-only-policy-1",
+            "description": "a group with a read-only policy",
+            "policy": "[{\"actions\": [\"db:Select\"],\"effect\": \"ALLOW\",\"resources\":[\"*\"]}]"
+          }
+        ]
+      }
+    }
+  }
+}

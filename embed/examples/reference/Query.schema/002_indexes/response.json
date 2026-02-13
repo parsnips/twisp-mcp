@@ -1,0 +1,40 @@
+{
+  "data": {
+    "schema": {
+      "indexes": {
+        "nodes": [
+          {
+            "name": "Account.metadata.type",
+            "range": [
+              { "alias": "type", "value": "string(document.metadata.type)", "sort": "ASC" }
+            ],
+            "partition": [{ "alias": "type", "value": "string(document.metadata.type)" }],
+            "on": "Account",
+            "constraints": { "hasCategory": "has(document.metadata.type)" },
+            "unique": false
+          },
+          {
+            "name": "AccountSet.metadata.type",
+            "range": [
+              { "alias": "type", "value": "string(document.metadata.type)", "sort": "ASC" }
+            ],
+            "partition": [{ "alias": "type", "value": "string(document.metadata.type)" }],
+            "on": "AccountSet",
+            "constraints": { "hasCategory": "has(document.metadata.type)" },
+            "unique": false
+          },
+          {
+            "name": "Transaction.metadata.category",
+            "range": [
+              { "alias": "category", "value": "string(document.metadata.category)", "sort": "ASC" }
+            ],
+            "partition": [{ "alias": "category", "value": "string(document.metadata.category)" }],
+            "on": "Transaction",
+            "constraints": { "hasCategory": "has(document.metadata.category)" },
+            "unique": false
+          }
+        ]
+      }
+    }
+  }
+}

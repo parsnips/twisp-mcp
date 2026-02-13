@@ -1,0 +1,1 @@
+Delete the tenant with accountId "sandbox" in the admin namespace. Return the accountId.

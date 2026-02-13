@@ -1,0 +1,34 @@
+{
+  "data": {
+    "alpha": {
+      "settled": {
+        "drBalance": {
+          "units": "0.00"
+        },
+        "crBalance": {
+          "units": "0.00"
+        }
+      }
+    },
+    "beta": {
+      "settled": {
+        "drBalance": {
+          "units": "0.00"
+        },
+        "crBalance": {
+          "units": "0.00"
+        }
+      }
+    },
+    "tx1": {
+      "transactionId": "6dad06b7-be1f-4461-a4e9-44049a9cd74c",
+      "voidedBy": "e400fd05-218d-531b-9c2d-f3dbdf319570",
+      "version": 2
+    },
+    "tx2": {
+      "transactionId": "31962347-1b2e-46b5-ad3d-f5adf172c30d",
+      "voidedBy": "b0045720-ffbe-552f-94e3-816866e7a266",
+      "version": 2
+    }
+  }
+}

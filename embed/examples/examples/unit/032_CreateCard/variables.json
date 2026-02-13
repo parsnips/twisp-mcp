@@ -1,0 +1,56 @@
+{
+  "depositAccountSetId": "8801ced3-e6a3-4af6-b01a-514473051d4e",
+  "cardAccountSetId": "151d8647-09af-4d5a-ac32-39fcd55d2454",
+  "cardAccountId": "f6318c3e-4996-4d88-ba7a-0f66cb04302b",
+  "cardAccountCode": "151d8647-09af-4d5a-ac32-39fcd55d2454.DEFAULT",
+  "cardMetadata": {
+    "id": "1790431",
+    "type": "businessDebitCard",
+    "attributes": {
+      "bin": "424242459",
+      "tags": {},
+      "email": "richard@piedpiper.com",
+      "phone": {
+        "number": "5555555555",
+        "countryCode": "1"
+      },
+      "status": "Inactive",
+      "address": {
+        "city": "Palo Alto",
+        "state": "CA",
+        "street": "5230 Newell Rd",
+        "country": "US",
+        "postalCode": "94303"
+      },
+      "fullName": {
+        "last": "Hendricks",
+        "first": "Richard"
+      },
+      "createdAt": "2024-03-13T20:56:00.442Z",
+      "dateOfBirth": "2001-08-10",
+      "last4Digits": "2860",
+      "expirationDate": "2028-03",
+      "shippingAddress": {
+        "city": "Palo Alto",
+        "state": "CA",
+        "street": "5230 Newell Rd",
+        "country": "US",
+        "postalCode": "94303"
+      }
+    },
+    "relationships": {
+      "account": {
+        "data": {
+          "id": "2890313",
+          "type": "account"
+        }
+      },
+      "customer": {
+        "data": {
+          "id": "1742784",
+          "type": "customer"
+        }
+      }
+    }
+  }
+}

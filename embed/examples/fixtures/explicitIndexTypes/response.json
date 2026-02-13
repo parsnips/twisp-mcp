@@ -1,0 +1,9 @@
+{
+  "data": {
+    "index": {
+      "createIndex": {
+        "partition": [{ "alias": "mids", "value": "document.metadata.mids", "type": "STRING" }]
+      }
+    }
+  }
+}

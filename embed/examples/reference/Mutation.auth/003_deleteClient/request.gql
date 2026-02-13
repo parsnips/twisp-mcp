@@ -1,0 +1,7 @@
+mutation DeleteAuthClient($authClientGithub: String!) {
+  auth {
+    deleteClient(principal: $authClientGithub) {
+      principal
+    }
+  }
+}

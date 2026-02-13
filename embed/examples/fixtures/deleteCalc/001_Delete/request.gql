@@ -1,0 +1,5 @@
+mutation Delete {
+  deleteCalculation(id: "e99d9192-156b-11f0-88c2-069b540ea27b") {
+    status
+  }
+}

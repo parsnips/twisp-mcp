@@ -1,0 +1,43 @@
+mutation UpdateTranCode($tcBookTransferId: UUID!) {
+  updateTranCode(
+    id: $tcBookTransferId
+    input: {
+      description: "Book transfer between two customer wallet accounts."
+      vars: { hello: "string('world')" }
+      entries: [
+        {
+          accountId: "params.drAccount"
+          units: "params.amount"
+          currency: "params.currency"
+          entryType: "'BOOK_TRANSFER_DR'"
+          direction: "DEBIT"
+          layer: "SETTLED"
+          metadata: "{'first': 1}"
+        }
+        {
+          accountId: "params.crAccount"
+          units: "params.amount"
+          currency: "params.currency"
+          entryType: "'BOOK_TRANSFER_CR'"
+          direction: "CREDIT"
+          layer: "SETTLED"
+          metadata: "{'second':2}"
+        }
+      ]
+    }
+  ) {
+    tranCodeId
+    description
+    entries {
+      metadata
+    }
+    vars
+    history(first: 2) {
+      nodes {
+        version
+        description
+        vars
+      }
+    }
+  }
+}

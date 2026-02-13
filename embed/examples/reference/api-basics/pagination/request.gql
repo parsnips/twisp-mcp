@@ -1,0 +1,241 @@
+mutation Create20Journals {
+  bradly_journal: createJournal(
+    input: {
+      journalId: "9ae631a9-53ab-40e2-8740-13b2259b56f0"
+      name: "Bradly Bogan"
+      code: "CUST.Bradly"
+      description: "Bradly's customer wallet."
+      status: ACTIVE
+    }
+  ) {
+    journalId
+  }
+
+  eunice_journal: createJournal(
+    input: {
+      journalId: "cc4070e1-24c5-40eb-9833-015ef9b356ba"
+      name: "Eunice Nitzsche"
+      code: "CUST.Eunice"
+      description: "Eunice's customer wallet."
+      status: ACTIVE
+    }
+  ) {
+    journalId
+  }
+
+  martina_journal: createJournal(
+    input: {
+      journalId: "3140a753-6705-46d6-9985-94cf1007f231"
+      name: "Martina Grant"
+      code: "CUST.Martina"
+      description: "Martina's customer wallet."
+      status: ACTIVE
+    }
+  ) {
+    journalId
+  }
+
+  quincy_journal: createJournal(
+    input: {
+      journalId: "09ebb7fb-3f3e-4198-b1d7-edfa4e892f4f"
+      name: "Quincy Kub"
+      code: "CUST.Quincy"
+      description: "Quincy's customer wallet."
+      status: ACTIVE
+    }
+  ) {
+    journalId
+  }
+
+  steve_journal: createJournal(
+    input: {
+      journalId: "d88febc9-9aaf-4f03-b056-28486f93b826"
+      name: "Steve Swift"
+      code: "CUST.Steve"
+      description: "Steve's customer wallet."
+      status: ACTIVE
+    }
+  ) {
+    journalId
+  }
+
+  carrie_journal: createJournal(
+    input: {
+      journalId: "dc404055-d4c9-47f5-9978-59c9379e497e"
+      name: "Carrie Johnson"
+      code: "CUST.Carrie"
+      description: "Carrie's customer wallet."
+      status: ACTIVE
+    }
+  ) {
+    journalId
+  }
+
+  nona_journal: createJournal(
+    input: {
+      journalId: "1b912f52-4628-47fb-ba61-b2efc3482490"
+      name: "Nona Lebsack"
+      code: "CUST.Nona"
+      description: "Nona's customer wallet."
+      status: ACTIVE
+    }
+  ) {
+    journalId
+  }
+
+  pablo_journal: createJournal(
+    input: {
+      journalId: "936cf53f-17d2-4f08-bd48-e290094b1ed3"
+      name: "Pablo Stroman"
+      code: "CUST.Pablo"
+      description: "Pablo's customer wallet."
+      status: ACTIVE
+    }
+  ) {
+    journalId
+  }
+
+  armand_journal: createJournal(
+    input: {
+      journalId: "9a8c35b7-3938-4170-bc19-049e82558d1a"
+      name: "Armand Kessler"
+      code: "CUST.Armand"
+      description: "Armand's customer wallet."
+      status: ACTIVE
+    }
+  ) {
+    journalId
+  }
+
+  brittany_journal: createJournal(
+    input: {
+      journalId: "f74d5d1c-890c-43cd-a1e0-609303b9d6b9"
+      name: "Brittany Gottlieb"
+      code: "CUST.Brittany"
+      description: "Brittany's customer wallet."
+      status: ACTIVE
+    }
+  ) {
+    journalId
+  }
+
+  damion_journal: createJournal(
+    input: {
+      journalId: "c1a716a3-1416-4b27-a70f-61fc3e1d7444"
+      name: "Damion Brekke"
+      code: "CUST.Damion"
+      description: "Damion's customer wallet."
+      status: ACTIVE
+    }
+  ) {
+    journalId
+  }
+
+  camila_journal: createJournal(
+    input: {
+      journalId: "1ae5fb9e-c289-4963-90ea-a8216c27dcc5"
+      name: "Camila Runte"
+      code: "CUST.Camila"
+      description: "Camila's customer wallet."
+      status: ACTIVE
+    }
+  ) {
+    journalId
+  }
+
+  nolan_journal: createJournal(
+    input: {
+      journalId: "4af1ed96-eba9-4922-9d7a-89bea65d6bcb"
+      name: "Nolan Pollich"
+      code: "CUST.Nolan"
+      description: "Nolan's customer wallet."
+      status: ACTIVE
+    }
+  ) {
+    journalId
+  }
+
+  tyler_journal: createJournal(
+    input: {
+      journalId: "5b44e174-69c8-4334-906d-6ac36c5dd648"
+      name: "Tyler Cummerata"
+      code: "CUST.Tyler"
+      description: "Tyler's customer wallet."
+      status: ACTIVE
+    }
+  ) {
+    journalId
+  }
+
+  tyree_journal: createJournal(
+    input: {
+      journalId: "ab011f1e-8b20-4498-9ef9-19a1bde781d5"
+      name: "Tyree Ward"
+      code: "CUST.Tyree"
+      description: "Tyree's customer wallet."
+      status: ACTIVE
+    }
+  ) {
+    journalId
+  }
+
+  niko_journal: createJournal(
+    input: {
+      journalId: "102a7982-9a8c-48a2-8d75-da2e0e5c4d4e"
+      name: "Niko Balistreri"
+      code: "CUST.Niko"
+      description: "Niko's customer wallet."
+      status: ACTIVE
+    }
+  ) {
+    journalId
+  }
+
+  maverick_journal: createJournal(
+    input: {
+      journalId: "8dbfd888-0726-4ec7-83f9-9407c78bc6f3"
+      name: "Maverick Kovacek"
+      code: "CUST.Maverick"
+      description: "Maverick's customer wallet."
+      status: ACTIVE
+    }
+  ) {
+    journalId
+  }
+
+  paris_journal: createJournal(
+    input: {
+      journalId: "0b457f73-bc70-46e4-9531-27bcec8365c9"
+      name: "Paris Schmeler"
+      code: "CUST.Paris"
+      description: "Paris's customer wallet."
+      status: ACTIVE
+    }
+  ) {
+    journalId
+  }
+
+  jayde_journal: createJournal(
+    input: {
+      journalId: "8bc865ee-acf5-44d7-9fa7-8a684492fb6d"
+      name: "Jayde Hagenes"
+      code: "CUST.Jayde"
+      description: "Jayde's customer wallet."
+      status: ACTIVE
+    }
+  ) {
+    journalId
+  }
+
+  celestino_journal: createJournal(
+    input: {
+      journalId: "5c6f0e8c-80aa-41a8-b37e-e9f9757374f9"
+      name: "Celestino Nicolas"
+      code: "CUST.Celestino"
+      description: "Celestino's customer wallet."
+      status: ACTIVE
+    }
+  ) {
+    journalId
+  }
+}

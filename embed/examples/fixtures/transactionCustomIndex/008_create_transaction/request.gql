@@ -1,0 +1,18 @@
+mutation MakeTransfer($ernieId: UUID!, $bertId: UUID!) {
+  postTransaction(
+    input: {transactionId: "39d2288d-96f9-40c7-b587-e7e75df083fc", tranCode: "TRANSFER", params: {source: $ernieId, destination: $bertId, amount: "123.45", effective: "2022-10-21", classification: "internal"}}
+  ) {
+    transactionId
+    tranCodeId
+    effective
+    entries(first: 2) {
+      nodes {
+        units
+        direction
+        account {
+          name
+        }
+      }
+    }
+  }
+}

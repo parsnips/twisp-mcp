@@ -1,0 +1,1 @@
+Use the schema namespace to get the index details for the specified index name on the Account object. Include index name, on, unique, range, partition, and constraints in the response.

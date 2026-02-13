@@ -1,0 +1,22 @@
+{
+  "data": {
+    "detachVelocityControl": {
+      "velocityControlId": "f6f27892-dfd8-480b-9213-d6adf7ef04ef"
+    },
+    "detach2": {
+      "velocityControlId": "b57b238f-6fd8-42d0-8a99-f88fadf377aa"
+    },
+    "detach3": {
+      "velocityControlId": "f6f27892-dfd8-480b-9213-d6adf7ef04ef"
+    },
+    "detach4":{
+      "velocityControlId": "b57b238f-6fd8-42d0-8a99-f88fadf377aa"
+    },
+    "deleteVelocityControl": {
+      "velocityControlId": "f6f27892-dfd8-480b-9213-d6adf7ef04ef"
+    },
+    "delete2": {
+      "velocityControlId": "b57b238f-6fd8-42d0-8a99-f88fadf377aa"
+    }
+  }
+}

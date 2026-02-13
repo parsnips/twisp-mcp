@@ -1,0 +1,10 @@
+query GetAuthClients {
+  auth {
+    clients(first: 10) {
+      nodes {
+        principal
+        name
+      }
+    }
+  }
+}

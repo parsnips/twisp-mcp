@@ -1,0 +1,816 @@
+mutation SetupAccounts(
+  $journalId: UUID!
+  $journalIdExpression: Expression!
+  $set_bertId: UUID!
+  $set_budgetsId: UUID!
+  $set_ernieId: UUID!
+  $set_settlementId: UUID!
+  $set_usersId: UUID!
+  $set_walletsId: UUID!
+  $bertBudgetId: UUID!
+  $bertCashId: UUID!
+  $bertCheckingId: UUID!
+  $bertWalletId: UUID!
+  $budgetOffsetId: UUID!
+  $budgetOffsetIdExpression: Expression!
+  $ernieBudgetId: UUID!
+  $ernieCheckingId: UUID!
+  $ernieCreditCardId: UUID!
+  $ernieWalletId: UUID!
+  $settlementCardId: UUID!
+  $settlementCashId: UUID!
+  $settlementCheckingId: UUID!
+  $tc_allocBudgetId: UUID!
+  $tc_deallocBudgetId: UUID!
+  $tc_recordTxId: UUID!
+  $tc_recordPendingTxId: UUID!
+  $tc_recordSettlePendingTxId: UUID!
+  $tc_assignToBudgetId: UUID!
+  $tc_walletTransferId: UUID!
+  $tc_walletDepositId: UUID!
+  $tc_walletWithdrawId: UUID!
+) {
+  gl: createJournal(input: { journalId: $journalId, name: "GL", description: "General Ledger" }) {
+    journalId
+  }
+
+  schema {
+    createIndex(
+      input: {
+        name: "TRANSACTION.BUDGET_CATEGORY"
+        on: Transaction
+        unique: false
+        partition: [
+          { alias: "userAccountId", value: "string(document.metadata.userAccountId)" }
+          { alias: "budgetCategory", value: "string(document.metadata.budgetCategory)" }
+        ]
+        sort: [
+          { alias: "budgetCategory", value: "string(document.metadata.budgetCategory)", sort: ASC }
+        ]
+        constraints: {
+          hasCategory: "has(document.metadata.budgetCategory)"
+          hasUserAccountId: "has(document.metadata.userAccountId)"
+        }
+      }
+    ) {
+      name
+      on
+      unique
+    }
+  }
+
+  acct_set_bert: createAccountSet(
+    input: {
+      accountSetId: $set_bertId
+      journalId: $journalId
+      name: "Bert"
+      description: "Bert's account"
+      normalBalanceType: DEBIT
+    }
+  ) {
+    accountSetId
+    name
+  }
+
+  acct_set_budgets: createAccountSet(
+    input: {
+      accountSetId: $set_budgetsId
+      journalId: $journalId
+      name: "Budgets"
+      description: "All budget accounts"
+      normalBalanceType: CREDIT
+    }
+  ) {
+    accountSetId
+    name
+  }
+
+  acct_set_ernie: createAccountSet(
+    input: {
+      accountSetId: $set_ernieId
+      journalId: $journalId
+      name: "Ernie"
+      description: "Ernie's account."
+      normalBalanceType: DEBIT
+    }
+  ) {
+    accountSetId
+    name
+  }
+
+  acct_set_settlement: createAccountSet(
+    input: {
+      accountSetId: $set_settlementId
+      journalId: $journalId
+      name: "Settlement"
+      description: "All settlement accounts."
+      normalBalanceType: CREDIT
+    }
+  ) {
+    accountSetId
+    name
+  }
+
+  acct_set_users: createAccountSet(
+    input: {
+      accountSetId: $set_usersId
+      journalId: $journalId
+      name: "Users"
+      description: "All users' accounts."
+      normalBalanceType: DEBIT
+    }
+  ) {
+    accountSetId
+    name
+  }
+
+  acct_set_wallets: createAccountSet(
+    input: {
+      accountSetId: $set_walletsId
+      journalId: $journalId
+      name: "Wallets"
+      description: "All customer wallets."
+      normalBalanceType: DEBIT
+    }
+  ) {
+    accountSetId
+    name
+  }
+
+  acct_bert_budget: createAccount(
+    input: {
+      accountId: $bertBudgetId
+      code: "BERT.BUDGET"
+      name: "Bert's Budget"
+      description: "Bert's budgeting account"
+      normalBalanceType: CREDIT
+      accountSetIds: [$set_bertId, $set_budgetsId]
+      status: ACTIVE
+    }
+  ) {
+    accountId
+    code
+    name
+  }
+
+  acct_bert_cash: createAccount(
+    input: {
+      accountId: $bertCashId
+      code: "BERT.CASH"
+      name: "Bert's Cash Acct."
+      description: "Bert's Cash"
+      normalBalanceType: DEBIT
+      accountSetIds: [$set_bertId]
+      status: ACTIVE
+    }
+  ) {
+    accountId
+    code
+    name
+  }
+
+  acct_bert_checking: createAccount(
+    input: {
+      accountId: $bertCheckingId
+      code: "BERT.CHECKING"
+      name: "Bert's Checking Acct."
+      description: "Bert's Checking Acct."
+      normalBalanceType: DEBIT
+      accountSetIds: [$set_bertId]
+      status: ACTIVE
+    }
+  ) {
+    accountId
+    code
+    name
+  }
+
+  acct_bert_wallet: createAccount(
+    input: {
+      accountId: $bertWalletId
+      code: "BERT.WALLET"
+      name: "Bert's Wallet"
+      description: "Bert's wallet"
+      normalBalanceType: DEBIT
+      accountSetIds: [$set_bertId, $set_walletsId]
+      status: ACTIVE
+    }
+  ) {
+    accountId
+    code
+    name
+  }
+
+  acct_budget_offset: createAccount(
+    input: {
+      accountId: $budgetOffsetId
+      code: "BUDGET.OFFSET"
+      name: "Budget Offset"
+      description: "Offset accounts for budgeting."
+      normalBalanceType: CREDIT
+      accountSetIds: [$set_budgetsId]
+      status: ACTIVE
+    }
+  ) {
+    accountId
+    code
+    name
+  }
+
+  acct_ernie_budget: createAccount(
+    input: {
+      accountId: $ernieBudgetId
+      code: "ERNIE.BUDGET"
+      name: "Ernie's Budget"
+      description: "Ernie's budgeting account"
+      normalBalanceType: CREDIT
+      accountSetIds: [$set_ernieId, $set_budgetsId]
+      status: ACTIVE
+    }
+  ) {
+    accountId
+    code
+    name
+  }
+
+  acct_ernie_checking: createAccount(
+    input: {
+      accountId: $ernieCheckingId
+      code: "ERNIE.CHECKING"
+      name: "Ernie's Checking Acct."
+      description: ""
+      normalBalanceType: DEBIT
+      accountSetIds: [$set_ernieId]
+      status: ACTIVE
+    }
+  ) {
+    accountId
+    code
+    name
+  }
+
+  acct_ernie_credit_card: createAccount(
+    input: {
+      accountId: $ernieCreditCardId
+      code: "ERNIE.CREDIT_CARD"
+      name: "Ernie's Credit Card Acct."
+      description: "Ernie's Credit Card Acct."
+      normalBalanceType: CREDIT
+      accountSetIds: [$set_ernieId]
+      status: ACTIVE
+    }
+  ) {
+    accountId
+    code
+    name
+  }
+
+  acct_ernie_wallet: createAccount(
+    input: {
+      accountId: $ernieWalletId
+      code: "ERNIE.WALLET"
+      name: "Ernie's Wallet"
+      description: "Ernie's wallet"
+      normalBalanceType: DEBIT
+      accountSetIds: [$set_ernieId, $set_walletsId]
+      status: ACTIVE
+    }
+  ) {
+    accountId
+    code
+    name
+  }
+
+  acct_settlement_card: createAccount(
+    input: {
+      accountId: $settlementCardId
+      code: "SETTLEMENT.CARD"
+      name: "Card Settlement"
+      description: "Settlement account for credit card transactions"
+      normalBalanceType: CREDIT
+      accountSetIds: [$set_settlementId]
+      status: ACTIVE
+    }
+  ) {
+    accountId
+    code
+    name
+  }
+
+  acct_settlement_cash: createAccount(
+    input: {
+      accountId: $settlementCashId
+      code: "SETTLEMENT.CASH"
+      name: "Cash Settlement"
+      description: "Settlement account for cash transactions"
+      normalBalanceType: CREDIT
+      accountSetIds: [$set_settlementId]
+      status: ACTIVE
+    }
+  ) {
+    accountId
+    code
+    name
+  }
+
+  acct_settlement_checking: createAccount(
+    input: {
+      accountId: $settlementCheckingId
+      code: "SETTLEMENT.CHECKING"
+      name: "Checking Settlement"
+      description: "Settlement account for checking transactions"
+      normalBalanceType: CREDIT
+      accountSetIds: [$set_settlementId]
+      status: ACTIVE
+    }
+  ) {
+    accountId
+    code
+    name
+  }
+
+  tc_alloc_budget: createTranCode(
+    input: {
+      tranCodeId: $tc_allocBudgetId
+      code: "ALLOC_BUDGET"
+      description: "Allocate an amount to a specific budget."
+      params: [
+        { name: "account", type: UUID, description: "User's budget account ID." }
+        { name: "amount", type: DECIMAL, description: "Amount to allocate to budget." }
+        { name: "effective", type: DATE, description: "Current date." }
+        {
+          name: "category"
+          type: STRING
+          description: "Budget category to allocate to: 'Discretionary', 'Expenses', etc."
+        }
+      ]
+      transaction: {
+        journalId: $journalIdExpression
+        effective: "params.effective"
+        description: "'Allocate ' + string(params.amount) + ' to budget \"' + string(params.category) + '\" for user with account ID: ' + string(params.account)"
+        metadata: "{ 'userAccountId': string(params.account), 'budgetCategory': params.category }"
+      }
+      entries: [
+        {
+          accountId: "params.account"
+          units: "params.amount"
+          currency: "'USD'"
+          description: "''"
+          entryType: "'ALLOC_BUDGET_CR'"
+          direction: "CREDIT"
+          layer: "ENCUMBRANCE"
+        }
+        {
+          accountId: $budgetOffsetIdExpression
+          units: "params.amount"
+          currency: "'USD'"
+          description: "''"
+          entryType: "'ALLOC_BUDGET_DR'"
+          direction: "DEBIT"
+          layer: "ENCUMBRANCE"
+        }
+      ]
+    }
+  ) {
+    tranCodeId
+    code
+  }
+
+  tc_dealloc_budget: createTranCode(
+    input: {
+      tranCodeId: $tc_deallocBudgetId
+      code: "DEALLOC_BUDGET"
+      description: "Deallocate funds from a budget."
+      params: [
+        { name: "account", type: UUID, description: "User's budget account ID." }
+        { name: "amount", type: DECIMAL, description: "Amount to deallocate from budget." }
+        { name: "effective", type: DATE, description: "Current date." }
+        {
+          name: "category"
+          type: STRING
+          description: "Budget category to deallocate from: 'Discretionary', 'Expenses', etc."
+        }
+      ]
+      transaction: {
+        journalId: $journalIdExpression
+        effective: "params.effective"
+        description: "'Deallocate ' + string(params.amount) + ' to budget \"' + string(params.category) + '\" for user with account ID: ' + string(params.account)"
+        metadata: "{ 'userAccountId': string(params.account), 'budgetCategory': params.category }"
+      }
+      entries: [
+        {
+          accountId: $budgetOffsetIdExpression
+          units: "params.amount"
+          currency: "'USD'"
+          description: "''"
+          entryType: "'DEALLOC_BUDGET_CR'"
+          direction: "CREDIT"
+          layer: "ENCUMBRANCE"
+        }
+        {
+          accountId: "params.account"
+          units: "params.amount"
+          currency: "'USD'"
+          description: "''"
+          entryType: "'DEALLOC_BUDGET_DR'"
+          direction: "DEBIT"
+          layer: "ENCUMBRANCE"
+        }
+      ]
+    }
+  ) {
+    tranCodeId
+    code
+  }
+
+  tc_assign_to_budget: createTranCode(
+    input: {
+      tranCodeId: $tc_assignToBudgetId
+      code: "ASSIGN_TO_BUDGET"
+      description: "Assign a transaction to a particular budget."
+      params: [
+        { name: "account", type: UUID, description: "User's budget account ID." }
+        { name: "amount", type: DECIMAL, description: "Amount to assign to budget." }
+        { name: "effective", type: DATE, description: "Current date." }
+        {
+          name: "category"
+          type: STRING
+          description: "Budget category to deallocate from: 'Discretionary', 'Expenses', etc."
+        }
+      ]
+      transaction: {
+        journalId: $journalIdExpression
+        effective: "params.effective"
+        description: "'Assign ' + string(params.amount) + ' to budget \"' + string(params.category) + '\" for user with account ID: ' + string(params.account)"
+        metadata: "{ 'userAccountId': string(params.account), 'budgetCategory': params.category }"
+      }
+      entries: [
+        {
+          accountId: $budgetOffsetIdExpression
+          units: "params.amount"
+          currency: "'USD'"
+          description: "''"
+          entryType: "'ASSIGN_TO_BUDGET_CR'"
+          direction: "CREDIT"
+          layer: "ENCUMBRANCE"
+        }
+        {
+          accountId: "params.account"
+          units: "params.amount"
+          currency: "'USD'"
+          description: "''"
+          entryType: "'ASSIGN_TO_BUDGET_DR'"
+          direction: "DEBIT"
+          layer: "ENCUMBRANCE"
+        }
+      ]
+    }
+  ) {
+    tranCodeId
+    code
+  }
+
+  tc_record_tx: createTranCode(
+    input: {
+      tranCodeId: $tc_recordTxId
+      code: "RECORD_TX"
+      description: "Record a transaction."
+      params: [
+        { name: "account", type: UUID, description: "User's asset account ID." }
+        {
+          name: "settlementAccount"
+          type: UUID
+          description: "Settlement account ID to use, determined by the transaction type. E.g. for card transactions, use the SETTLEMENT.CARD account."
+        }
+        { name: "amount", type: DECIMAL, description: "Amount of transaction." }
+        { name: "effective", type: DATE, description: "Effective date for transaction." }
+        {
+          name: "transactionType"
+          type: STRING
+          description: "Type of transaction: ACH Debit, Check Deposit, etc."
+        }
+        {
+          name: "isDebit"
+          type: BOOLEAN
+          description: "If true (default), debit the account specified. If false, credit the account."
+          default: true
+        }
+        {
+          name: "correlationId"
+          type: STRING
+          description: "Correlation identifier to group transactions in this sequence."
+          default: "_unspecified_"
+        }
+      ]
+      transaction: {
+        journalId: $journalIdExpression
+        effective: "params.effective"
+        description: "'Record ' + string(params.isDebit ? 'debit' : 'credit') + ' transaction for user with account ID: ' + string(params.account)"
+        metadata: "{ 'transactionType': string(params.transactionType) }"
+        correlationId: "string(params.correlationId != '_unspecified_' ? params.correlationId : uuid.New())"
+      }
+      entries: [
+        {
+          accountId: "params.account"
+          units: "params.amount"
+          currency: "'USD'"
+          description: "''"
+          entryType: "'RECORD_TX_'+ string(params.isDebit ? 'DR' : 'CR')"
+          direction: "params.isDebit ? DEBIT : CREDIT"
+          layer: "SETTLED"
+        }
+        {
+          accountId: "params.settlementAccount"
+          units: "params.amount"
+          currency: "'USD'"
+          description: "''"
+          entryType: "'RECORD_TX_'+ string(params.isDebit ? 'CR' : 'DR')" # opposite direction
+          direction: "params.isDebit ? CREDIT : DEBIT"
+          layer: "SETTLED"
+        }
+      ]
+    }
+  ) {
+    tranCodeId
+    code
+  }
+
+  tc_record_pending_tx: createTranCode(
+    input: {
+      tranCodeId: $tc_recordPendingTxId
+      code: "RECORD_PENDING_TX"
+      description: "Record a pending transaction."
+      params: [
+        { name: "account", type: UUID, description: "User's asset account ID." }
+        {
+          name: "settlementAccount"
+          type: UUID
+          description: "Settlement account ID to use, determined by the transaction type. E.g. for card transactions, use the SETTLEMENT.CARD account."
+        }
+        { name: "amount", type: DECIMAL, description: "Amount of transaction." }
+        { name: "effective", type: DATE, description: "Effective date for transaction." }
+        {
+          name: "transactionType"
+          type: STRING
+          description: "Type of transaction: ACH Debit, Check Deposit, etc."
+        }
+        {
+          name: "isDebit"
+          type: BOOLEAN
+          description: "If true (default), debit the account specified. If false, credit the account."
+          default: true
+        }
+        {
+          name: "correlationId"
+          type: STRING
+          description: "Correlation identifier to group transactions in this sequence."
+          default: "_unspecified_"
+        }
+      ]
+      transaction: {
+        journalId: $journalIdExpression
+        effective: "params.effective"
+        description: "'Record pending ' + string(params.isDebit ? 'debit' : 'credit') + ' transaction for user with account ID: ' + string(params.account)"
+        metadata: "{ 'transactionType': string(params.transactionType) }"
+        correlationId: "string(params.correlationId != '_unspecified_' ? params.correlationId : uuid.New())"
+      }
+      entries: [
+        {
+          accountId: "params.account"
+          units: "params.amount"
+          currency: "'USD'"
+          description: "''"
+          entryType: "'RECORD_PENDING_TX_'+ string(params.isDebit ? 'DR' : 'CR')"
+          direction: "params.isDebit ? DEBIT : CREDIT"
+          layer: "PENDING"
+        }
+        {
+          accountId: "params.settlementAccount"
+          units: "params.amount"
+          currency: "'USD'"
+          description: "''"
+          entryType: "'RECORD_PENDING_TX_'+ string(params.isDebit ? 'CR' : 'DR')" # opposite direction
+          direction: "params.isDebit ? CREDIT : DEBIT"
+          layer: "PENDING"
+        }
+      ]
+    }
+  ) {
+    tranCodeId
+    code
+  }
+
+  tc_record_settle_pending_tx: createTranCode(
+    input: {
+      tranCodeId: $tc_recordSettlePendingTxId
+      code: "RECORD_SETTLE_PENDING_TX"
+      description: "Settle a recorded pending transaction."
+      params: [
+        { name: "account", type: UUID, description: "User's asset account ID." }
+        {
+          name: "settlementAccount"
+          type: UUID
+          description: "Settlement account ID to use, determined by the transaction type. E.g. for card transactions, use the SETTLEMENT.CARD account."
+        }
+        { name: "settledAmount", type: DECIMAL, description: "Amount of settled transaction." }
+        {
+          name: "originalAmount"
+          type: DECIMAL
+          description: "Amount of original (pending) transaction."
+        }
+        { name: "effective", type: DATE, description: "Effective date for transaction." }
+        {
+          name: "transactionType"
+          type: STRING
+          description: "Type of transaction: ACH Debit, Check Deposit, etc."
+        }
+        {
+          name: "isDebit"
+          type: BOOLEAN
+          description: "If true (default), debit the account specified. If false, credit the account."
+          default: true
+        }
+        {
+          name: "correlationId"
+          type: STRING
+          description: "Correlation identifier to group transactions in this sequence."
+          default: "_unspecified_"
+        }
+      ]
+      transaction: {
+        journalId: $journalIdExpression
+        effective: "params.effective"
+        description: "'Settle recorded pending ' + string(params.isDebit ? 'debit' : 'credit') + ' transaction for user with account ID: ' + string(params.account)"
+        metadata: "{ 'transactionType': string(params.transactionType) }"
+        correlationId: "string(params.correlationId != '_unspecified_' ? params.correlationId : uuid.New())"
+      }
+      entries: [
+        {
+          accountId: "params.account"
+          units: "params.settledAmount"
+          currency: "'USD'"
+          description: "''"
+          entryType: "'RECORD_SETTLE_TX_'+ string(params.isDebit ? 'DR' : 'CR')"
+          direction: "params.isDebit ? DEBIT : CREDIT"
+          layer: "SETTLED"
+        }
+        {
+          accountId: "params.settlementAccount"
+          units: "params.settledAmount"
+          currency: "'USD'"
+          description: "''"
+          entryType: "'RECORD_SETTLE_TX_'+ string(params.isDebit ? 'CR' : 'DR')" # opposite direction
+          direction: "params.isDebit ? CREDIT : DEBIT"
+          layer: "SETTLED"
+        }
+        {
+          accountId: "params.account"
+          units: "params.originalAmount"
+          currency: "'USD'"
+          description: "''"
+          entryType: "'RECORD_SETTLE_PENDING_TX_'+ string(params.isDebit ? 'CR' : 'DR')" # opposite direction
+          direction: "params.isDebit ? CREDIT : DEBIT"
+          layer: "PENDING"
+        }
+        {
+          accountId: "params.settlementAccount"
+          units: "params.originalAmount"
+          currency: "'USD'"
+          description: "''"
+          entryType: "'RECORD_SETTLE_PENDING_TX_'+ string(params.isDebit ? 'DR' : 'CR')"
+          direction: "params.isDebit ? DEBIT : CREDIT"
+          layer: "PENDING"
+        }
+      ]
+    }
+  ) {
+    tranCodeId
+    code
+  }
+
+  tc_wallet_transfer: createTranCode(
+    input: {
+      tranCodeId: $tc_walletTransferId
+      code: "WALLET_TRANSFER"
+      description: "Transfer funds between wallets."
+      params: [
+        { name: "fromWallet", type: UUID, description: "User's wallet account to credit." }
+        { name: "toWallet", type: UUID, description: "User's wallet account to debit." }
+        { name: "amount", type: DECIMAL, description: "Amount to transfer." }
+        { name: "effective", type: DATE, description: "Date of transfer." }
+      ]
+      transaction: {
+        journalId: $journalIdExpression
+        effective: "params.effective"
+        description: "'Transfer ' + string(params.amount) + ' from wallet ' + string(params.fromWallet) + ' to wallet ' + string(params.toWallet)"
+      }
+      entries: [
+        {
+          accountId: "params.fromWallet"
+          units: "params.amount"
+          currency: "'USD'"
+          description: "''"
+          entryType: "'WALLET_TRANSFER_CR'"
+          direction: "CREDIT"
+          layer: "SETTLED"
+        }
+        {
+          accountId: "params.toWallet"
+          units: "params.amount"
+          currency: "'USD'"
+          description: "''"
+          entryType: "'WALLET_TRANSFER_DR'"
+          direction: "DEBIT"
+          layer: "SETTLED"
+        }
+      ]
+    }
+  ) {
+    tranCodeId
+    code
+  }
+
+  tc_wallet_deposit: createTranCode(
+    input: {
+      tranCodeId: $tc_walletDepositId
+      code: "WALLET_DEPOSIT"
+      description: "Deposit funds into a user's wallet account from their checking account."
+      params: [
+        { name: "wallet", type: UUID, description: "User's wallet account." }
+        { name: "checking", type: UUID, description: "User's checking account." }
+        { name: "amount", type: DECIMAL, description: "Amount to move into wallet." }
+        { name: "effective", type: DATE, description: "Date of deposit." }
+      ]
+      transaction: {
+        journalId: $journalIdExpression
+        effective: "params.effective"
+        description: "'Transfer ' + string(params.amount) + ' from checking account ' + string(params.checking) + ' to wallet ' + string(params.wallet)"
+      }
+      entries: [
+        {
+          accountId: "params.checking"
+          units: "params.amount"
+          currency: "'USD'"
+          description: "''"
+          entryType: "'WALLET_DEPOSIT_CR'"
+          direction: "CREDIT"
+          layer: "SETTLED"
+        }
+        {
+          accountId: "params.wallet"
+          units: "params.amount"
+          currency: "'USD'"
+          description: "''"
+          entryType: "'WALLET_DEPOSIT_DR'"
+          direction: "DEBIT"
+          layer: "SETTLED"
+        }
+      ]
+    }
+  ) {
+    tranCodeId
+    code
+  }
+
+  tc_wallet_withdraw: createTranCode(
+    input: {
+      tranCodeId: $tc_walletWithdrawId
+      code: "WALLET_WITHDRAW"
+      description: "Withdraw funds from a user's wallet account into their checking account."
+      params: [
+        { name: "wallet", type: UUID, description: "User's wallet account." }
+        { name: "checking", type: UUID, description: "User's checking account." }
+        { name: "amount", type: DECIMAL, description: "Amount to withdraw from wallet." }
+        { name: "effective", type: DATE, description: "Date of withdrawal." }
+      ]
+      transaction: {
+        journalId: $journalIdExpression
+        effective: "params.effective"
+        description: "'Transfer ' + string(params.amount) + ' to checking account ' + string(params.checking) + ' from wallet ' + string(params.wallet)"
+      }
+      entries: [
+        {
+          accountId: "params.wallet"
+          units: "params.amount"
+          currency: "'USD'"
+          description: "''"
+          entryType: "'WALLET_DEPOSIT_CR'"
+          direction: "CREDIT"
+          layer: "SETTLED"
+        }
+        {
+          accountId: "params.checking"
+          units: "params.amount"
+          currency: "'USD'"
+          description: "''"
+          entryType: "'WALLET_DEPOSIT_DR'"
+          direction: "DEBIT"
+          layer: "SETTLED"
+        }
+      ]
+    }
+  ) {
+    tranCodeId
+    code
+  }
+}

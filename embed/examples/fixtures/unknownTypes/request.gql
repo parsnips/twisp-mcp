@@ -1,0 +1,18 @@
+mutation CELInterpolationOnUnknownTypes(
+  $dimensions: [PartitionKeyInput]! = [{alias: "created", value: "document.created"}]
+  $id: UUID = "d182bfc0-a2db-41c2-90bf-26fd2036ffb0"
+  $code: String = "string(this.id) +' + '+ this.dimensions[0].value" @cel
+) {
+  evaluate(
+    expressions: {
+      dimensions: "document.dimensions"
+      id: "document.id"
+      code: "document.code"
+    }
+    document: {
+      dimensions: $dimensions
+      id: $id
+      code: $code
+    }
+  )
+}

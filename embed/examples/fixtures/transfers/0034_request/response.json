@@ -1,0 +1,24 @@
+{
+  "data": {
+    "account": {
+      "balance": {
+        "version": 3,
+        "encumbrance": {
+          "normalBalance": {
+            "units": "0"
+          }
+        },
+        "pending": {
+          "normalBalance": {
+            "units": "0.00"
+          }
+        },
+        "settled": {
+          "normalBalance": {
+            "units": "100.00"
+          }
+        }
+      }
+    }
+  }
+}

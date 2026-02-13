@@ -1,0 +1,14 @@
+mutation CanUseCELOnBuiltinScalars(
+  $shouldSkip: Boolean! = "true" @cel
+) {
+  unseen: evaluate(
+    expressions: {
+      a: "'neener neener!'"
+    }
+  ) @skip(if: $shouldSkip)
+  seen: evaluate(
+    expressions: {
+      a: "'boo boo!'"
+    }
+  )
+}

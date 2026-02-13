@@ -1,0 +1,13 @@
+{
+  "data": {
+    "journal": {
+      "journalId": "1e7b55f0-7c47-41c7-8fc0-b9de3a24a379"
+    },
+    "a": {
+      "accountSetId": "2f7b55f0-7c47-41c7-8fc0-b9de3a24a379"
+    },
+    "b": {
+      "accountSetId": "2f7b55f0-7c47-41c7-8fc0-b9de3a24a379"
+    }
+  }
+}

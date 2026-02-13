@@ -1,0 +1,20 @@
+{
+  "data": {
+    "entries": {
+      "nodes": [
+        {
+          "entryType": "CARD_HOLD_CR",
+          "account": { "name": "Alicia" },
+          "direction": "CREDIT",
+          "amount": { "units": "4.53", "currency": "USD" }
+        },
+        {
+          "entryType": "CARD_HOLD_DR",
+          "account": { "name": "Card Settlement" },
+          "direction": "DEBIT",
+          "amount": { "units": "4.53", "currency": "USD" }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,89 @@
+mutation CardPartialSettlement(
+  $initialAuthorizationId: UUID!
+  $authorizationId: UUID!
+  $partialSettleId: UUID!
+  $accountId: UUID!
+  $correlation: String
+  $amount: Decimal!
+  $replaceAmount: Decimal!
+  $settleAmount: Decimal!
+  $effective: Date
+  $initAuthHook: JSON
+  $authHook: JSON
+  $settleHook: JSON
+){
+  # Received initial authorization webhook
+  initialAuthorization: postTransaction(
+    input:{
+      transactionId: $initialAuthorizationId
+      tranCode: "CARD_HOLD"
+      params: {
+        account: $accountId
+        amount: $amount
+        correlation: $correlation
+        effective: $effective
+        metadata: $initAuthHook
+      }
+    }
+  ) {
+    transactionId
+  }
+
+  # Recieved approved webhook
+  voidInitialAuthorization: voidTransaction(id: $initialAuthorizationId) {
+    transactionId
+  }
+
+  authorization: postTransaction(
+    input:{
+      transactionId: $authorizationId
+      tranCode: "CARD_HOLD"
+      params: {
+        account: $accountId
+        amount: $amount
+        correlation: $correlation
+        effective: $effective
+        metadata: $authHook
+      }
+    }
+  ) {
+    transactionId
+  }
+
+  # Recieved partial settlement webhook
+  voidAuthorization: voidTransaction(id: $authorizationId) {
+    transactionId
+  }
+
+  updateHold: postTransaction(
+    input:{
+      transactionId: $partialSettleId
+      tranCode: "CARD_HOLD_REPLACE"
+      params: {
+        account: $accountId
+        amount: $replaceAmount
+        correlation: $correlation
+        effective: $effective
+        metadata: $settleHook
+      }
+    }
+  ) {
+    transactionId
+  }
+
+  partialSettle: postTransaction(
+    input:{
+      transactionId: "6daad172-6ae7-4ddd-843c-e5e0455fb6da"
+      tranCode: "CARD_SETTLE"
+      params: {
+        account: $accountId
+        amount: $settleAmount
+        correlation: $correlation
+        effective: $effective
+        metadata: $settleHook
+      }
+    }
+  ) {
+    transactionId
+  }
+}

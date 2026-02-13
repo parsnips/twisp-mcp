@@ -1,0 +1,52 @@
+mutation TRAN_CODE_ERROR {
+  # Invalid CEL syntax in transaction.effective
+  tc1: createTranCode(
+    input: {
+      tranCodeId: "B852FEA6-3445-49E7-BFD4-A162EEC08017"
+      code: "ABC123"
+      description: "an example tran code"
+      params: [{ name: "amount", type: DECIMAL }]
+      transaction: {
+        effective: "{time.Now()}"
+        journalId: "uuid('822cb59f-ce51-4837-8391-2af3b7a5fc51')"
+      }
+      entries: [
+        {
+          entryType: "EXAMPLE"
+          accountId: "uuid('7052f9fd-dd15-40d0-b0b6-df8c4c372e41')"
+          layer: "SETTLED"
+          units: "params.amount"
+          currency: "'USD'"
+          direction: DEBIT
+        }
+      ]
+    }
+  ) {
+    code
+    status
+  }
+
+  # Invalid CEL syntax in transaction.journalId
+  tc2: createTranCode(
+    input: {
+      tranCodeId: "B852FEA6-3445-49E7-BFD4-A162EEC08018"
+      code: "DEF456"
+      description: "an example tran code"
+      params: [{ name: "amount", type: DECIMAL }]
+      transaction: { effective: "time.Now()", journalId: "822cb59f-ce51-4837-8391-2af3b7a5fc51" }
+      entries: [
+        {
+          entryType: "EXAMPLE"
+          accountId: "uuid('7052f9fd-dd15-40d0-b0b6-df8c4c372e41')"
+          layer: "SETTLED"
+          units: "params.amount"
+          currency: "'USD'"
+          direction: DEBIT
+        }
+      ]
+    }
+  ) {
+    code
+    status
+  }
+}

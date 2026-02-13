@@ -1,0 +1,24 @@
+mutation UpdateEndpoint {
+  events {
+    updateEndpoint(
+      id: "345940ed-2726-4b20-88aa-820857ac0e68"
+      input: {
+        status: DISABLED
+        url: "https://webhook.site/updated-webhook-test"
+        description: "updated status"
+        subscription: ["account.*"]
+        filters: {
+          isTrue: "true"
+        }
+      }
+    ) {
+      endpointId
+      status
+      endpointType
+      url
+      subscription
+      description
+      filters
+    }
+  }
+}

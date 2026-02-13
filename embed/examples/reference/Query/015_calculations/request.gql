@@ -1,0 +1,17 @@
+query ListActiveGlobalCalculations {
+  calculations(
+    index:{ name: GLOBAL }
+    where:{ status: { eq: "ACTIVE" } }
+    first: 1
+  ) {
+    nodes {
+      calculationId
+      code
+      description
+      dimensions {
+        alias
+        value
+      }
+    }
+  }
+}

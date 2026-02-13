@@ -1,0 +1,1 @@
+Retrieve the account set information for the specified ID, including accountSetId, name, and description. Additionally, get the first 10 members of the account set and return their accountId, code, and name.

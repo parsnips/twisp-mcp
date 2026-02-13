@@ -1,0 +1,30 @@
+query GetErnieBalanceHistory($ernieId: UUID!, $journalId: UUID!) {
+  account(id: $ernieId) {
+    name
+    balance(journalId: $journalId) {
+      settled {
+        normalBalance {
+          units
+        }
+      }
+      version
+      history(first: 10) {
+        nodes {
+          version
+          settled {
+            normalBalance {
+              units
+            }
+          }
+        }
+      }
+    }
+    entries(where: { journalId: { eq: "822cb59f-ce51-4837-8391-2af3b7a5fc51" } }, first: 10) {
+      nodes {
+        entryType
+        direction
+        units
+      }
+    }
+  }
+}

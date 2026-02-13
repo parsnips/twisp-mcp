@@ -1,0 +1,19 @@
+{
+  "data": {
+    "createAccount": {
+      "accountId": "3ea12e45-7df2-4293-9434-feb792affc91"
+    },
+    "updateAccount": {
+      "accountId": "3ea12e45-7df2-4293-9434-feb792affc91",
+      "name": "Asset",
+      "description": "Updated test account",
+      "metadata": { "externalId": "12345", "stripeId": "56789" },
+      "history": {
+        "nodes": [
+          { "version": 2, "name": "Asset", "description": "Updated test account" },
+          { "version": 1, "name": "Assets", "description": "Test account" }
+        ]
+      }
+    }
+  }
+}

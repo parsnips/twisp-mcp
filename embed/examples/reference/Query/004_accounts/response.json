@@ -1,0 +1,24 @@
+{
+  "data": {
+    "accounts": {
+      "nodes": [
+        {
+          "accountId": "260fd651-8819-4f99-9c8a-87d27e03ee4c",
+          "code": "CUST.Alicia",
+          "name": "Alicia",
+          "description": "Alicia's customer wallet.",
+          "normalBalanceType": "DEBIT",
+          "status": "ACTIVE"
+        },
+        {
+          "accountId": "ae9d36cb-dcf5-41a9-bc1e-99a1cf56ef5b",
+          "code": "CUST.Bobby",
+          "name": "Bobby",
+          "description": "Bobby's customer wallet.",
+          "normalBalanceType": "DEBIT",
+          "status": "ACTIVE"
+        }
+      ]
+    }
+  }
+}

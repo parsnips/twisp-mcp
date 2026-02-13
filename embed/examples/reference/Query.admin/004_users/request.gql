@@ -1,0 +1,11 @@
+query GetAdminUsers {
+  admin {
+    users(first: 5) {
+      nodes {
+        email
+        organizationId
+        groupIds
+      }
+    }
+  }
+}

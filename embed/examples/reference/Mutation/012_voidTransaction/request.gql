@@ -1,0 +1,6 @@
+mutation VoidTransaction($transactionId: UUID!) {
+  voidTransaction(id: $transactionId) {
+    transactionId
+    voidOf
+  }
+}

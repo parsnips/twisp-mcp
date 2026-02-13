@@ -1,0 +1,46 @@
+mutation CreateVelocityLimit {
+  createVelocityLimit(
+    input: {
+      velocityLimitId: "370ac19b-a48c-4480-9b1f-18c39d214a0a"
+      name: "Example Monthly Limit"
+      description: """
+      A per month spending limit at the ENCUMBRANCE layer.
+      """
+      window: [
+        {
+          alias:"year"
+          value:"context.vars.transaction.effective.getYear()"
+        }
+        {
+          alias:"month"
+          value:"context.vars.transaction.effective.getMonth()"
+        }
+      ]
+      currency: "USD"
+      limit: {
+        balance: [
+          {
+            layer: "ENCUMBRANCE"
+            amount: "params.amount"
+            normalBalanceType: "DEBIT"
+          }
+        ]
+      }
+      params: [
+        {
+          name: "amount"
+          type: DECIMAL
+          description: """
+          Aggregate spend up to amount per effective month.
+          Defaults to $100.00
+          """
+          default: "100.00"
+        }
+      ]
+      # Add to existing velocity control
+      velocityControlIds: ["f6f27892-dfd8-480b-9213-d6adf7ef04ef"]
+    }
+  ) {
+    velocityLimitId
+  }
+}

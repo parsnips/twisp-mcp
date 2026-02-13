@@ -1,0 +1,54 @@
+mutation BasicTranCode {
+  createTranCode(
+    input: {
+      # Unique ID for the tran code
+      tranCodeId: "53c7a411-9070-42c8-81cf-ea37ebe63182"
+      # Unique name for the tran code
+      code: "ACH_CREDIT"
+      # Short description of what it does
+      description: "An ACH credit into an account."
+      # Params define the inputs to a transaction
+      params: [
+        { name: "account", type: UUID, description: "Deposit account ID." }
+        { name: "amount", type: DECIMAL }
+        { name: "effectiveDate", type: DATE }
+      ]
+      # Values supplied to the Transaction
+      transaction: {
+        journalId: "uuid('822cb59f-ce51-4837-8391-2af3b7a5fc51')"
+        effective: "params.effectiveDate"
+      }
+      # The ledger Entries to create
+      entries: [
+        {
+          # ID for the ACH settlement account
+          accountId: "uuid('8cd11607-1104-4270-9482-ae4b8053fd5a')"
+          # The `params` object allows runtime access to input values
+          units: "params.amount"
+          currency: "'USD'"
+          entryType: "'ACH_DR'"
+          direction: "DEBIT"
+          layer: "SETTLED"
+        }
+        {
+          accountId: "params.account"
+          units: "params.amount"
+          currency: "'USD'"
+          entryType: "'ACH_CR'"
+          direction: "CREDIT"
+          layer: "SETTLED"
+        }
+      ]
+    }
+  ) {
+    tranCodeId
+    code
+    entries {
+      accountId
+      units
+      entryType
+      direction
+      layer
+    }
+  }
+}

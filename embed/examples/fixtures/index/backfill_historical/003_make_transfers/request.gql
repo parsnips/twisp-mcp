@@ -1,0 +1,22 @@
+mutation MakeTransfer($acct0: UUID!, $acct1: UUID!) {
+  a:postTransaction(
+    input: {transactionId: "39d2288d-96f9-40c7-b587-e7e75df083cb", tranCode: "TRANSFER", params: {source: $acct0, destination: $acct1, amount: "123.45", effective: "2023-07-01", classification: "internal"}}
+  ) {
+    transactionId
+  }
+  b:postTransaction(
+    input: {transactionId: "39d2288d-96f9-40c7-b587-e7e75df083cc", tranCode: "TRANSFER", params: {source: $acct1, destination: $acct0, amount: "234.56", effective: "2023-07-02", classification: "internal"}}
+  ) {
+    transactionId
+  }
+  c:postTransaction(
+    input: {transactionId: "39d2288d-96f9-40c7-b587-e7e75df083cd", tranCode: "TRANSFER", params: {source: $acct0, destination: $acct1, amount: "123.45", effective: "2023-07-03", classification: "internal"}}
+  ) {
+    transactionId
+  }
+  d:postTransaction(
+    input: {transactionId: "39d2288d-96f9-40c7-b587-e7e75df083aa", tranCode: "TRANSFER", params: {source: $acct1, destination: $acct0, amount: "234.56", effective: "2023-07-04", classification: "internal"}}
+  ) {
+    transactionId
+  }
+}

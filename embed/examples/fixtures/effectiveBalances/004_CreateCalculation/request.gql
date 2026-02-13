@@ -1,0 +1,71 @@
+mutation CreateCalculation {
+  createCalculation(
+    input:{
+      calculationId: "6c9fec2a-54f1-4a43-bbf8-4d9f31100c68"
+      code: "JAN_ONLY"
+      description: "Tracks balances that occur in january"
+      dimensions: [
+        {
+          alias: "effectiveDate"
+          value: "context.vars.transaction.effective"
+        }
+        {
+          alias: "payPeriod"
+          value: "string(has(context.vars.transaction.metadata.payPeriod) ? context.vars.transaction.metadata.payPeriod : '')"
+        }
+      ]
+      condition: "int(string(context.vars.transaction.effective).drop(5).take(2)) == 1 && has(context.vars.transaction.metadata.payPeriod)"
+    }
+  ) {
+    calculationId
+  }
+  schema {
+    a:createIndex(
+      input: {
+        name: "JanBalances"
+        on: Balance
+        unique: false
+        partition: [
+          { alias: "journal_id", value: "document.journal_id" }
+          { alias: "account_id", value: "document.account_id" }
+          { alias: "calculation_id", value: "document.calculation_id" }
+        ]
+        sort: [
+          {
+            alias: "dimension"
+            value: "document.dimension"
+            sort: ASC
+          }
+        ]
+        constraints: {
+          forJanOnly: "document.calculation_id == uuid('6c9fec2a-54f1-4a43-bbf8-4d9f31100c68')"
+        }
+      }
+    ) {
+      name
+    }
+    b:createIndex(
+      input: {
+        name: "JanOnlyByPayPeriod"
+        on: Balance
+        unique: false
+        partition: [
+          { alias: "journal_id", value: "document.journal_id" }
+          { alias: "account_id", value: "document.account_id" }
+        ]
+        sort: [
+          {
+            alias: "payPeriod"
+            value: "string(document.dimensions.payPeriod)"
+            sort: ASC
+          }
+        ]
+        constraints: {
+          forJanOnly: "document.calculation_id == uuid('6c9fec2a-54f1-4a43-bbf8-4d9f31100c68')"
+        }
+      }
+    ) {
+      name
+    }
+  }
+}

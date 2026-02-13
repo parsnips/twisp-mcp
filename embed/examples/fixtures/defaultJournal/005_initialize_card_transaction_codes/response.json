@@ -1,0 +1,9 @@
+{
+  "data": {
+    "cards": {
+      "initializeCardTransactionCodes": {
+        "name": "Card Settlement Account"
+      }
+    }
+  }
+}

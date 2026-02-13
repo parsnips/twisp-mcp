@@ -1,0 +1,523 @@
+mutation PostTransactions(
+  $transactionIdA: UUID! = "uuid.New()" @cel
+  $transactionIdB: UUID! = "uuid.New()" @cel
+  $transactionIdC: UUID! = "uuid.New()" @cel
+  $transactionIdD: UUID! = "uuid.New()" @cel
+  $transactionIdE: UUID! = "uuid.New()" @cel
+  $transactionIdF: UUID! = "uuid.New()" @cel
+  $transactionIdG: UUID! = "uuid.New()" @cel
+  $transactionIdH: UUID! = "uuid.New()" @cel
+  $transactionIdI: UUID! = "uuid.New()" @cel
+  $transactionIdJ: UUID! = "uuid.New()" @cel
+  $transactionIdK: UUID! = "uuid.New()" @cel
+  $transactionIdL: UUID! = "uuid.New()" @cel
+  $transactionIdM: UUID! = "uuid.New()" @cel
+  $transactionIdN: UUID! = "uuid.New()" @cel
+  $transactionIdO: UUID! = "uuid.New()" @cel
+  $transactionIdP: UUID! = "uuid.New()" @cel
+  $transactionIdQ: UUID! = "uuid.New()" @cel
+  $transactionIdR: UUID! = "uuid.New()" @cel
+  $transactionIdS: UUID! = "uuid.New()" @cel
+  $transactionIdT: UUID! = "uuid.New()" @cel
+  $transactionIdU: UUID! = "uuid.New()" @cel
+  $transactionIdV: UUID! = "uuid.New()" @cel
+  $transactionIdW: UUID! = "uuid.New()" @cel
+  $transactionIdX: UUID! = "uuid.New()" @cel
+  $transactionIdY: UUID! = "uuid.New()" @cel
+  $transactionIdZ: UUID! = "uuid.New()" @cel
+) {
+  a: postTransaction(
+    input: {
+      transactionId: $transactionIdA
+      tranCode: "BOOK_TRANSFER"
+      params: {
+        journalId: "00000000-0000-0000-0000-000000000000"
+        correlationId: "a2aa5351-9228-4d53-b500-3cef1f4a2cf4"
+        crAccount: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+        drAccount: "f4a3cb70-9ace-4885-a3ca-d0b3a37bd847"
+        amount: "100.00"
+        fee: "0"
+        currency: "USD"
+        effective: "2024-01-01"
+        layer: 0
+      }
+    }
+  ) {
+    effective
+  }
+  b: postTransaction(
+    input: {
+      transactionId: $transactionIdB
+      tranCode: "BOOK_TRANSFER"
+      params: {
+        journalId: "00000000-0000-0000-0000-000000000000"
+        correlationId: "a2aa5351-9228-4d53-b500-3cef1f4a2cf4"
+        crAccount: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+        drAccount: "f4a3cb70-9ace-4885-a3ca-d0b3a37bd847"
+        amount: "100.00"
+        fee: "0"
+        currency: "USD"
+        effective: "2024-01-15"
+        layer: 0
+      }
+    }
+  ) {
+    effective
+  }
+  c: postTransaction(
+    input: {
+      transactionId: $transactionIdC
+      tranCode: "BOOK_TRANSFER"
+      params: {
+        journalId: "00000000-0000-0000-0000-000000000000"
+        correlationId: "a2aa5351-9228-4d53-b500-3cef1f4a2cf4"
+        crAccount: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+        drAccount: "f4a3cb70-9ace-4885-a3ca-d0b3a37bd847"
+        amount: "100.00"
+        fee: "0"
+        currency: "USD"
+        effective: "2024-02-01"
+        layer: 0
+      }
+    }
+  ) {
+    effective
+  }
+  d: postTransaction(
+    input: {
+      transactionId: $transactionIdD
+      tranCode: "BOOK_TRANSFER"
+      params: {
+        journalId: "00000000-0000-0000-0000-000000000000"
+        correlationId: "a2aa5351-9228-4d53-b500-3cef1f4a2cf4"
+        crAccount: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+        drAccount: "f4a3cb70-9ace-4885-a3ca-d0b3a37bd847"
+        amount: "100.00"
+        fee: "0"
+        currency: "USD"
+        effective: "2024-02-15"
+        layer: 0
+      }
+    }
+  ) {
+    effective
+  }
+  e: postTransaction(
+    input: {
+      transactionId: $transactionIdE
+      tranCode: "BOOK_TRANSFER"
+      params: {
+        journalId: "00000000-0000-0000-0000-000000000000"
+        correlationId: "a2aa5351-9228-4d53-b500-3cef1f4a2cf4"
+        crAccount: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+        drAccount: "f4a3cb70-9ace-4885-a3ca-d0b3a37bd847"
+        amount: "100.00"
+        fee: "0"
+        currency: "USD"
+        effective: "2024-03-01"
+        layer: 0
+      }
+    }
+  ) {
+    effective
+  }
+  f: postTransaction(
+    input: {
+      transactionId: $transactionIdF
+      tranCode: "BOOK_TRANSFER"
+      params: {
+        journalId: "00000000-0000-0000-0000-000000000000"
+        correlationId: "a2aa5351-9228-4d53-b500-3cef1f4a2cf4"
+        crAccount: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+        drAccount: "f4a3cb70-9ace-4885-a3ca-d0b3a37bd847"
+        amount: "100.00"
+        fee: "0"
+        currency: "USD"
+        effective: "2024-03-15"
+        layer: 0
+      }
+    }
+  ) {
+    effective
+  }
+  g: postTransaction(
+    input: {
+      transactionId: $transactionIdG
+      tranCode: "BOOK_TRANSFER"
+      params: {
+        journalId: "00000000-0000-0000-0000-000000000000"
+        correlationId: "a2aa5351-9228-4d53-b500-3cef1f4a2cf4"
+        crAccount: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+        drAccount: "f4a3cb70-9ace-4885-a3ca-d0b3a37bd847"
+        amount: "100.00"
+        fee: "0"
+        currency: "USD"
+        effective: "2024-04-01"
+        layer: 0
+      }
+    }
+  ) {
+    effective
+  }
+  h: postTransaction(
+    input: {
+      transactionId: $transactionIdH
+      tranCode: "BOOK_TRANSFER"
+      params: {
+        journalId: "00000000-0000-0000-0000-000000000000"
+        correlationId: "a2aa5351-9228-4d53-b500-3cef1f4a2cf4"
+        crAccount: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+        drAccount: "f4a3cb70-9ace-4885-a3ca-d0b3a37bd847"
+        amount: "100.00"
+        fee: "0"
+        currency: "USD"
+        effective: "2024-04-15"
+        layer: 0
+      }
+    }
+  ) {
+    effective
+  }
+  i: postTransaction(
+    input: {
+      transactionId: $transactionIdI
+      tranCode: "BOOK_TRANSFER"
+      params: {
+        journalId: "00000000-0000-0000-0000-000000000000"
+        correlationId: "a2aa5351-9228-4d53-b500-3cef1f4a2cf4"
+        crAccount: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+        drAccount: "f4a3cb70-9ace-4885-a3ca-d0b3a37bd847"
+        amount: "100.00"
+        fee: "0"
+        currency: "USD"
+        effective: "2024-05-01"
+        layer: 0
+      }
+    }
+  ) {
+    effective
+  }
+  j: postTransaction(
+    input: {
+      transactionId: $transactionIdJ
+      tranCode: "BOOK_TRANSFER"
+      params: {
+        journalId: "00000000-0000-0000-0000-000000000000"
+        correlationId: "a2aa5351-9228-4d53-b500-3cef1f4a2cf4"
+        crAccount: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+        drAccount: "f4a3cb70-9ace-4885-a3ca-d0b3a37bd847"
+        amount: "100.00"
+        fee: "0"
+        currency: "USD"
+        effective: "2024-05-15"
+        layer: 0
+      }
+    }
+  ) {
+    effective
+  }
+  k: postTransaction(
+    input: {
+      transactionId: $transactionIdK
+      tranCode: "BOOK_TRANSFER"
+      params: {
+        journalId: "00000000-0000-0000-0000-000000000000"
+        correlationId: "a2aa5351-9228-4d53-b500-3cef1f4a2cf4"
+        crAccount: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+        drAccount: "f4a3cb70-9ace-4885-a3ca-d0b3a37bd847"
+        amount: "100.00"
+        fee: "0"
+        currency: "USD"
+        effective: "2024-06-01"
+        layer: 0
+      }
+    }
+  ) {
+    effective
+  }
+  l: postTransaction(
+    input: {
+      transactionId: $transactionIdL
+      tranCode: "BOOK_TRANSFER"
+      params: {
+        journalId: "00000000-0000-0000-0000-000000000000"
+        correlationId: "a2aa5351-9228-4d53-b500-3cef1f4a2cf4"
+        crAccount: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+        drAccount: "f4a3cb70-9ace-4885-a3ca-d0b3a37bd847"
+        amount: "100.00"
+        fee: "0"
+        currency: "USD"
+        effective: "2024-06-15"
+        layer: 0
+      }
+    }
+  ) {
+    effective
+  }
+  m: postTransaction(
+    input: {
+      transactionId: $transactionIdM
+      tranCode: "BOOK_TRANSFER"
+      params: {
+        journalId: "00000000-0000-0000-0000-000000000000"
+        correlationId: "a2aa5351-9228-4d53-b500-3cef1f4a2cf4"
+        crAccount: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+        drAccount: "f4a3cb70-9ace-4885-a3ca-d0b3a37bd847"
+        amount: "100.00"
+        fee: "0"
+        currency: "USD"
+        effective: "2024-07-01"
+        layer: 0
+      }
+    }
+  ) {
+    effective
+  }
+  n: postTransaction(
+    input: {
+      transactionId: $transactionIdN
+      tranCode: "BOOK_TRANSFER"
+      params: {
+        journalId: "00000000-0000-0000-0000-000000000000"
+        correlationId: "a2aa5351-9228-4d53-b500-3cef1f4a2cf4"
+        crAccount: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+        drAccount: "f4a3cb70-9ace-4885-a3ca-d0b3a37bd847"
+        amount: "100.00"
+        fee: "0"
+        currency: "USD"
+        effective: "2024-07-15"
+        layer: 0
+      }
+    }
+  ) {
+    effective
+  }
+  o: postTransaction(
+    input: {
+      transactionId: $transactionIdO
+      tranCode: "BOOK_TRANSFER"
+      params: {
+        journalId: "00000000-0000-0000-0000-000000000000"
+        correlationId: "a2aa5351-9228-4d53-b500-3cef1f4a2cf4"
+        crAccount: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+        drAccount: "f4a3cb70-9ace-4885-a3ca-d0b3a37bd847"
+        amount: "100.00"
+        fee: "0"
+        currency: "USD"
+        effective: "2024-08-01"
+        layer: 0
+      }
+    }
+  ) {
+    effective
+  }
+  p: postTransaction(
+    input: {
+      transactionId: $transactionIdP
+      tranCode: "BOOK_TRANSFER"
+      params: {
+        journalId: "00000000-0000-0000-0000-000000000000"
+        correlationId: "a2aa5351-9228-4d53-b500-3cef1f4a2cf4"
+        crAccount: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+        drAccount: "f4a3cb70-9ace-4885-a3ca-d0b3a37bd847"
+        amount: "100.00"
+        fee: "0"
+        currency: "USD"
+        effective: "2024-08-15"
+        layer: 0
+      }
+    }
+  ) {
+    effective
+  }
+  q: postTransaction(
+    input: {
+      transactionId: $transactionIdQ
+      tranCode: "BOOK_TRANSFER"
+      params: {
+        journalId: "00000000-0000-0000-0000-000000000000"
+        correlationId: "a2aa5351-9228-4d53-b500-3cef1f4a2cf4"
+        crAccount: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+        drAccount: "f4a3cb70-9ace-4885-a3ca-d0b3a37bd847"
+        amount: "100.00"
+        fee: "0"
+        currency: "USD"
+        effective: "2024-09-01"
+        layer: 0
+      }
+    }
+  ) {
+    effective
+  }
+  r: postTransaction(
+    input: {
+      transactionId: $transactionIdR
+      tranCode: "BOOK_TRANSFER"
+      params: {
+        journalId: "00000000-0000-0000-0000-000000000000"
+        correlationId: "a2aa5351-9228-4d53-b500-3cef1f4a2cf4"
+        crAccount: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+        drAccount: "f4a3cb70-9ace-4885-a3ca-d0b3a37bd847"
+        amount: "100.00"
+        fee: "0"
+        currency: "USD"
+        effective: "2024-09-15"
+        layer: 0
+      }
+    }
+  ) {
+    effective
+  }
+  s: postTransaction(
+    input: {
+      transactionId: $transactionIdS
+      tranCode: "BOOK_TRANSFER"
+      params: {
+        journalId: "00000000-0000-0000-0000-000000000000"
+        correlationId: "a2aa5351-9228-4d53-b500-3cef1f4a2cf4"
+        crAccount: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+        drAccount: "f4a3cb70-9ace-4885-a3ca-d0b3a37bd847"
+        amount: "100.00"
+        fee: "0"
+        currency: "USD"
+        effective: "2024-10-01"
+        layer: 0
+      }
+    }
+  ) {
+    effective
+  }
+  t: postTransaction(
+    input: {
+      transactionId: $transactionIdT
+      tranCode: "BOOK_TRANSFER"
+      params: {
+        journalId: "00000000-0000-0000-0000-000000000000"
+        correlationId: "a2aa5351-9228-4d53-b500-3cef1f4a2cf4"
+        crAccount: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+        drAccount: "f4a3cb70-9ace-4885-a3ca-d0b3a37bd847"
+        amount: "100.00"
+        fee: "0"
+        currency: "USD"
+        effective: "2024-10-15"
+        layer: 0
+      }
+    }
+  ) {
+    effective
+  }
+  u: postTransaction(
+    input: {
+      transactionId: $transactionIdU
+      tranCode: "BOOK_TRANSFER"
+      params: {
+        journalId: "00000000-0000-0000-0000-000000000000"
+        correlationId: "a2aa5351-9228-4d53-b500-3cef1f4a2cf4"
+        crAccount: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+        drAccount: "f4a3cb70-9ace-4885-a3ca-d0b3a37bd847"
+        amount: "100.00"
+        fee: "0"
+        currency: "USD"
+        effective: "2024-11-01"
+        layer: 0
+      }
+    }
+  ) {
+    effective
+  }
+  v: postTransaction(
+    input: {
+      transactionId: $transactionIdV
+      tranCode: "BOOK_TRANSFER"
+      params: {
+        journalId: "00000000-0000-0000-0000-000000000000"
+        correlationId: "a2aa5351-9228-4d53-b500-3cef1f4a2cf4"
+        crAccount: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+        drAccount: "f4a3cb70-9ace-4885-a3ca-d0b3a37bd847"
+        amount: "100.00"
+        fee: "0"
+        currency: "USD"
+        effective: "2024-11-15"
+        layer: 0
+      }
+    }
+  ) {
+    effective
+  }
+  w: postTransaction(
+    input: {
+      transactionId: $transactionIdW
+      tranCode: "BOOK_TRANSFER"
+      params: {
+        journalId: "00000000-0000-0000-0000-000000000000"
+        correlationId: "a2aa5351-9228-4d53-b500-3cef1f4a2cf4"
+        crAccount: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+        drAccount: "f4a3cb70-9ace-4885-a3ca-d0b3a37bd847"
+        amount: "100.00"
+        fee: "0"
+        currency: "USD"
+        effective: "2024-12-01"
+        layer: 0
+      }
+    }
+  ) {
+    effective
+  }
+  x: postTransaction(
+    input: {
+      transactionId: $transactionIdX
+      tranCode: "BOOK_TRANSFER"
+      params: {
+        journalId: "00000000-0000-0000-0000-000000000000"
+        correlationId: "a2aa5351-9228-4d53-b500-3cef1f4a2cf4"
+        crAccount: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+        drAccount: "f4a3cb70-9ace-4885-a3ca-d0b3a37bd847"
+        amount: "100.00"
+        fee: "0"
+        currency: "USD"
+        effective: "2024-12-15"
+        layer: 0
+      }
+    }
+  ) {
+    effective
+  }
+  y: postTransaction(
+    input: {
+      transactionId: $transactionIdY
+      tranCode: "BOOK_TRANSFER"
+      params: {
+        journalId: "00000000-0000-0000-0000-000000000000"
+        correlationId: "a2aa5351-9228-4d53-b500-3cef1f4a2cf4"
+        crAccount: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+        drAccount: "f4a3cb70-9ace-4885-a3ca-d0b3a37bd847"
+        amount: "100.00"
+        fee: "0"
+        currency: "USD"
+        effective: "2025-01-01"
+        layer: 0
+      }
+    }
+  ) {
+    effective
+  }
+  z: postTransaction(
+    input: {
+      transactionId: $transactionIdZ
+      tranCode: "BOOK_TRANSFER"
+      params: {
+        journalId: "00000000-0000-0000-0000-000000000000"
+        correlationId: "a2aa5351-9228-4d53-b500-3cef1f4a2cf4"
+        crAccount: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+        drAccount: "f4a3cb70-9ace-4885-a3ca-d0b3a37bd847"
+        amount: "100.00"
+        fee: "0"
+        currency: "USD"
+        effective: "2025-01-15"
+        layer: 0
+      }
+    }
+  ) {
+    effective
+  }
+}

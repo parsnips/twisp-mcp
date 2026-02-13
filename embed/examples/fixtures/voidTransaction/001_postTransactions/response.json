@@ -1,0 +1,70 @@
+{
+  "data": {
+    "tx1": {
+      "transactionId": "6dad06b7-be1f-4461-a4e9-44049a9cd74c",
+      "entries": {
+        "nodes": [
+          {
+            "accountId": "61ba5969-5e24-464f-8cf8-87776949b189",
+            "entryType": "METHOD_DR",
+            "units": "10.00",
+            "currency": "USD",
+            "direction": "DEBIT",
+            "metadata": {
+              "method": "VISA"
+            },
+            "transaction": {
+              "transactionId": "6dad06b7-be1f-4461-a4e9-44049a9cd74c"
+            }
+          },
+          {
+            "accountId": "73c7ede6-c675-4f66-a5fe-671bbf958cd9",
+            "entryType": "METHOD_CR",
+            "units": "10.00",
+            "currency": "USD",
+            "direction": "CREDIT",
+            "metadata": {
+              "method": "VISA"
+            },
+            "transaction": {
+              "transactionId": "6dad06b7-be1f-4461-a4e9-44049a9cd74c"
+            }
+          }
+        ]
+      }
+    },
+    "tx2": {
+      "transactionId": "31962347-1b2e-46b5-ad3d-f5adf172c30d",
+      "entries": {
+        "nodes": [
+          {
+            "accountId": "73c7ede6-c675-4f66-a5fe-671bbf958cd9",
+            "entryType": "METHOD_DR",
+            "units": "15.00",
+            "currency": "USD",
+            "direction": "DEBIT",
+            "metadata": {
+              "method": "VISA"
+            },
+            "transaction": {
+              "transactionId": "31962347-1b2e-46b5-ad3d-f5adf172c30d"
+            }
+          },
+          {
+            "accountId": "61ba5969-5e24-464f-8cf8-87776949b189",
+            "entryType": "METHOD_CR",
+            "units": "15.00",
+            "currency": "USD",
+            "direction": "CREDIT",
+            "metadata": {
+              "method": "VISA"
+            },
+            "transaction": {
+              "transactionId": "31962347-1b2e-46b5-ad3d-f5adf172c30d"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

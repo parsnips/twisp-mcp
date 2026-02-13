@@ -1,0 +1,721 @@
+mutation DefaultLedgerSeed(
+  $journalGLId: UUID!
+  $journalGLIdExp: Expression!
+  $journalSLId: UUID!
+  $accountSetSettlementId: UUID!
+  $accountSetCustomersId: UUID!
+  $accountACHSettlementId: UUID!
+  $accountACHSettlementIdExp: Expression!
+  $accountCardSettlementId: UUID!
+  $accountCardSettlementIdExp: Expression!
+  $accountCustomerAliciaId: UUID!
+  $accountCustomerBobbyId: UUID!
+  $accountFXBrokerId: UUID!
+  $accountFXBrokerIdExp: Expression!
+  $tcACHCreditId: UUID!
+  $tcACHDebitId: UUID!
+  $tcCardHoldId: UUID!
+  $tcCardHoldModificationId: UUID!
+  $tcCardHoldCancelId: UUID!
+  $tcCardHoldExpireId: UUID!
+  $tcCardTxClearingId: UUID!
+  $tcBookTransferId: UUID!
+  $effective: Date = "date('2022-09-07')" @cel
+) {
+  # ---
+  # Journals
+
+  gl: createJournal(input: { journalId: $journalGLId, name: "GL", description: "General Ledger" }) {
+    journalId
+  }
+
+  sl: createJournal(
+    input: { journalId: $journalSLId, name: "SL", description: "Securities Ledger" }
+  ) {
+    journalId
+  }
+
+  # ---
+  # Account Sets
+
+  settlement: createAccountSet(
+    input: {
+      accountSetId: $accountSetSettlementId
+      journalId: $journalGLId
+      name: "Settlement"
+      description: "All settlement accounts."
+      normalBalanceType: CREDIT
+    }
+  ) {
+    accountSetId
+  }
+
+  customers: createAccountSet(
+    input: {
+      accountSetId: $accountSetCustomersId
+      journalId: $journalGLId
+      name: "Customers"
+      description: "All customer wallets."
+      normalBalanceType: DEBIT
+    }
+  ) {
+    accountSetId
+  }
+
+  # ---
+  # Accounts
+
+  settlement_ach: createAccount(
+    input: {
+      accountId: $accountACHSettlementId
+      name: "ACH Settlement"
+      code: "SETTLE.ACH"
+      description: "Settlement account for ACH transactions."
+      normalBalanceType: CREDIT
+      accountSetIds: [$accountSetSettlementId]
+      status: ACTIVE
+    }
+  ) {
+    accountId
+  }
+
+  settlement_card: createAccount(
+    input: {
+      accountId: $accountCardSettlementId
+      name: "Card Settlement"
+      code: "SETTLE.CARD"
+      description: "Settlement account for card transactions."
+      normalBalanceType: CREDIT
+      accountSetIds: [$accountSetSettlementId]
+      status: ACTIVE
+    }
+  ) {
+    accountId
+  }
+
+  customer_alicia: createAccount(
+    input: {
+      accountId: $accountCustomerAliciaId
+      name: "Alicia"
+      code: "CUST.Alicia"
+      description: "Alicia's customer wallet."
+      normalBalanceType: DEBIT
+      accountSetIds: [$accountSetCustomersId]
+      status: ACTIVE
+    }
+  ) {
+    accountId
+  }
+
+  customer_bobby: createAccount(
+    input: {
+      accountId: $accountCustomerBobbyId
+      name: "Bobby"
+      code: "CUST.Bobby"
+      description: "Bobby's customer wallet."
+      normalBalanceType: DEBIT
+      accountSetIds: [$accountSetCustomersId]
+      status: ACTIVE
+    }
+  ) {
+    accountId
+  }
+
+  fx_broker: createAccount(
+    input: {
+      accountId: $accountFXBrokerId
+      code: "FX_BROKER"
+      name: "Foreign Exchange Broker"
+      description: "Account for brokering foreign currency exchanges."
+      normalBalanceType: DEBIT
+      status: ACTIVE
+    }
+  ) {
+    accountId
+  }
+
+  # ---
+  # Tran Codes
+
+  ach_debit: createTranCode(
+    input: {
+      tranCodeId: $tcACHDebitId
+      code: "ACH_DEBIT"
+      description: "An ACH debit to an account."
+      metadata: { category: "ACH" }
+      params: [
+        { name: "account", type: UUID, description: "Deposit account ID." }
+        { name: "amount", type: DECIMAL, description: "Amount with decimal, e.g. `1.23`." }
+        { name: "effective", type: DATE, description: "Effective date for ACH transaction." }
+      ]
+      transaction: {
+        journalId: $journalGLIdExp
+        effective: "params.effective"
+        description: "'ACH debit for $' + string(params.amount)"
+      }
+      entries: [
+        {
+          accountId: "params.account"
+          units: "params.amount"
+          currency: "'USD'"
+          entryType: "'ACH_DR'"
+          direction: "DEBIT"
+          layer: "SETTLED"
+        }
+        {
+          accountId: $accountACHSettlementIdExp
+          units: "params.amount"
+          currency: "'USD'"
+          entryType: "'ACH_CR'"
+          direction: "CREDIT"
+          layer: "SETTLED"
+        }
+      ]
+    }
+  ) {
+    tranCodeId
+  }
+
+  ach_credit: createTranCode(
+    input: {
+      tranCodeId: $tcACHCreditId
+      code: "ACH_CREDIT"
+      description: "An ACH credit from an account."
+      metadata: { category: "ACH" }
+      params: [
+        { name: "account", type: UUID, description: "Source account ID." }
+        { name: "amount", type: DECIMAL, description: "Amount with decimal, e.g. `1.23`." }
+        { name: "effective", type: DATE, description: "Effective date for ACH transaction." }
+      ]
+      transaction: {
+        journalId: $journalGLIdExp
+        effective: "params.effective"
+        description: "'ACH credit for $' + string(params.amount)"
+        correlationId: "transaction_id.toString()"
+      }
+      entries: [
+        {
+          accountId: $accountACHSettlementIdExp
+          units: "params.amount"
+          currency: "'USD'"
+          entryType: "'ACH_DR'"
+          direction: "DEBIT"
+          layer: "SETTLED"
+        }
+        {
+          accountId: "params.account"
+          units: "params.amount"
+          currency: "'USD'"
+          entryType: "'ACH_CR'"
+          direction: "CREDIT"
+          layer: "SETTLED"
+        }
+      ]
+    }
+  ) {
+    tranCodeId
+  }
+
+  card_hold: createTranCode(
+    input: {
+      tranCodeId: $tcCardHoldId
+      code: "CARD_HOLD"
+      description: "Place an authorization hold on an account for the amount specified."
+      metadata: { category: "Card" }
+      params: [
+        { name: "account", type: UUID, description: "The account to place the hold on." }
+        { name: "amount", type: DECIMAL, description: "The amount of the hold." }
+        { name: "currency", type: STRING, description: "Currency used for transaction." }
+        {
+          name: "isDebit"
+          type: BOOLEAN
+          description: "If true (default), debit the account specified. If false, credit the account."
+          default: true
+        }
+        {
+          name: "correlation"
+          type: STRING
+          description: "Correlation identifier to group transactions following on from this hold."
+        }
+        { name: "effective", type: DATE, description: "Effective date of the transaction." }
+      ]
+      transaction: {
+        journalId: $journalGLIdExp
+        effective: "params.effective"
+        correlationId: "params.correlation"
+        description: "'Card authorization hold placed for ' + string(params.amount) + ' ' + params.currency"
+      }
+      entries: [
+        {
+          accountId: "params.account"
+          units: "params.amount"
+          currency: "params.currency"
+          entryType: "'CARD_HOLD_'+ string(params.isDebit ? 'DR' : 'CR')"
+          direction: "params.isDebit ? DEBIT : CREDIT"
+          layer: "PENDING"
+        }
+        {
+          accountId: $accountCardSettlementIdExp
+          units: "params.amount"
+          currency: "params.currency"
+          entryType: "'CARD_HOLD_'+ string(params.isDebit ? 'CR' : 'DR')" # opposite direction
+          direction: "params.isDebit ? CREDIT : DEBIT"
+          layer: "PENDING"
+        }
+      ]
+    }
+  ) {
+    tranCodeId
+  }
+
+  card_hold_modification: createTranCode(
+    input: {
+      tranCodeId: $tcCardHoldModificationId
+      code: "CARD_HOLD_MODIFICATION"
+      description: "Modify a card hold amount by the diff amount."
+      metadata: { category: "Card" }
+      params: [
+        {
+          name: "account"
+          type: UUID
+          description: "The account with the card hold to be modified."
+        }
+        { name: "diffAmount", type: DECIMAL, description: "The amount to modify the hold by." }
+        { name: "currency", type: STRING, description: "Currency used for transaction." }
+        {
+          name: "isDebit"
+          type: BOOLEAN
+          description: "If true (default), debit the account specified. If false, credit the account."
+          default: true
+        }
+        {
+          name: "correlation"
+          type: STRING
+          description: "Correlation ID of the original CARD_HOLD transaction."
+        }
+        { name: "effective", type: DATE, description: "Effective date of the transaction." }
+      ]
+      transaction: {
+        journalId: $journalGLIdExp
+        effective: "params.effective"
+        correlationId: "params.correlation"
+        description: "'Modification on card hold: difference of ' + string(params.diffAmount) + ' ' + params.currency"
+      }
+      entries: [
+        {
+          accountId: "params.account"
+          units: "params.diffAmount"
+          currency: "params.currency"
+          entryType: "'CARD_HOLD_MODIFICATION_'+ string(params.isDebit ? 'DR' : 'CR')"
+          direction: "params.isDebit ? DEBIT : CREDIT"
+          layer: "PENDING"
+        }
+        {
+          accountId: $accountCardSettlementIdExp
+          units: "params.diffAmount"
+          currency: "params.currency"
+          entryType: "'CARD_HOLD_MODIFICATION_'+ string(params.isDebit ? 'CR' : 'DR')" # opposite direction
+          direction: "params.isDebit ? CREDIT : DEBIT"
+          layer: "PENDING"
+        }
+      ]
+    }
+  ) {
+    tranCodeId
+  }
+
+  card_hold_cancel: createTranCode(
+    input: {
+      tranCodeId: $tcCardHoldCancelId
+      code: "CARD_HOLD_CANCEL"
+      description: "Cancel a card hold."
+      metadata: { category: "Card" }
+      params: [
+        { name: "account", type: UUID, description: "The account with the card hold to cancel." }
+        { name: "amount", type: DECIMAL, description: "The amount of the hold." }
+        { name: "currency", type: STRING, description: "Currency used for transaction." }
+        {
+          name: "isDebit"
+          type: BOOLEAN
+          description: "If true (default), debit the account specified. If false, credit the account."
+          default: true
+        }
+        {
+          name: "correlation"
+          type: STRING
+          description: "Correlation ID of the original CARD_HOLD transaction."
+        }
+        { name: "effective", type: DATE, description: "Effective date of the transaction." }
+      ]
+      transaction: {
+        journalId: $journalGLIdExp
+        effective: "params.effective"
+        correlationId: "params.correlation"
+        description: "'Card hold for ' + string(params.amount) + ' ' + params.currency + ' cancelled.'"
+      }
+      entries: [
+        {
+          accountId: "params.account"
+          units: "params.amount"
+          currency: "params.currency"
+          entryType: "'CARD_HOLD_CANCEL_'+ string(params.isDebit ? 'DR' : 'CR')"
+          direction: "params.isDebit ? DEBIT : CREDIT"
+          layer: "PENDING"
+        }
+        {
+          accountId: $accountCardSettlementIdExp
+          units: "params.amount"
+          currency: "params.currency"
+          entryType: "'CARD_HOLD_CANCEL'+ string(params.isDebit ? 'CR' : 'DR')" # opposite direction
+          direction: "params.isDebit ? CREDIT : DEBIT"
+          layer: "PENDING"
+        }
+      ]
+    }
+  ) {
+    tranCodeId
+  }
+
+  card_hold_expire: createTranCode(
+    input: {
+      tranCodeId: $tcCardHoldExpireId
+      code: "CARD_HOLD_EXPIRE"
+      description: "Expire a card hold."
+      metadata: { category: "Card" }
+      params: [
+        {
+          name: "account"
+          type: UUID
+          description: "The account with the card hold to be expired."
+        }
+        { name: "amount", type: DECIMAL, description: "The amount of the hold." }
+        { name: "currency", type: STRING, description: "Currency used for transaction." }
+        {
+          name: "isDebit"
+          type: BOOLEAN
+          description: "If true (default), debit the account specified. If false, credit the account."
+          default: true
+        }
+        {
+          name: "correlation"
+          type: STRING
+          description: "Correlation ID of the original CARD_HOLD transaction."
+        }
+        { name: "effective", type: DATE, description: "Effective date of the transaction." }
+      ]
+      transaction: {
+        journalId: $journalGLIdExp
+        effective: "params.effective"
+        correlationId: "params.correlation"
+        description: "'Card hold for ' + string(params.amount) + ' ' + params.currency + ' expired.'"
+      }
+      entries: [
+        {
+          accountId: "params.account"
+          units: "params.amount"
+          currency: "params.currency"
+          entryType: "'CARD_HOLD_EXPIRE_'+ string(params.isDebit ? 'DR' : 'CR')"
+          direction: "params.isDebit ? DEBIT : CREDIT"
+          layer: "PENDING"
+        }
+        {
+          accountId: $accountCardSettlementIdExp
+          units: "params.amount"
+          currency: "params.currency"
+          entryType: "'CARD_HOLD_EXPIRE_'+ string(params.isDebit ? 'CR' : 'DR')" # opposite direction
+          direction: "params.isDebit ? CREDIT : DEBIT"
+          layer: "PENDING"
+        }
+      ]
+    }
+  ) {
+    tranCodeId
+  }
+
+  card_transaction_clearing: createTranCode(
+    input: {
+      tranCodeId: $tcCardTxClearingId
+      code: "CARD_TX_CLEARING"
+      description: "Clear a card hold and settle the transaction for the amount provided."
+      metadata: { category: "Card" }
+      params: [
+        {
+          name: "account"
+          type: UUID
+          description: "The account with the card hold to be cleared."
+        }
+        { name: "amount", type: DECIMAL, description: "The final amount to be cleared." }
+        {
+          name: "holdAmount"
+          type: DECIMAL
+          description: "The amount of the original hold to drop."
+          default: "0.00"
+        }
+        { name: "currency", type: STRING, description: "Currency used for transaction." }
+        {
+          name: "isDebit"
+          type: BOOLEAN
+          description: "If true (default), debit the account specified. If false, credit the account."
+          default: true
+        }
+        {
+          name: "correlation"
+          type: STRING
+          description: "Correlation ID of the original CARD_HOLD transaction."
+        }
+        { name: "effective", type: DATE, description: "Effective date of the transaction." }
+      ]
+      transaction: {
+        journalId: $journalGLIdExp
+        effective: "params.effective"
+        correlationId: "params.correlation"
+        description: "'Card TX for ' + string(params.amount) + ' ' + params.currency + ' settled.'"
+      }
+      entries: [
+        # First entry pair is the settlement.
+        {
+          accountId: "params.account"
+          units: "params.amount"
+          currency: "params.currency"
+          entryType: "'CARD_SETTLEMENT_'+ string(params.isDebit ? 'DR' : 'CR')"
+          direction: "params.isDebit ? DEBIT : CREDIT"
+          layer: "SETTLED"
+        }
+        {
+          accountId: $accountCardSettlementIdExp
+          units: "params.amount"
+          currency: "params.currency"
+          entryType: "'CARD_SETTLEMENT_'+ string(params.isDebit ? 'CR' : 'DR')" # opposite direction
+          direction: "params.isDebit ? CREDIT : DEBIT"
+          layer: "SETTLED"
+        }
+        # Second entry pair is the posting hold amount to drop
+        {
+          accountId: "params.account"
+          units: "params.holdAmount"
+          currency: "params.currency"
+          entryType: "'CARD_HOLD_CLEAR_'+ string(params.isDebit ? 'CR' : 'DR')" # opposite direction
+          direction: "params.isDebit ? CREDIT : DEBIT"
+          layer: "PENDING"
+        }
+        {
+          accountId: $accountCardSettlementIdExp
+          units: "params.holdAmount"
+          currency: "params.currency"
+          entryType: "'CARD_HOLD_CLEAR_'+ string(params.isDebit ? 'DR' : 'CR')"
+          direction: "params.isDebit ? DEBIT : CREDIT"
+          layer: "PENDING"
+        }
+      ]
+    }
+  ) {
+    tranCodeId
+  }
+
+  book_transfer: createTranCode(
+    input: {
+      tranCodeId: $tcBookTransferId
+      code: "BOOK_TRANSFER"
+      description: "Book transfer between two internal accounts."
+      metadata: { category: "Internal" }
+      params: [
+        { name: "crAccount", type: UUID, description: "Account to credit." }
+        { name: "drAccount", type: UUID, description: "Account to debit." }
+        { name: "amount", type: DECIMAL, description: "Amount with decimal, e.g. `1.23`." }
+        { name: "currency", type: STRING, description: "Currency used for transaction." }
+        { name: "effective", type: DATE, description: "Effective date for transaction." }
+      ]
+      transaction: {
+        journalId: $journalGLIdExp
+        effective: "params.effective"
+        description: "'Book transfer for $' + string(params.amount)"
+      }
+      entries: [
+        {
+          accountId: "params.drAccount"
+          units: "params.amount"
+          currency: "params.currency"
+          entryType: "'BOOK_TRANSFER_DR'"
+          direction: "DEBIT"
+          layer: "SETTLED"
+        }
+        {
+          accountId: "params.crAccount"
+          units: "params.amount"
+          currency: "params.currency"
+          entryType: "'BOOK_TRANSFER_CR'"
+          direction: "CREDIT"
+          layer: "SETTLED"
+        }
+      ]
+    }
+  ) {
+    tranCodeId
+  }
+
+  currency_exchange: createTranCode(
+    input: {
+      tranCodeId: "a1b795df-0f8d-4f24-85af-b087b7d1db5e"
+      code: "EXCHANGE_CURRENCY"
+      description: "Exchange one currency for another."
+      metadata: { category: "FX" }
+      params: [
+        { name: "account", type: UUID, description: "Account making the exchange." }
+        { name: "sellUnits", type: DECIMAL, description: "Decimal units of currency being sold." }
+        { name: "sellCurrency", type: STRING, description: "ISO 4217 code of selling currency." }
+        { name: "buyCurrency", type: STRING, description: "ISO 4217 code of buying currency." }
+        {
+          name: "exchangeRate"
+          type: DECIMAL
+          description: "Exchange rate as a decimal. SELL is multiplied by this rate to determine amount of BUY."
+        }
+        { name: "effective", type: DATE, description: "Effective date for transaction." }
+      ]
+      transaction: {
+        journalId: $journalGLIdExp
+        effective: "params.effective"
+        description: "'Exchange ' + string(params.sellUnits) + ' ' + params.sellCurrency + ' for ' + params.buyCurrency + ' at a 1:' + string(params.exchangeRate) + ' exchange rate.'"
+        metadata: "{ 'buy': string(params.buyCurrency), 'sell': string(params.sellCurrency), 'rate': string(params.exchangeRate) }"
+      }
+      entries: [
+        {
+          accountId: "params.account"
+          units: "params.sellUnits"
+          currency: "params.sellCurrency"
+          entryType: "'FX_SELL_DR'"
+          direction: "CREDIT"
+          layer: "SETTLED"
+        }
+        {
+          accountId: $accountFXBrokerIdExp
+          units: "params.sellUnits"
+          currency: "params.sellCurrency"
+          entryType: "'FX_SELL_CR'"
+          direction: "DEBIT"
+          layer: "SETTLED"
+        }
+        {
+          accountId: $accountFXBrokerIdExp
+          units: "decimal.Mul(params.sellUnits, params.exchangeRate)"
+          currency: "params.buyCurrency"
+          entryType: "'FX_BUY_DR'"
+          direction: "CREDIT"
+          layer: "SETTLED"
+        }
+        {
+          accountId: "params.account"
+          units: "decimal.Mul(params.sellUnits, params.exchangeRate)"
+          currency: "params.buyCurrency"
+          entryType: "'FX_BUY_CR'"
+          direction: "DEBIT"
+          layer: "SETTLED"
+        }
+      ]
+    }
+  ) {
+    tranCodeId
+  }
+
+  # ---
+  # Transactions
+
+  # Deposit $9.53 to Alicia
+  tx_deposit_to_alicia: postTransaction(
+    input: {
+      transactionId: "66b47277-4bd8-432c-96d1-e40a0967930a"
+      tranCode: "ACH_DEBIT"
+      params: { account: $accountCustomerAliciaId, amount: "9.53", effective: $effective }
+    }
+  ) {
+    transactionId
+  }
+
+  # Move $1 from Alicia to Bobby
+  tx_tfr_alicia_to_bobby: postTransaction(
+    input: {
+      transactionId: "6b5e47b6-60d2-49bf-8210-0e4c3dd3ec68"
+      tranCode: "BOOK_TRANSFER"
+      params: {
+        crAccount: $accountCustomerAliciaId
+        drAccount: $accountCustomerBobbyId
+        amount: "1.00"
+        currency: "USD"
+        effective: "2022-09-08"
+      }
+    }
+  ) {
+    transactionId
+  }
+
+  # Place a card auth hold for $4.53 on Alicia's acct
+  tx_card_auth_alicia: postTransaction(
+    input: {
+      transactionId: "114a8b1e-d00b-4e13-ab27-ec3472622c0a"
+      tranCode: "CARD_HOLD"
+      params: {
+        account: $accountCustomerAliciaId
+        amount: "4.53"
+        currency: "USD"
+        isDebit: "false"
+        correlation: "4f2ac9a7-5e83-458b-a194-c8ac8d8fdcd5"
+        effective: "2022-09-10"
+      }
+    }
+  ) {
+    transactionId
+  }
+
+  # Settle card hold for $4.53 to Alicia's acct
+  tx_card_settle_alicia: postTransaction(
+    input: {
+      transactionId: "d94033a4-f438-4fcc-9c3b-c7adf3fd7b76"
+      tranCode: "CARD_TX_CLEARING"
+      params: {
+        account: $accountCustomerAliciaId
+        amount: "4.53"
+        holdAmount: "4.53"
+        currency: "USD"
+        isDebit: "false"
+        correlation: "4f2ac9a7-5e83-458b-a194-c8ac8d8fdcd5"
+        effective: "2022-09-12"
+      }
+    }
+  ) {
+    transactionId
+  }
+
+  # Exchange $2.37 USD for EUR on Alicia's acct
+  tx_alicia_buy_euro: postTransaction(
+    input: {
+      transactionId: "434696a7-56e5-4e14-a97a-884820690a22"
+      tranCode: "EXCHANGE_CURRENCY"
+      params: {
+        effective: "2022-09-11"
+        account: $accountCustomerAliciaId
+        sellUnits: "2.37"
+        sellCurrency: "USD"
+        buyCurrency: "EUR"
+        exchangeRate: "0.85"
+      }
+    }
+  ) {
+    transactionId
+  }
+
+  
+  createCalculation(
+    input:{
+      calculationId: "5867b5dd-fc69-416c-80f5-62e8a53610d5"
+      code: "EFFECTIVE_DATE"
+      description: "Track balances per EFFECTIVE_DATE in an account."
+      dimensions: [
+        {
+          alias: "effectiveDate"
+          value: "context.vars.transaction.effective"
+        }
+      ]
+    }
+  ) {
+    calculationId
+  }
+}

@@ -1,0 +1,1 @@
+Update the description of the tenant with accountId "sandbox" in the admin namespace. Return the accountId, updated description, and version.

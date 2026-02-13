@@ -1,0 +1,1 @@
+Make three transfers between Ernie and Bert's accounts using the "TRANSFER" transaction code and two transfers using the "TRANSFER_PRODUCT" transaction code, each with different transactionIds, amounts, and effective dates. Return the transactionId, tranCodeId, effective date, and a list of the entries with units, direction, and account name for each transfer.

@@ -1,0 +1,17 @@
+mutation UpdateAccountSet($accountSetCustomersId: UUID!) {
+  updateAccountSet(
+    id: $accountSetCustomersId
+    input: { name: "Customer Wallets", code: "CUSTOMERS.WALLETS" }
+  ) {
+    accountSetId
+    name
+    code
+    history(first: 2) {
+      nodes {
+        version
+        name
+        code
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+query accounts {
+  accounts(
+    index: {name: CUSTOM, sort: ASC}
+    where: {custom: {index: "alpha", partition: {alias: "alpha", value: {eq: "yes"}}}}
+    first: 10
+  ) {
+    nodes {
+      accountId
+      name
+      metadata
+    }
+  }
+}

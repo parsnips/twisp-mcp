@@ -1,0 +1,10 @@
+{
+  "data": {
+    "createJournal": {
+      "name": "HAPPY!"
+    },
+    "evaluate": {
+      "joy": "HAPPY!"
+    }
+  }
+}

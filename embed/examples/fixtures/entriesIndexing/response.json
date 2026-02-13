@@ -1,0 +1,16 @@
+{
+  "data": {
+    "journal": {
+      "journalId": "230ac020-45be-44cc-9220-c3045758d253"
+    },
+    "acctAlpha": {
+      "accountId": "73c7ede6-c675-4f66-a5fe-671bbf958cd9"
+    },
+    "acctBeta": {
+      "accountId": "61ba5969-5e24-464f-8cf8-87776949b189"
+    },
+    "createTranCode": {
+      "tranCodeId": "ea756487-dec8-4701-aca2-8c0c1a1bfbc8"
+    }
+  }
+}

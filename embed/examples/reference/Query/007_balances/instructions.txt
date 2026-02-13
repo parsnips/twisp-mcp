@@ -1,0 +1,1 @@
+Get the first 20 balances for the specified account and journal IDs using the account_id index. Retrieve the entry's entryType, currency, settled normal balance formatted in en-US locale, and version for each balance.

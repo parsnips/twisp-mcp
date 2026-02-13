@@ -1,0 +1,13 @@
+{
+  "data": {
+    "auth": {
+      "clients": {
+        "nodes": [
+          {
+            "principal": "arn:aws:iam::048962233173:user/github.action"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,1 @@
+Query the first 10 transactions using a custom index named "classification" and filter by partition values where classification equals "internal." Return the transactionId, tranCodeId, effective date, and metadata for each transaction.

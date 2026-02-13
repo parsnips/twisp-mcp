@@ -1,0 +1,38 @@
+{
+  "j": {
+    "journalId": "d4e237e7-cf4d-42fb-878a-583faa8d8a14",
+    "name": "GL"
+  },
+  "a": {
+    "accountSetId": "87911b4b-6ebb-4ce0-b126-4e68d5b53f2d",
+    "journalId": "d4e237e7-cf4d-42fb-878a-583faa8d8a14",
+    "name": "test account 1",
+    "description": "testing account 1",
+    "normalBalanceType": "DEBIT",
+    "code": "A",
+    "config": {
+      "enableConcurrentPosting": true
+    }
+  },
+  "b": {
+    "accountSetId": "0aa12e98-124a-439b-a027-bd72dd2e0b00",
+    "journalId": "d4e237e7-cf4d-42fb-878a-583faa8d8a14",
+    "name": "test account 2",
+    "description": "testing account 2",
+    "normalBalanceType": "DEBIT",
+    "code": "B",
+    "config": {
+      "enableConcurrentPosting": false
+    }
+  },
+  "c": {
+    "accountSetId": "9f970a23-34c9-492e-bbbe-5c51f4dddd14",
+    "journalId": "d4e237e7-cf4d-42fb-878a-583faa8d8a14",
+    "name": "test account 3",
+    "normalBalanceType": "DEBIT",
+    "code": "C",
+    "config": {
+      "enableConcurrentPosting": false
+    }
+  }
+}

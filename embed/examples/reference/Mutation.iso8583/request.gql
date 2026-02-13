@@ -1,0 +1,27 @@
+# Setup for ISO8583 mutation tests: Create a journal and settlement account
+mutation CreateJournalAndAccount {
+  # Create a journal for ISO8583 transactions
+  createJournal(
+    input: {
+      journalId: "8b65c8dc-0515-11f0-a441-069b540ea27c"
+      name: "ISO8583 Test Journal"
+      description: "Journal for ISO8583 test transactions"
+    }
+  ) {
+    journalId
+    name
+  }
+
+  # Create a settlement account
+  createAccount(
+    input: {
+      accountId: "779886bc-0515-11f0-aa78-069b540ea27c"
+      name: "ISO8583 Settlement Account"
+      code: "ISO8583"
+      normalBalanceType: CREDIT
+    }
+  ) {
+    accountId
+    name
+  }
+}

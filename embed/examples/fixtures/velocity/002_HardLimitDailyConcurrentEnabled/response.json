@@ -1,0 +1,27 @@
+{
+  "data": null,
+  "errors": [
+    {
+      "extensions": {
+        "code": "BALANCE_VELOCITY_EXCEEDED",
+        "exception": {
+          "detail": {
+            "accountId": "a937931b-627e-4890-aaa5-e3e98331249e",
+            "layer": "ENCUMBRANCE",
+            "limit": "100.00",
+            "velocityControlId": "f6f27892-dfd8-480b-9213-d6adf7ef04ef",
+            "velocityLimitId": "1be4132a-a389-45c3-9a61-0fe601d1ba8b",
+            "violatingBalance": "101.00 USD"
+          },
+          "errorMessage": "velocity 100.00 USD exceeded, balance is 101.00 USD",
+          "type": "VELOCITY_CONTROL"
+        },
+        "retriableError": false
+      },
+      "message": "input: postTransaction velocity 100.00 USD exceeded, balance is 101.00 USD",
+      "path": [
+        "postTransaction"
+      ]
+    }
+  ]
+}

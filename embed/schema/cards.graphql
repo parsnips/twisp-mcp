@@ -1,0 +1,76 @@
+extend type Mutation {
+  "Mutations in the `cards` namespace are used to initialize card processing transaction codes, including specific implementations like the Lithic card processing webhook."
+  cards: CardMutation!
+}
+
+type CardMutation {
+  """
+  DEPRECATED: Use Lithic workflow in workflow namespace.
+
+  Initialize your Twisp instance with Card Processing Transaction Codes. Returns the default settlement account.
+  """
+  initializeCardTransactionCodes(input: CardInitializeInput!): Account! @goField(forceResolver: true)
+
+  """
+  DEPRECATED: Use Lithic workflow in workflow namespace.
+
+  This mutation supports converting Lithic [Transaction Webhooks JSON](https://docs.lithic.com/docs/transaction-webhooks#schema) into into Twisp accounting core using our card transaction codes.
+
+  This mutation supports all lithic transaction webhook payloads, including ASA and Balance Inquiry. The general approach is to post all webhooks to Twisp, utilize the balances that come back for decisioning, and allow Twisp and Lithic to work together to track the state of the authorization/settlement cycle.
+  """
+  postLithicTransaction(input: LithicTransactionInput!): LithicTransactionBalance! @goField(forceResolver: true)
+}
+
+
+input CardInitializeInput {
+  """
+  The unique identifier for the journal that card transactions will post to by default.
+  If omitted, the default journal will be used.
+  """
+  journalId: UUID
+
+  """
+  A unique identifier to an existing settlement account that
+  card transactions will post to by default. If not provided,
+  a default card transaction account will be used as the
+  settlement account.
+  """
+  settlementAccountId: UUID
+}
+
+input LithicTransactionInput {
+  "Unique identifier for the account this transaction will post to."
+  accountId: UUID!
+
+  """
+  The [Transaction](https://docs.lithic.com/docs/transactions)
+  webhook object from Lithic.
+  """
+  webhook: JSON!
+
+  """
+  Unique identifier for the journal this transaction applies to.
+  If not provided, defaults to the default journal that card transaction codes are configured with.
+  """
+  journalId: UUID
+
+  """
+  Unique identifier of the settlement account that transactions
+  will settle from. If not provided, defaults to the default
+  card settlement account.
+  """
+  settlementAccountId: UUID
+}
+
+type LithicTransactionBalance {
+  """
+  The transaction that Twisp posted.
+  """
+  transaction: Transaction!
+
+  """
+  The balance for the account.
+  """
+  balance: Balance!
+}
+

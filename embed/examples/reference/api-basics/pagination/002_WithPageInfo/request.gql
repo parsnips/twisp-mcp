@@ -1,0 +1,17 @@
+query GetAccountsWithPageInfo {
+  journals(
+    index: { name: CODE }
+    where: { code: { like: "CUST." } }
+    first: 5
+  ) {
+    nodes {
+      code
+    }
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+  }
+}

@@ -1,0 +1,14 @@
+mutation CreateRevenueAccount($revenueId: UUID!) {
+  createAccount(
+    input: {
+      accountId: $revenueId
+      name: "Revenues"
+      code: "REV"
+      description: "Company revenues (e.g. fees)"
+      normalBalanceType: CREDIT
+    }
+  ) {
+    accountId
+    name
+  }
+}

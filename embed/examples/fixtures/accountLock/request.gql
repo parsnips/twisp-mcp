@@ -1,0 +1,18 @@
+mutation CreateAccountAndLock {
+  createAccount(
+    input: {
+      accountId: "3ef1c898-b4f9-11f0-a105-069b540ea27c"
+      code: "test"
+      name: "test"
+      description: "test"
+      metadata: { foo: "bar" }
+    }
+  ) {
+    status
+  }
+
+  # Lock account
+  deleteAccount(id: "3ef1c898-b4f9-11f0-a105-069b540ea27c") {
+    status
+  }
+}

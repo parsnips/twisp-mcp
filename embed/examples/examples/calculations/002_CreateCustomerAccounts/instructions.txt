@@ -1,0 +1,1 @@
+Create two checking accounts, one with the specified accountId for Ernie and one for Bert, using their respective codes and descriptions. Both accounts should have a credit-normal balance type. Return the account id and name for each.

@@ -1,0 +1,1 @@
+Get the balance for the specified account and journal IDs with currency set to "USD". Retrieve the available settled drBalance, crBalance, and normal balance formatted in en-US locale. Additionally, get the first 10 entries including entryType, amount, direction, and layer.

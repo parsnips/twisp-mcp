@@ -1,0 +1,32 @@
+{
+  "data": {
+    "warehouse": {
+      "executeStatementSync": {
+        "records": [
+          {
+            "fields": [
+              {
+                "value": {
+                  "str": "6BEVvBrRTiGFH4MlyyzHTQ=="
+                }
+              },
+              {
+                "value": {
+                  "str": "e81115bc1ad14e21851f8325cb2cc74d"
+                }
+              }
+            ]
+          }
+        ],
+        "columnMetadata": [
+          {
+            "name": "accountid"
+          },
+          {
+            "name": "uuid"
+          }
+        ]
+      }
+    }
+  }
+}

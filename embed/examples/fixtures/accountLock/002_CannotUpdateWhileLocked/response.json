@@ -1,0 +1,10 @@
+{
+  "errors": [
+    {
+      "message": "input: updateAccount cannot update a locked account\naborted transaction",
+      "path": ["updateAccount"],
+      "extensions": { "code": "BAD_REQUEST", "retriableError": false }
+    }
+  ],
+  "data": null
+}

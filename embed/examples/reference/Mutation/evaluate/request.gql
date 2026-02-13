@@ -1,0 +1,38 @@
+mutation Cel(
+  $id: String! = "uuid.New()" @cel
+  $uppercase: String! = "strings.ToUpper(context.vars.lowercase)" @cel
+  $expression: String! @cel
+  $this: String! = "this.uppercase" @cel
+  $nonCEL: String!
+  $celNonCEL: String! = "this.nonCEL" @cel
+) {
+  evaluate(
+    expressions:{
+      a: "int(1)"
+      b: "document.greeting + ' World!'"
+      c: "decimal.Sub(decimal('1.234567'), decimal('0.987654321'))"
+      d: "math.Max(double(123), double(456))"
+      e: "size(string(document.uuid))"
+      f: "document.upper"
+      g: "document.expr"
+      h: "document.this"
+      i: "strings.ToUpper(document.celNonCEL)"
+      j: "context.auth"
+      k: "decimal('-inf')"
+      l: "string(decimal('-inf'))"
+      m: {
+        n: "document.this"
+      }
+      o: "this.m.n"
+    }
+    document:{
+      greeting: "Hello"
+      uuid: $id
+      upper: $uppercase
+      expr: $expression
+      this: $this
+      nonCEL: $nonCEL
+      celNonCEL: $celNonCEL
+    }
+  )
+}

@@ -1,0 +1,1 @@
+Create a revenue account with a specified account ID, name, code, description, and a credit-normal balance type. Return the account ID and name.

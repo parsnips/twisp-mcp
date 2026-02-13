@@ -1,0 +1,9 @@
+mutation createJournal {
+  createJournal(input: {
+    name: "test"
+    description: "test"
+    journalId: "e1e1670b-988f-4f77-9d53-b2691b967fd8"
+  }) {
+    journalId
+  }
+}

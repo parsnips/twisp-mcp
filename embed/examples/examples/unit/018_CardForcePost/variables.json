@@ -1,0 +1,8 @@
+{
+  "accountId": "7a17b0f1-b04f-46a4-ba45-d52a861c21d9",
+  "amount": "10.00",
+  "settlementId": "d0150140-0ef1-4b89-8c23-7ad537006329",
+  "correlation": "3a47f3fc-de3b-44b9-aea2-74e0c02e1fb8",
+  "effective": "2022-10-01",
+  "settleHook": "{\n      \"status\": \"SETTLED\",\n      \"amount\": 1000,\n      \"acquirer_fee\": 0,\n      \"authorization_amount\": 1000,\n      \"settled_amount\": 1000,\n      \"events\": [\n        {\n          \"amount\": 1000,\n          \"type\": \"CLEARING\",\n          \"result\": \"APPROVED\",\n          \"token\": \"d0150140-0ef1-4b89-8c23-7ad537006329\"\n        }\n      ],\n      \"created\": \"2022-10-01T00:00:00Z\",\n      \"token\": \"3a47f3fc-de3b-44b9-aea2-74e0c02e1fb8\"\n    }"
+}

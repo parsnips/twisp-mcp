@@ -1,0 +1,1 @@
+Update the group with the name "empty-policy-1" in the admin namespace. Change the description and policy accordingly. Return the updated name, description, and policy.

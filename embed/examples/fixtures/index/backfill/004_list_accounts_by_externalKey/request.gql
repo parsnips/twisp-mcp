@@ -1,0 +1,24 @@
+query externalAccounts {
+  accounts(
+    first:10
+    index: {
+      name:CUSTOM
+      sort: ASC
+    }
+    where: {
+      custom: {
+        index: "Accounts.metadata.externalKey"
+        sort: {
+          alias:"stripeId"
+          value: {
+            gte: ""
+          }
+        }
+      }
+    }
+  ) {
+    nodes {
+      metadata
+    }
+  }
+}

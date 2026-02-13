@@ -1,0 +1,116 @@
+{
+  "data": {
+    "gl": { "journalId": "c2881874-007e-43e1-85ef-c263e8e361aa" },
+    "schema": {
+      "createIndex": { "name": "TRANSACTION.BUDGET_CATEGORY", "on": "Transaction", "unique": false }
+    },
+    "acct_set_bert": { "accountSetId": "65bc724c-6767-4f35-90f9-279a12f95fd4", "name": "Bert" },
+    "acct_set_budgets": {
+      "accountSetId": "e65e8d75-5f9f-4028-bb8c-5f8270a0d2a6",
+      "name": "Budgets"
+    },
+    "acct_set_ernie": { "accountSetId": "0a13f3b3-73dd-4a88-91be-ac0737bd7175", "name": "Ernie" },
+    "acct_set_settlement": {
+      "accountSetId": "d46fcd5f-8a19-4909-8bf1-7915f5f91612",
+      "name": "Settlement"
+    },
+    "acct_set_users": { "accountSetId": "afa31512-022a-41cf-b223-a261f5526510", "name": "Users" },
+    "acct_set_wallets": {
+      "accountSetId": "0e4d8596-6640-40d0-8a5c-5d9c8c10e534",
+      "name": "Wallets"
+    },
+    "acct_bert_budget": {
+      "accountId": "d7284018-0f6f-4a53-87b1-23f0d22f0883",
+      "code": "BERT.BUDGET",
+      "name": "Bert's Budget"
+    },
+    "acct_bert_cash": {
+      "accountId": "74f4fbe3-daee-49c9-84ce-f5361b057a3d",
+      "code": "BERT.CASH",
+      "name": "Bert's Cash Acct."
+    },
+    "acct_bert_checking": {
+      "accountId": "f3d6f928-9bfe-4029-ad08-6473acf38465",
+      "code": "BERT.CHECKING",
+      "name": "Bert's Checking Acct."
+    },
+    "acct_bert_wallet": {
+      "accountId": "7c1afcde-7863-41b8-9688-72730f4d61f9",
+      "code": "BERT.WALLET",
+      "name": "Bert's Wallet"
+    },
+    "acct_budget_offset": {
+      "accountId": "75da606c-03d6-4ea3-9a03-530710981f5b",
+      "code": "BUDGET.OFFSET",
+      "name": "Budget Offset"
+    },
+    "acct_ernie_budget": {
+      "accountId": "18b7c23f-460e-4593-937c-ccff0db3bcca",
+      "code": "ERNIE.BUDGET",
+      "name": "Ernie's Budget"
+    },
+    "acct_ernie_checking": {
+      "accountId": "9c424964-d102-4610-af8a-003ddd1bf270",
+      "code": "ERNIE.CHECKING",
+      "name": "Ernie's Checking Acct."
+    },
+    "acct_ernie_credit_card": {
+      "accountId": "55d75807-ec03-4d09-b607-472e9263985b",
+      "code": "ERNIE.CREDIT_CARD",
+      "name": "Ernie's Credit Card Acct."
+    },
+    "acct_ernie_wallet": {
+      "accountId": "a13bd92a-7450-46a5-adce-d5385805fd15",
+      "code": "ERNIE.WALLET",
+      "name": "Ernie's Wallet"
+    },
+    "acct_settlement_card": {
+      "accountId": "685fba2a-1ec6-4ae9-ace6-d9683d142c16",
+      "code": "SETTLEMENT.CARD",
+      "name": "Card Settlement"
+    },
+    "acct_settlement_cash": {
+      "accountId": "9583782b-3d02-45c0-a753-76e95710431d",
+      "code": "SETTLEMENT.CASH",
+      "name": "Cash Settlement"
+    },
+    "acct_settlement_checking": {
+      "accountId": "be381442-bd6f-4e52-a6dd-64380ffb1f45",
+      "code": "SETTLEMENT.CHECKING",
+      "name": "Checking Settlement"
+    },
+    "tc_alloc_budget": {
+      "tranCodeId": "2e92e3aa-9871-4c47-8c9a-5d76e6340769",
+      "code": "ALLOC_BUDGET"
+    },
+    "tc_dealloc_budget": {
+      "tranCodeId": "d1eaa3c4-ea60-4da3-b225-cf2955391824",
+      "code": "DEALLOC_BUDGET"
+    },
+    "tc_assign_to_budget": {
+      "tranCodeId": "95ede9f4-b3f6-4cc3-ab18-338fd9f41e8b",
+      "code": "ASSIGN_TO_BUDGET"
+    },
+    "tc_record_tx": { "tranCodeId": "15a1b0c5-bad0-4ac1-ac0a-a1a078fc14ae", "code": "RECORD_TX" },
+    "tc_record_pending_tx": {
+      "tranCodeId": "0b92fef4-7337-4d5d-9d6c-441da46cc34e",
+      "code": "RECORD_PENDING_TX"
+    },
+    "tc_record_settle_pending_tx": {
+      "tranCodeId": "673649ee-6aca-471a-8f55-86dc5cc4f5f2",
+      "code": "RECORD_SETTLE_PENDING_TX"
+    },
+    "tc_wallet_transfer": {
+      "tranCodeId": "62d8644c-ea6d-46b9-b295-98d006e5a116",
+      "code": "WALLET_TRANSFER"
+    },
+    "tc_wallet_deposit": {
+      "tranCodeId": "8e924fb1-de38-47c4-86a8-ce93012c5711",
+      "code": "WALLET_DEPOSIT"
+    },
+    "tc_wallet_withdraw": {
+      "tranCodeId": "499a549a-3da9-4256-a0dc-c59f69602df2",
+      "code": "WALLET_WITHDRAW"
+    }
+  }
+}

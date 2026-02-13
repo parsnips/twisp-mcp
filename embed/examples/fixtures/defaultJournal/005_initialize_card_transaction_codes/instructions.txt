@@ -1,0 +1,1 @@
+Initialize the card transaction codes with an empty input object. Return the name of the initialized transaction codes.

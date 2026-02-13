@@ -1,0 +1,1 @@
+Create three checking accounts for Ernie, Bert, and Elmo with respective provided account IDs. Add custom metadata to each account with an alpha key indicating "yes" or "no". Then, delete all three accounts and return their deletion statuses.

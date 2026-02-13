@@ -1,0 +1,10 @@
+# Built binaries
+twisp-mcp
+*.exe
+
+# Go module cache
+go.sum.bak
+
+# Old build artifacts
+indexes/
+.search/

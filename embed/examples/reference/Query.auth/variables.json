@@ -1,0 +1,4 @@
+{
+  "authClientGithub": "arn:aws:iam::048962233173:user/github.action",
+  "authClientReadStream": "arn:aws:iam::048962233173:user/feed.action"
+}

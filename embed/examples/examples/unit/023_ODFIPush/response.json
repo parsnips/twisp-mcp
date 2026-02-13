@@ -1,0 +1,122 @@
+{
+  "data": {
+    "create": {
+      "executeTask": {
+        "transactions": [
+          {
+            "entries": {
+              "nodes": [
+                {
+                  "amount": {
+                    "units": "1.00"
+                  },
+                  "direction": "DEBIT",
+                  "entryType": "ACH_PENDING_DR"
+                },
+                {
+                  "amount": {
+                    "units": "1.00"
+                  },
+                  "direction": "CREDIT",
+                  "entryType": "ACH_PENDING_CR"
+                }
+              ]
+            }
+          },
+          {
+            "entries": {
+              "nodes": [
+                {
+                  "amount": {
+                    "units": "0.50"
+                  },
+                  "direction": "DEBIT",
+                  "entryType": "ACH_FEE_DR"
+                },
+                {
+                  "amount": {
+                    "units": "0.50"
+                  },
+                  "direction": "CREDIT",
+                  "entryType": "ACH_FEE_CR"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "return": {
+      "executeTask": {
+        "transactions": [
+          {
+            "entries": {
+              "nodes": [
+                {
+                  "amount": {
+                    "units": "1.00"
+                  },
+                  "direction": "CREDIT",
+                  "entryType": "ACH_SETTLE_RETURN_CR"
+                },
+                {
+                  "amount": {
+                    "units": "1.00"
+                  },
+                  "direction": "DEBIT",
+                  "entryType": "ACH_SETTLE_RETURN_DR"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "submit": {
+      "executeTask": {
+        "transactions": [
+          {
+            "entries": {
+              "nodes": [
+                {
+                  "amount": {
+                    "units": "1.00"
+                  },
+                  "direction": "DEBIT",
+                  "entryType": "ACH_SETTLE_DR"
+                },
+                {
+                  "amount": {
+                    "units": "1.00"
+                  },
+                  "direction": "CREDIT",
+                  "entryType": "ACH_SETTLE_CR"
+                }
+              ]
+            }
+          },
+          {
+            "entries": {
+              "nodes": [
+                {
+                  "amount": {
+                    "units": "-1.00"
+                  },
+                  "direction": "DEBIT",
+                  "entryType": "ACH_PENDING_REVERSAL_DR"
+                },
+                {
+                  "amount": {
+                    "units": "-1.00"
+                  },
+                  "direction": "CREDIT",
+                  "entryType": "ACH_PENDING_REVERSAL_CR"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

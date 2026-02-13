@@ -1,0 +1,12 @@
+mutation CreateJournal($journalId: UUID!, $name: String!, $description: String, $status: Status!, $code: String) {
+  createJournal(
+    input: {journalId: $journalId, name: $name, description: $description, status: $status, code: $code}
+  ) {
+    journalId
+    name
+    description
+    status
+    code
+    version
+  }
+}

@@ -1,0 +1,1 @@
+Create two auth clients, one for Github with permissions to select, insert, update, and delete on financial resources, and another for Read Stream with permission to only select on financial resources. Use variables for the client principals. Return the principal for each client.

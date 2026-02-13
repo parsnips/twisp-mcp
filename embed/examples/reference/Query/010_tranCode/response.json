@@ -1,0 +1,48 @@
+{
+  "data": {
+    "tranCode": {
+      "code": "CARD_HOLD",
+      "description": "Place an authorization hold on an account for the amount specified.",
+      "params": [
+        { "name": "account", "type": "UUID", "description": "The account to place the hold on." },
+        { "name": "amount", "type": "DECIMAL", "description": "The amount of the hold." },
+        { "name": "currency", "type": "STRING", "description": "Currency used for transaction." },
+        {
+          "name": "isDebit",
+          "type": "BOOLEAN",
+          "description": "If true (default), debit the account specified. If false, credit the account."
+        },
+        {
+          "name": "correlation",
+          "type": "STRING",
+          "description": "Correlation identifier to group transactions following on from this hold."
+        },
+        { "name": "effective", "type": "DATE", "description": "Effective date of the transaction." }
+      ],
+      "transaction": {
+        "journalId": "uuid('822cb59f-ce51-4837-8391-2af3b7a5fc51')",
+        "effective": "params.effective",
+        "correlationId": "params.correlation",
+        "description": "'Card authorization hold placed for ' + string(params.amount) + ' ' + params.currency"
+      },
+      "entries": [
+        {
+          "accountId": "params.account",
+          "layer": "PENDING",
+          "direction": "params.isDebit ? DEBIT : CREDIT",
+          "units": "params.amount",
+          "currency": "params.currency"
+        },
+        {
+          "accountId": "uuid('a9c8dde6-c0e5-407c-9d99-029c523f7ea8')",
+          "layer": "PENDING",
+          "direction": "params.isDebit ? CREDIT : DEBIT",
+          "units": "params.amount",
+          "currency": "params.currency"
+        }
+      ],
+      "status": "ACTIVE",
+      "metadata": { "category": "Card" }
+    }
+  }
+}

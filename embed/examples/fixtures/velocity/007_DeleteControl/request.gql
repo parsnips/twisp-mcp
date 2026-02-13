@@ -1,0 +1,41 @@
+mutation DeleteVelocityControl {
+  detachVelocityControl(
+    accountId: "480ff40e-016c-4677-80ee-2b62bd34182d"
+    velocityControlId: "f6f27892-dfd8-480b-9213-d6adf7ef04ef"
+    journalId: "00000000-0000-0000-0000-000000000000"
+  ) {
+    velocityControlId
+  }
+
+  detach2: detachVelocityControl(
+    accountId: "480ff40e-016c-4677-80ee-2b62bd34182d"
+    velocityControlId: "b57b238f-6fd8-42d0-8a99-f88fadf377aa"
+    journalId: "00000000-0000-0000-0000-000000000000"
+  ) {
+    velocityControlId
+  }
+
+  detach3: detachVelocityControl(
+    accountId: "a937931b-627e-4890-aaa5-e3e98331249e"
+    velocityControlId: "f6f27892-dfd8-480b-9213-d6adf7ef04ef"
+    journalId: "00000000-0000-0000-0000-000000000000"
+  ) {
+    velocityControlId
+  }
+
+  detach4: detachVelocityControl(
+    accountId: "a937931b-627e-4890-aaa5-e3e98331249e"
+    velocityControlId: "b57b238f-6fd8-42d0-8a99-f88fadf377aa"
+    journalId: "00000000-0000-0000-0000-000000000000"
+  ) {
+    velocityControlId
+  }
+
+  deleteVelocityControl(velocityControlId: "f6f27892-dfd8-480b-9213-d6adf7ef04ef") {
+    velocityControlId
+  }
+
+  delete2: deleteVelocityControl(velocityControlId: "b57b238f-6fd8-42d0-8a99-f88fadf377aa") {
+    velocityControlId
+  }
+}

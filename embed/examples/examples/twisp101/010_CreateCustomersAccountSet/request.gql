@@ -1,0 +1,17 @@
+mutation CreateCustomersAccountSet($customersId: UUID!, $journalId: UUID!) {
+  createAccountSet(
+    input: {
+      accountSetId: $customersId
+      journalId: $journalId
+      name: "Customers"
+      description: "All customer's accounts"
+      normalBalanceType: CREDIT
+    }
+  ) {
+    accountSetId
+    journalId
+    name
+    description
+    normalBalanceType
+  }
+}

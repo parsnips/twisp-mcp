@@ -1,0 +1,42 @@
+query EntriesByCustomIndex($accountAlphaId: String) {
+  methodVisa: entries(
+    index: { name: CUSTOM }
+    where: {
+      custom: {
+        index: "Entry.metadata.method"
+        partition: { alias: "method", value: { eq: "VISA" } }
+        sort: [{ alias: "created", value: { gt: "2019-01-01T00:00:00.000Z" } }]
+      }
+    }
+    first: 10
+  ) {
+    nodes {
+      accountId
+      direction
+      metadata
+    }
+  }
+
+  acctAlphaAndDebit: entries(
+    index: { name: CUSTOM }
+    where: {
+      custom: {
+        index: "Entry.accountAndDirection"
+        partition: [
+          { alias: "account", value: { eq: $accountAlphaId } }
+          # TODO: DEBIT is a CEL label for a protobuf enum
+          # which is just an integer. Is there a way to
+          # define the index such that
+          # { alias: "direction", value: { eq: "DEBIT" } } works?
+          { alias: "direction", value: { eq: "0" } }
+        ]
+      }
+    }
+    first: 10
+  ) {
+    nodes {
+      accountId
+      direction
+    }
+  }
+}

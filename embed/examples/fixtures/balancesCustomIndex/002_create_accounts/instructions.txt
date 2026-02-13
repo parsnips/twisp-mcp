@@ -1,0 +1,1 @@
+Create two customer accounts with credit-normal balance type using provided UUIDs: one for Ernie with a name, code, and description, and one for Bert with a name, code, and description. Return the accountId and name for both accounts.

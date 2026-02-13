@@ -1,0 +1,18 @@
+query {
+  visa_charge_for_alicia: transactions(
+    params: {
+      index: { name: JOURNAL_AND_CORRELATION }
+      where: {
+        journalId: { eq: "822cb59f-ce51-4837-8391-2af3b7a5fc51" }
+        correlationId: { eq: "114a8b1e-d00b-4e13-ab27-ec3472622c0a" }
+      }
+    }
+    first: 5
+  ) {
+    nodes {
+      transactionId
+      journalId
+      correlationId
+    }
+  }
+}

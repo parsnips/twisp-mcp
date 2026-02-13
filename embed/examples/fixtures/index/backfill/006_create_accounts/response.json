@@ -1,0 +1,18 @@
+{
+  "data": {
+    "a": {
+      "name": "test00"
+    },
+    "b": {
+      "name": "test01"
+    },
+    "c": {
+      "name": "test02"
+    },
+    "d": {
+      "metadata": {
+        "stripeId": "001"
+      }
+    }
+  }
+}

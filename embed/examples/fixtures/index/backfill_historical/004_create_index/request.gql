@@ -1,0 +1,26 @@
+mutation createIndex{
+  schema {
+    createHistoricalIndex(
+      input: {
+        name: "negative balance history"
+        on: Balance
+        partition: [
+          {
+            alias: "accountId"
+            value:"document.account_id"
+          }
+        ]
+        sort: [{
+          alias:"normal balance"
+          value: "decimal(document.settled.cr_balance) - decimal(document.settled.dr_balance)"
+          sort: ASC
+        }]
+        constraints: {
+          isStandardBalance: "document.calculation_id == uuid('00000000-0000-0000-0000-000000000000')"
+        }
+      }
+    ) {
+      name
+    }
+  }
+}

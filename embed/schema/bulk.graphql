@@ -1,0 +1,116 @@
+extend type Query {
+  bulk: BulkQuery!
+}
+
+extend type Mutation {
+  bulk: BulkMutation!
+}
+
+type BulkQuery {
+  "Retrieve single bulk query execution by it's `executionId`."
+  execution(id: UUID!): BulkQueryExecution @goField(forceResolver: true)
+}
+
+type BulkMutation {
+  execute(input: BulkQueryInput): BulkQueryExecution @goField(forceResolver: true)
+}
+
+type BulkQueryExecution {
+  "Human readable name of this bulk execution."
+  name: String!
+  "Key to variables file to use."
+  key: String!
+  "Unique Identifier for this execution of a bulk query."
+  executionId: UUID!
+  "Parameterized GraphQL query string to execute."
+  query: String!
+  "Status of this execution."
+  status: BulkQueryExecutionStatus!
+  "Set when `status` is `COMPLETE`, lists the keys to download the results files."
+  resultKeys: [String!] @goField(forceResolver: true)
+  "If `status` in error, a diagnostic message for the cause of the error."
+  error: String
+  "Summary of the bulk query execution. Populated on COMPLETE or ERROR."
+  summary: BulkQueryExecutionSummary
+
+  created: Timestamp!
+  modified: Timestamp!
+}
+
+type ResultKeyConnection implements Connection {
+  nodes: [String]!
+  edges: [ResultKeyConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+type ResultKeyConnectionEdge {
+  cursor: String!
+  node: String!
+}
+
+type BulkQueryExecutionSummary {
+  "total number of requests in this execution."
+  total: Int!
+  "Summary of executed requests."
+  executed: ExecutedSummary!
+  """
+  Summary of aborted requests due to aborted execution.
+  The requests in FAILED_N.json _may not_ have been executed.
+  The requests in PENDING_N.json _were not_ executed.
+  """
+  aborted: AbortedSummary!
+}
+
+type ExecutedSummary {
+  "Number of executed requests."
+  count: Int!
+  """
+  Of the requests executed, counts of results by status error code.
+  Successful are "OK". If only keys are "OK" and "UNIQUE_KEY_VIOLATION"
+  all the requests in the bulk execution succeeded or already exists.
+  """
+  status: JSON
+}
+
+type AbortedSummary {
+  "Number of aborted requests."
+  count: Int!
+  "Errors from the FAILED_N.json files."
+  errors: [FailedBulkExecutionError]
+}
+
+type FailedBulkExecutionError {
+  error: String!
+  cause: String!
+}
+
+enum BulkQueryExecutionStatus {
+  "Execution is created but not yet started."
+  CREATED
+  "Execution is in progress."
+  IN_PROGRESS
+  "Execution is complete and results are being summarized."
+  SUMMARIZING
+  "Execution is complete and results are available to download."
+  COMPLETE
+  "There was an error that prevented execution."
+  ERROR
+}
+
+input BulkQueryInput {
+  "Human readable name of this bulk execution."
+  name: String = "Bulk Query"
+  "Key to file to execute."
+  key: String!
+  "Unique Identifier for this execution of a bulk query."
+  executionId: UUID!
+  "Parameterized GraphQL query string to execute."
+  query: String!
+  """
+  Optional jq transform to run on variables in file identified by `key`.
+  The result of the transform must be a list of json variables.
+
+  @example("map(.accountId)")
+  """
+  transform: String
+}

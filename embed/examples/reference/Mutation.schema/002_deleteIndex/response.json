@@ -1,0 +1,10 @@
+{
+  "data": {
+    "schema": {
+      "deleteIndex": {
+        "name": "Transaction.metadata.category",
+        "on": "Transaction"
+      }
+    }
+  }
+}

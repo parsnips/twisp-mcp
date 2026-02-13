@@ -1,0 +1,1 @@
+Post a transaction with a unique transaction ID, using the "ACH_CREDIT" transaction code. Provide input parameters for account ID, amount, and effective date. Return the transaction ID, transaction code, and information for each entry, including accountId, units, currency, direction, and layer. Limit the returned entries to the first 4.

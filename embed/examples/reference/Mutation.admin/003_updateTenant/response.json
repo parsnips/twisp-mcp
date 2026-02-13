@@ -1,0 +1,11 @@
+{
+  "data": {
+    "admin": {
+      "updateTenant": {
+        "accountId": "sandbox",
+        "description": "This is the sandbox tenant.",
+        "version": 2
+      }
+    }
+  }
+}

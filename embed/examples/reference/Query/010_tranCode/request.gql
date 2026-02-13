@@ -1,0 +1,26 @@
+query GetTranCode($tcCardHoldId: UUID!) {
+  tranCode(id: $tcCardHoldId) {
+    code
+    description
+    params {
+      name
+      type
+      description
+    }
+    transaction {
+      journalId
+      effective
+      correlationId
+      description
+    }
+    entries {
+      accountId
+      layer
+      direction
+      units
+      currency
+    }
+    status
+    metadata
+  }
+}

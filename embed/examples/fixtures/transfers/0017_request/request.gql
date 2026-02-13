@@ -1,0 +1,12 @@
+mutation CreateAccountSet($accountSetId: UUID!, $journalId: UUID!, $name: String!, $description: String!, $normalBalanceType: DebitOrCredit!, $config: AccountSetConfigInput!, $metadata: JSON) {
+  createAccountSet(
+    input: {accountSetId: $accountSetId, journalId: $journalId, name: $name, description: $description, normalBalanceType: $normalBalanceType, config: $config, metadata: $metadata}
+  ) {
+    accountSetId
+    journalId
+    name
+    description
+    normalBalanceType
+    metadata
+  }
+}

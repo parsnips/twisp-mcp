@@ -1,0 +1,60 @@
+query ReadAndList {
+  a:velocityControl(id: "f6f27892-dfd8-480b-9213-d6adf7ef04ef") {
+    velocityControlId
+    limits {
+      velocityLimitId
+    }
+  }
+
+  b:velocityControls(
+    index: { name: NAME }
+    where: { name: {gte: "Engineer"} }
+    first: 1
+  ) {
+    nodes {
+      velocityControlId
+    }
+  }
+
+  attached: account(id: "480ff40e-016c-4677-80ee-2b62bd34182d") {
+    controls(first:100) {
+      nodes {
+        velocityControlId
+        limits {
+          velocityLimitId
+          limit {
+            balance {
+              layer
+              amount
+              normalBalanceType
+            }
+          }
+        }
+      }
+    }
+  }
+
+  c:velocityControls(
+    index: { name: ACCOUNT_ID }
+    where: { accountId: {eq: "480ff40e-016c-4677-80ee-2b62bd34182d"} }
+    first: 1
+  ) {
+    nodes {
+      velocityControlId
+    }
+  }
+
+  d:velocityLimit(id: "1be4132a-a389-45c3-9a61-0fe601d1ba8b") {
+    velocityLimitId
+  }
+
+  e:velocityLimits(
+    index: { name: NAME }
+    where: { name: {gte: "Test"} }
+    first:1
+  ) {
+    nodes {
+      velocityLimitId
+    }
+  }
+}

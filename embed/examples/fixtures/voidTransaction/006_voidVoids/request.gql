@@ -1,0 +1,9 @@
+mutation VoidVoids {
+  tx1:voidTransaction(id: "e400fd05-218d-531b-9c2d-f3dbdf319570") {
+    transactionId
+  }
+
+  tx2:voidTransaction(id: "b0045720-ffbe-552f-94e3-816866e7a266") {
+    transactionId
+  }
+}

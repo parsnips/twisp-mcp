@@ -1,0 +1,8 @@
+query GetTranCodes {
+  tranCodes(index: { name: STATUS }, where: { status: { eq: "ACTIVE" } }, first: 10) {
+    nodes {
+      code
+      metadata
+    }
+  }
+}

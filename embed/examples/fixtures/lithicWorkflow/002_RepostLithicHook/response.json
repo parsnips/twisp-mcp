@@ -1,0 +1,12 @@
+{
+  "data": {
+    "workflow": {
+      "executeTask": {
+        "state": {
+          "transactionAlreadyPosted": true
+        },
+        "transactions": []
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+mutation CreateEndpoint {
+  events {
+    createEndpoint(
+      input: {
+        endpointId: "345940ed-2726-4b20-88aa-820857ac0e68"
+        status: ENABLED
+        endpointType: WEBHOOK
+        url: "https://webhook.site/twisp-webhook-test"
+        description: "subscribe to balance and account events"
+        subscription: [
+          "balance*",
+          "account.*",
+        ]
+      }
+    ) {
+      endpointId
+      status
+      endpointType
+      url
+      subscription
+      description
+    }
+  }
+}

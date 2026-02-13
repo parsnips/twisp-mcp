@@ -1,0 +1,1 @@
+Use the auth namespace to get the client details for the provided principal. Return the principal, name, and policies with the effect, actions, and resources.

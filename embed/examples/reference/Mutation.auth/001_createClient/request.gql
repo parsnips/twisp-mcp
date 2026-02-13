@@ -1,0 +1,20 @@
+mutation CreateAuthClient($authClientGithub: String!) {
+  auth {
+    createClient(
+      input: {
+        principal: $authClientGithub
+        name: "Github"
+        policies: [
+          {
+            effect: ALLOW
+            actions: [SELECT, INSERT, UPDATE, DELETE]
+            resources: ["financial.*"]
+            assertions: { isTrue: "true" }
+          }
+        ]
+      }
+    ) {
+      principal
+    }
+  }
+}

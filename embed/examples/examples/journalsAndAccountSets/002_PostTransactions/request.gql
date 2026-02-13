@@ -1,0 +1,51 @@
+mutation PostTransactions {
+  xfr_j1: postTransaction(
+    input: {
+      transactionId: "a3501651-3550-40a3-a5e4-a07d983348f8"
+      tranCode: "XFR"
+      params: {
+        fromAccount: "80c06296-7afb-4725-8cdd-57c2ce881af2"
+        toAccount: "6d808949-437f-4f23-a345-b09225104808"
+        amount: "11.33"
+        journal: "41ee64d6-dcde-46dc-bdc5-c9164517402a"
+        effectiveDate: "2022-09-10"
+      }
+    }
+  ) {
+    transactionId
+    entries(first: 10) {
+      nodes {
+        journalId
+        accountId
+        direction
+        units
+        currency
+      }
+    }
+  }
+
+  xfr_j2: postTransaction(
+    input: {
+      transactionId: "87e0c5f2-fc1e-4450-9129-aba1c00533c3"
+      tranCode: "XFR"
+      params: {
+        fromAccount: "6d808949-437f-4f23-a345-b09225104808"
+        toAccount: "80c06296-7afb-4725-8cdd-57c2ce881af2"
+        amount: "22.44"
+        journal: "2d9355ac-1844-4378-8fae-7ccb104e98c9"
+        effectiveDate: "2022-09-11"
+      }
+    }
+  ) {
+    transactionId
+    entries(first: 10) {
+      nodes {
+        journalId
+        accountId
+        direction
+        units
+        currency
+      }
+    }
+  }
+}

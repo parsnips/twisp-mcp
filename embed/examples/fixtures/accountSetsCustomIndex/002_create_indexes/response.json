@@ -1,0 +1,58 @@
+{
+  "data": {
+    "schema": {
+      "partition": {
+        "name": "priority",
+        "range": [],
+        "partition": [
+          {
+            "alias": "priority",
+            "value": "string(document.metadata.priority)"
+          }
+        ],
+        "on": "AccountSet",
+        "constraints": {
+          "a": "1 + 1 == 2"
+        },
+        "unique": false
+      },
+      "sort": {
+        "name": "nickname",
+        "range": [
+          {
+            "alias": "nickname",
+            "sort": "ASC",
+            "value": "string(has(document.metadata.nickname) ? document.metadata.nickname : string(''))"
+          }
+        ],
+        "partition": [],
+        "on": "AccountSet",
+        "constraints": {
+          "nickname": "has(document.metadata.nickname)"
+        },
+        "unique": false
+      },
+      "combined": {
+        "name": "priority-nickname",
+        "range": [
+          {
+            "alias": "nickname",
+            "sort": "ASC",
+            "value": "string(has(document.metadata.nickname) ? document.metadata.nickname : string(''))"
+          }
+        ],
+        "partition": [
+          {
+            "alias": "priority",
+            "value": "string(document.metadata.priority)"
+          }
+        ],
+        "on": "AccountSet",
+        "constraints": {
+          "a": "1 + 1 == 2"
+        },
+        "unique": false
+      }
+    }
+  }
+}

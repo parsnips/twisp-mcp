@@ -1,0 +1,40 @@
+{
+  "data": {
+    "accountSet": {
+      "name": "Customers",
+      "balance": {
+        "settled": {
+          "normalBalance": {
+            "units": "5.20"
+          }
+        }
+      },
+      "members": {
+        "nodes": [
+          {
+            "__typename": "Account",
+            "name": "Bert - Checking",
+            "balance": {
+              "settled": {
+                "normalBalance": {
+                  "units": "2.25"
+                }
+              }
+            }
+          },
+          {
+            "__typename": "Account",
+            "name": "Ernie Bishop - Checking",
+            "balance": {
+              "settled": {
+                "normalBalance": {
+                  "units": "2.95"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

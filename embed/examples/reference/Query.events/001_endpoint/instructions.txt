@@ -1,0 +1,1 @@
+Retrieve the endpoint by endpoint id. Retrieve the endpointId, status, endpointType, URL, subscription and description on the endpoint.

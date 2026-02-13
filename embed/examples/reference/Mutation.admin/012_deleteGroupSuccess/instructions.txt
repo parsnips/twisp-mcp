@@ -1,0 +1,1 @@
+Retrieve the first 10 groups in the admin namespace. For each group, return the name.

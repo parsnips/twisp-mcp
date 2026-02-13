@@ -1,0 +1,26 @@
+mutation PostDeposit {
+  postTransaction(
+    input: {
+      transactionId: "42847c7f-1972-4448-91b7-652c378760f4"
+      tranCode: "ACH_CREDIT"
+      params: {
+        account: "1fd1dd3e-33fe-4ef5-9d58-676ef8d306b5"
+        amount: "9.53"
+        effective: "2022-09-21"
+      }
+    }
+  ) {
+    transactionId
+    tranCodeId
+    effective
+    entries(first: 2) {
+      nodes {
+        units
+        direction
+        account {
+          name
+        }
+      }
+    }
+  }
+}

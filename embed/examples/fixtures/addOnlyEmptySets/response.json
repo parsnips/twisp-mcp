@@ -1,0 +1,9 @@
+{
+  "data": {
+    "createJournal": { "journalId": "a37d7274-0b55-11f0-9c56-069b540ea27c" },
+    "set1": { "accountSetId": "f2a7145e-0b55-11f0-8437-069b540ea27c" },
+    "set2": { "accountSetId": "c8645918-0b55-11f0-b54b-069b540ea27c" },
+    "set2a": { "accountSetId": "d77467a8-0b56-11f0-b3d4-069b540ea27c" },
+    "add1": { "accountSetId": "c8645918-0b55-11f0-b54b-069b540ea27c" }
+  }
+}

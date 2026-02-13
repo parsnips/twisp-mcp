@@ -1,0 +1,49 @@
+mutation PostTransactionsForEntriesIndex($accountAlphaId: UUID!, $accountBetaId: UUID!) {
+  tx1: postTransaction(input: {
+    transactionId: "6dad06b7-be1f-4461-a4e9-44049a9cd74c"
+    tranCode: "EXAMPLE_METHOD"
+    params: {
+      crAccount: $accountAlphaId
+      drAccount: $accountBetaId
+      amount: "10.00"
+      currency: "USD"
+      effective: "2023-05-18"
+      method: "VISA"
+    }
+  }) {
+    transactionId
+    entries(first: 2) {
+      nodes {
+        accountId
+        units
+        currency
+        direction
+        metadata
+      }
+    }
+  }
+
+  tx2: postTransaction(input: {
+    transactionId: "31962347-1b2e-46b5-ad3d-f5adf172c30d"
+    tranCode: "EXAMPLE_METHOD"
+    params: {
+      crAccount: $accountBetaId
+      drAccount: $accountAlphaId
+      amount: "15.00"
+      currency: "USD"
+      effective: "2023-05-18"
+      method: "VISA"
+    }
+  }) {
+    transactionId
+    entries(first: 2) {
+      nodes {
+        accountId
+        units
+        currency
+        direction
+        metadata
+      }
+    }
+  }
+}

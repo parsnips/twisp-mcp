@@ -1,0 +1,12 @@
+{
+  "data": {
+    "accounts": {
+      "nodes": [
+        {
+          "accountId": "991a2204-3be4-11f0-a829-069b540ea27d",
+          "metadata": { "mids": ["worldpay:1", "stripe:5"] }
+        }
+      ]
+    }
+  }
+}

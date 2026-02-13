@@ -1,0 +1,50 @@
+mutation Setup {
+  createJournal(
+    input: { journalId: "00000000-0000-0000-0000-000000000000", name: "GL", description: "GL" }
+  ) {
+    journalId
+  }
+  root: createAccountSet(
+    input: {
+      accountSetId: "9436a994-7783-11f0-b279-069b540ea27d"
+      journalId: "00000000-0000-0000-0000-000000000000"
+      name: "root"
+    }
+  ) {
+    accountSetId
+  }
+
+  target: createAccountSet(
+    input: {
+      accountSetId: "9fa30480-7783-11f0-bbb5-069b540ea27d"
+      journalId: "00000000-0000-0000-0000-000000000000"
+      name: "target"
+      accountSetIds: ["9436a994-7783-11f0-b279-069b540ea27d"]
+    }
+  ) {
+    accountSetId
+  }
+
+  member1: createAccount(
+    input: {
+      accountId: "a2ff9daa-7783-11f0-9fa0-069b540ea27d"
+      name: "member1"
+      code: "member1"
+      accountSetIds: ["9fa30480-7783-11f0-bbb5-069b540ea27d"]
+    }
+  ) {
+    accountId
+  }
+
+  member2: createAccountSet(
+    input: {
+      accountSetId: "aa8b8f34-7783-11f0-a2df-069b540ea27d"
+      journalId: "00000000-0000-0000-0000-000000000000"
+      name: "member2"
+      code: "member2"
+      accountSetIds: ["9fa30480-7783-11f0-bbb5-069b540ea27d"]
+    }
+  ) {
+    accountSetId
+  }
+}

@@ -1,0 +1,47 @@
+query GetCalculationBalance {
+  list:balances(
+    index:{
+      name:CALCULATION
+    }
+    where:{
+      accountId: { eq: "1fd1dd3e-33fe-4ef5-9d58-676ef8d306b5" }
+      journalId: { eq: "822cb59f-ce51-4837-8391-2af3b7a5fc51" }
+      calculationId: { eq: "5867b5dd-fc69-416c-80f5-62e8a53610d5" }
+      dimension: {
+        eq: {
+          effectiveDate: "2022-09-21"
+        }
+      }
+    }
+    first: 100
+  ) {
+    nodes {
+      available(layer:SETTLED){
+        drBalance{
+          units
+        }
+        crBalance{
+          units
+        }
+      }
+    }
+  }
+
+  read:balance(
+    accountId: "1fd1dd3e-33fe-4ef5-9d58-676ef8d306b5"
+    journalId: "822cb59f-ce51-4837-8391-2af3b7a5fc51"
+    calculationId: "5867b5dd-fc69-416c-80f5-62e8a53610d5"
+    dimension: {
+      effectiveDate: "2022-09-21"
+    }
+  ) {
+    available(layer:SETTLED){
+      drBalance{
+        units
+      }
+      crBalance{
+        units
+      }
+    }
+  }
+}

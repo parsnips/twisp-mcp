@@ -1,0 +1,36 @@
+{
+  "data": {
+    "evaluate": {
+      "a": 1,
+      "b": "Hello World!",
+      "c": "0.246912679",
+      "d": 456,
+      "e": 36,
+      "f": "JOHN DOE",
+      "g": 4,
+      "h": "JOHN DOE",
+      "i": "NOT CEL",
+      "j": {
+        "claims": {},
+        "policies": [
+          {
+            "actions": [
+              "*"
+            ],
+            "effect": 1,
+            "resources": [
+              "*"
+            ]
+          }
+        ],
+        "principal": "test"
+      },
+      "k": "-Infinity",
+      "l": "-Infinity",
+      "m": {
+        "n": "JOHN DOE"
+      },
+      "o": "JOHN DOE"
+    }
+  }
+}

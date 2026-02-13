@@ -1,0 +1,24 @@
+{
+  "data": {
+    "alpha": {
+      "settled": {
+        "drBalance": {
+          "units": "15.00"
+        },
+        "crBalance": {
+          "units": "10.00"
+        }
+      }
+    },
+    "beta": {
+      "settled": {
+        "drBalance": {
+          "units": "10.00"
+        },
+        "crBalance": {
+          "units": "15.00"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+mutation ReferenceAdminSetup {
+  admin {
+    preprodTenant: createTenant(
+      input: {
+        id: "9fd172e2-51ff-5b2e-b1f1-88338134d242"
+        accountId: "preprod"
+        name: "PreProduction"
+        description: "tenant for preprod integrations"
+      }
+    ) {
+      accountId
+    }
+
+    denyPolicyGroup: createGroup(
+      input: {
+        description: "a group with a deny policy"
+        id: "d57bd759-73d5-4452-a73e-12b590324e35"
+        name: "deny-policy-1"
+        policy: "[{\"actions\": [\"*\"],\"effect\": \"DENY\",\"resources\":[\"*\"]}]"
+      }
+    ) {
+      name
+    }
+
+    readPolicyGroup: createGroup(
+      input: {
+        description: "a group with a read-only policy"
+        id: "152f0c89-6cba-53c9-955e-16d7cbc1f35e"
+        name: "read-only-policy-1"
+        policy: "[{\"actions\": [\"db:Select\"],\"effect\": \"ALLOW\",\"resources\":[\"*\"]}]"
+      }
+    ) {
+      name
+    }
+  }
+}

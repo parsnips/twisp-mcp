@@ -1,0 +1,34 @@
+{
+  "data": {
+    "endUser": {
+      "accountId": "6b879478-27e0-4fde-9038-ef81b028bb51"
+    },
+    "settlement": {
+      "accountId": "37f7e8a6-171f-411d-ad59-7b1f40f505ea"
+    },
+    "suspense": {
+      "accountId": "3171b0c2-6e9f-41aa-a5a6-ee927deb27cf"
+    },
+    "fee": {
+      "accountId": "b8cb0c63-5d8d-4ea9-8532-e20aa26aaa98"
+    },
+    "journal": {
+      "journalId": "00000000-0000-0000-0000-000000000000"
+    },
+    "events": {
+      "createEndpoint": {
+        "endpointId": "b84512f1-a67e-4dc2-94dd-66c48b4d13fb",
+        "status": "ENABLED",
+        "endpointType": "ACH_PROCESSOR",
+        "url": "https://webhook.site/ach-testing",
+        "subscription": [],
+        "description": "ACH webhook processor"
+      }
+    },
+    "ach": {
+      "createConfiguration": {
+        "configId": "1dc71d60-f463-4bb6-b82a-ab42e2f923ff"
+      }
+    }
+  }
+}

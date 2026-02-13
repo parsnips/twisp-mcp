@@ -1,0 +1,7 @@
+mutation AdminDeleteUser {
+  admin {
+    deleteUser(email: "george@twisp.com") {
+      email
+    }
+  }
+}

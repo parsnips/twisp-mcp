@@ -1,0 +1,15 @@
+{
+  "errors": [
+    {
+      "message": "Int cannot represent non-integer value: \"10\"",
+      "locations": [{ "line": 2, "column": 20 }],
+      "extensions": { "code": "GRAPHQL_VALIDATION_FAILED", "retriableError": false }
+    },
+    {
+      "message": "Field \"accounts\" argument \"index\" of type \"AccountIndexInput!\" is required, but it was not provided.",
+      "locations": [{ "line": 2, "column": 3 }],
+      "extensions": { "code": "GRAPHQL_VALIDATION_FAILED", "retriableError": false }
+    }
+  ],
+  "data": null
+}

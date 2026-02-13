@@ -1,0 +1,66 @@
+mutation AddToSet {
+  first: addToAccountSet(
+    id: "fb4fe8a8-4415-11f0-84f4-069b540ea27d"
+    member: { memberId: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c", memberType: ACCOUNT }
+  ) {
+    accountSetId
+  }
+
+  second: addToAccountSet(
+    id: "fb4fe8a8-4415-11f0-84f4-069b540ea27d"
+    member: { memberId: "bf716346-9eee-4ec5-bbc3-64c47de7d929", memberType: ACCOUNT }
+  ) {
+    accountSetId
+  }
+
+  balances: queries {
+    first: balance(
+      accountId: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+      journalId: "9f8c2446-87b8-11f0-b9c1-069b540ea27c"
+      currency: "NZD"
+    ) {
+      available(layer: ENCUMBRANCE) {
+        normalBalance {
+          units
+        }
+      }
+    }
+    second: balance(
+      accountId: "bf716346-9eee-4ec5-bbc3-64c47de7d929"
+      journalId: "9f8c2446-87b8-11f0-b9c1-069b540ea27c"
+      currency: "NZD"
+    ) {
+      available(layer: ENCUMBRANCE) {
+        normalBalance {
+          units
+        }
+      }
+    }
+    set: balance(
+      accountId: "fb4fe8a8-4415-11f0-84f4-069b540ea27d"
+      journalId: "9f8c2446-87b8-11f0-b9c1-069b540ea27c"
+      currency: "NZD"
+      type: PREPARED
+    ) {
+      available(layer: ENCUMBRANCE) {
+        normalBalance {
+          units
+        }
+      }
+    }
+    calculationBalance: balance(
+      accountId: "fb4fe8a8-4415-11f0-84f4-069b540ea27d"
+      journalId: "9f8c2446-87b8-11f0-b9c1-069b540ea27c"
+      calculationId: "83b8362d-afe2-41e5-84de-1fb9505fd0d8"
+      dimension: { feeCategoryId: "lawn" }
+      currency: "NZD"
+      type: PREPARED
+    ) {
+      available(layer: ENCUMBRANCE) {
+        normalBalance {
+          units
+        }
+      }
+    }
+  }
+}

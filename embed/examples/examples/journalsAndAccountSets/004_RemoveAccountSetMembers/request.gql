@@ -1,0 +1,41 @@
+mutation RemoveAccountSetMembers {
+  acct_set_1_a: removeFromAccountSet(
+    id: "861f2709-5e62-4a97-8364-b4d3b0a3b31f"
+    member: {
+      memberType: ACCOUNT
+      memberId: "80c06296-7afb-4725-8cdd-57c2ce881af2"
+    }
+  ) {
+    accountSetId
+  }
+
+  acct_set_1_b: removeFromAccountSet(
+    id: "861f2709-5e62-4a97-8364-b4d3b0a3b31f"
+    member: {
+      memberType: ACCOUNT
+      memberId: "6d808949-437f-4f23-a345-b09225104808"
+    }
+  ) {
+    accountSetId
+  }
+
+  acct_set_2_a: removeFromAccountSet(
+    id: "c21f202f-d92d-48e5-aaf0-d48865a98051"
+    member: {
+      memberType: ACCOUNT
+      memberId: "80c06296-7afb-4725-8cdd-57c2ce881af2"
+    }
+  ) {
+    accountSetId
+  }
+
+  acct_set_2_b: removeFromAccountSet(
+    id: "c21f202f-d92d-48e5-aaf0-d48865a98051"
+    member: {
+      memberType: ACCOUNT
+      memberId: "6d808949-437f-4f23-a345-b09225104808"
+    }
+  ) {
+    accountSetId
+  }
+}

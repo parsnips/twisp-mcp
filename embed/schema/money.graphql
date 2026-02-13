@@ -1,0 +1,71 @@
+"Defines the rounding behavior when formatting units."
+enum RoundingMode {
+  "Rounds up if the next digit is > 5, otherwise rounds down."
+  HALF_DOWN
+  "Rounds up if the next digit is >= 5, otherwise rounds down."
+  HALF_UP
+  "Rounds towards 0, truncating extra digits."
+  DOWN
+  "Rounds away from 0."
+  UP
+}
+
+"Defines how to render the currency indicator."
+enum CurrencyDisplay {
+  "Show the symbol for the currency. @example('$1.23') @example('€1.23')"
+  SYMBOL
+  "Show the currency code. @example('USD') @example('EUR')"
+  CODE
+  "Don't show the code or symbol for the currency."
+  NONE
+}
+
+"""
+ISO 4217 standard three-character code indicating the currency. @example('USD') @example('CHF')
+"""
+scalar CurrencyCode
+
+"""
+Money type with multi-currency support.
+
+Monetary amounts are represented as decimal units of currency. Fields which use the Money type can be converted to a symbolic representations by specifying a MoneyFormatInput on the `formatted` field.
+
+Here is an example table showing different currencies which each have their own divisions of units represented. Japanese yen (JPY) don't have a decimal minor unit, and Bahraini dinars (BHD) use 3 minor unit decimal places. The `formatted` column uses the default values for a an `en-US` locale.
+
+| Currency | Units    | Formatted |
+|----------|----------|-----------|
+| USD      | `289.27` | $289.27   |
+| BHD      | `28.927` | 28.927 BD |
+| JPY      | `28927`  | ¥28927    |
+"""
+type Money {
+  units: Decimal!
+  currency: CurrencyCode!
+  formatted(as: MoneyFormatInput): String! @goField(forceResolver: true)
+}
+
+input MoneyInput {
+  units: Decimal!
+  currency: CurrencyCode!
+}
+
+# TODO: remove the "required" for all fields except locale, b/c they shouldn't be required if there is truly a default value
+"""
+Formatting options for money amounts.
+"""
+input MoneyFormatInput {
+  "Locale represents a Unicode locale identifier. @example('de-DE') @example('hi-IN')"
+  locale: String!
+  "When true, whole digits will be grouped according to locale. For example, with locale `en-US` the number `1234567.89` is formatted with grouped digits as `1,234,567.89`. With other locales, these groupings may apply differently."
+  groupDigits: Boolean! = false
+  "When true, prefix the number with plus `+` symbol when the number is positive. Negative numbers are always displayed with a minus `-` symbol."
+  addPlusSign: Boolean! = false
+  "Defines the rounding behavior when the fractional units exceed the `maxDigits`."
+  roundingMode: RoundingMode! = HALF_UP
+  "Defines how to render the currency indicator."
+  currencyDisplay: CurrencyDisplay! = SYMBOL
+  "Minimum number of fractional digits. When not specified, it will use the default fractional digits for the currency. For example, USD amounts default to 2 minimum digits."
+  minDigits: Int! = 255
+  "Maximum number of fractional digits to show, which informs how rounding behavior is applied via the `roundingMode`. Defaults to 6."
+  maxDigits: Int! = 6
+}

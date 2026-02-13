@@ -1,0 +1,8 @@
+query EqRequiredForPartitionKey {
+  accounts(index: { name: ACCOUNT_ID }, where: { accountId: { like: "foo" } }, first: 10) {
+    nodes {
+      accountId
+      name
+    }
+  }
+}

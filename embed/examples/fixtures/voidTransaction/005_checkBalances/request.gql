@@ -1,0 +1,41 @@
+query checkBalances($accountAlphaId: UUID!, $accountBetaId: UUID!) {
+  alpha: balance(
+    accountId: $accountAlphaId
+    journalId: "230ac020-45be-44cc-9220-c3045758d253"
+  ) {
+    settled {
+      drBalance {
+        units
+      }
+      crBalance {
+        units
+      }
+    }
+  }
+
+  beta: balance(
+    accountId: $accountBetaId
+    journalId: "230ac020-45be-44cc-9220-c3045758d253"
+  ) {
+    settled {
+      drBalance {
+        units
+      }
+      crBalance {
+        units
+      }
+    }
+  }
+
+  tx1: transaction(id: "6dad06b7-be1f-4461-a4e9-44049a9cd74c") {
+    transactionId
+    voidedBy
+    version
+  }
+
+  tx2: transaction(id: "31962347-1b2e-46b5-ad3d-f5adf172c30d") {
+    transactionId
+    voidedBy
+    version
+  }
+}

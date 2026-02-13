@@ -1,0 +1,9 @@
+query AdminGroupConfirmSuccess {
+  admin {
+    groups(first: 10) {
+      nodes {
+        name
+      }
+    }
+  }
+}

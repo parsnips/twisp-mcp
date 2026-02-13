@@ -1,0 +1,9 @@
+{
+  "data": {
+    "admin": {
+      "deleteTenant": {
+        "accountId": "sandbox"
+      }
+    }
+  }
+}

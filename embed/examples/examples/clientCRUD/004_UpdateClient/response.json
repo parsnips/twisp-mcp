@@ -1,0 +1,21 @@
+{
+  "data": {
+    "auth": {
+      "updateClient": {
+        "principal": "arn:aws:iam::048962233173:user/github.action",
+        "policies": [
+          {
+            "assertions": {
+              "isFalse": "true"
+            },
+            "actions": [
+              "SELECT",
+              "INSERT",
+              "UPDATE"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

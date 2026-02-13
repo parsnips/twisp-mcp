@@ -1,0 +1,1 @@
+.data.admin.tenants.nodes |= (map(.) | sort_by(.name))

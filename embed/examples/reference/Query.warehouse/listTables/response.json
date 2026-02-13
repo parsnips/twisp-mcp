@@ -1,0 +1,25 @@
+{
+  "data": {
+    "warehouse": {
+      "listTables": {
+        "tables": [
+          {
+            "name": "account_history"
+          },
+          {
+            "name": "accountcontext_history"
+          },
+          {
+            "name": "accountset_history"
+          },
+          {
+            "name": "accountsetmember_history"
+          },
+          {
+            "name": "backfilljob_history"
+          }
+        ]
+      }
+    }
+  }
+}

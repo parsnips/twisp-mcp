@@ -1,0 +1,3 @@
+1. Create a preproduction tenant with the specified ID, accountId, name, and description. Return the accountId.
+2. Create a deny policy group with the specified ID, name, description, and policy. Return the name.
+3. Create a read-only policy group with the specified ID, name, description, and policy. Return the name.

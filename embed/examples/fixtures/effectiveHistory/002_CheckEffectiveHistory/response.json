@@ -1,0 +1,248 @@
+{
+  "data": {
+    "balance": {
+      "available": {
+        "normalBalance": {
+          "units": "2600.00"
+        }
+      },
+      "entries": {
+        "pageInfo": {
+          "hasPreviousPage": false,
+          "hasNextPage": false
+        },
+        "nodes": [
+          {
+            "transaction": {
+              "effective": "2025-01-15"
+            }
+          },
+          {
+            "transaction": {
+              "effective": "2025-01-01"
+            }
+          },
+          {
+            "transaction": {
+              "effective": "2024-12-15"
+            }
+          },
+          {
+            "transaction": {
+              "effective": "2024-12-01"
+            }
+          },
+          {
+            "transaction": {
+              "effective": "2024-11-15"
+            }
+          },
+          {
+            "transaction": {
+              "effective": "2024-11-01"
+            }
+          },
+          {
+            "transaction": {
+              "effective": "2024-10-15"
+            }
+          },
+          {
+            "transaction": {
+              "effective": "2024-10-01"
+            }
+          },
+          {
+            "transaction": {
+              "effective": "2024-09-15"
+            }
+          },
+          {
+            "transaction": {
+              "effective": "2024-09-01"
+            }
+          },
+          {
+            "transaction": {
+              "effective": "2024-08-15"
+            }
+          },
+          {
+            "transaction": {
+              "effective": "2024-08-01"
+            }
+          },
+          {
+            "transaction": {
+              "effective": "2024-07-15"
+            }
+          },
+          {
+            "transaction": {
+              "effective": "2024-07-01"
+            }
+          },
+          {
+            "transaction": {
+              "effective": "2024-06-15"
+            }
+          },
+          {
+            "transaction": {
+              "effective": "2024-06-01"
+            }
+          },
+          {
+            "transaction": {
+              "effective": "2024-05-15"
+            }
+          },
+          {
+            "transaction": {
+              "effective": "2024-05-01"
+            }
+          },
+          {
+            "transaction": {
+              "effective": "2024-04-15"
+            }
+          },
+          {
+            "transaction": {
+              "effective": "2024-04-01"
+            }
+          },
+          {
+            "transaction": {
+              "effective": "2024-03-15"
+            }
+          },
+          {
+            "transaction": {
+              "effective": "2024-03-01"
+            }
+          },
+          {
+            "transaction": {
+              "effective": "2024-02-15"
+            }
+          },
+          {
+            "transaction": {
+              "effective": "2024-02-01"
+            }
+          },
+          {
+            "transaction": {
+              "effective": "2024-01-15"
+            }
+          },
+          {
+            "transaction": {
+              "effective": "2024-01-01"
+            }
+          }
+        ]
+      },
+      "history": {
+        "nodes": [
+          {
+            "entry": {
+              "transaction": {
+                "effective": "2025-01-15"
+              }
+            }
+          },
+          {
+            "entry": {
+              "transaction": {
+                "effective": "2025-01-01"
+              }
+            }
+          },
+          {
+            "entry": {
+              "transaction": {
+                "effective": "2024-12-15"
+              }
+            }
+          },
+          {
+            "entry": {
+              "transaction": {
+                "effective": "2024-12-01"
+              }
+            }
+          },
+          {
+            "entry": {
+              "transaction": {
+                "effective": "2024-11-15"
+              }
+            }
+          },
+          {
+            "entry": {
+              "transaction": {
+                "effective": "2024-11-01"
+              }
+            }
+          },
+          {
+            "entry": {
+              "transaction": {
+                "effective": "2024-10-15"
+              }
+            }
+          },
+          {
+            "entry": {
+              "transaction": {
+                "effective": "2024-10-01"
+              }
+            }
+          },
+          {
+            "entry": {
+              "transaction": {
+                "effective": "2024-09-15"
+              }
+            }
+          },
+          {
+            "entry": {
+              "transaction": {
+                "effective": "2024-09-01"
+              }
+            }
+          },
+          {
+            "entry": {
+              "transaction": {
+                "effective": "2024-08-15"
+              }
+            }
+          },
+          {
+            "entry": {
+              "transaction": {
+                "effective": "2024-08-01"
+              }
+            }
+          },
+          {
+            "entry": {
+              "transaction": {
+                "effective": "2024-07-15"
+              }
+            }
+          }
+        ],
+        "pageInfo": {
+          "hasPreviousPage": false,
+          "hasNextPage": true
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "data": {
+    "tranCodes": {
+      "nodes": [
+        { "code": "ACH_CREDIT", "metadata": { "category": "ACH" } },
+        { "code": "ACH_DEBIT", "metadata": { "category": "ACH" } },
+        { "code": "BOOK_TRANSFER", "metadata": { "category": "Internal" } },
+        { "code": "CARD_HOLD", "metadata": { "category": "Card" } },
+        { "code": "CARD_HOLD_CANCEL", "metadata": { "category": "Card" } },
+        { "code": "CARD_HOLD_EXPIRE", "metadata": { "category": "Card" } },
+        { "code": "CARD_HOLD_MODIFICATION", "metadata": { "category": "Card" } },
+        { "code": "CARD_TX_CLEARING", "metadata": { "category": "Card" } },
+        { "code": "EXCHANGE_CURRENCY", "metadata": { "category": "FX" } }
+      ]
+    }
+  }
+}

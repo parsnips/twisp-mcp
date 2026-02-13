@@ -1,0 +1,17 @@
+{
+  "errors": [
+    {
+      "message": "input: deleteVelocityControl velocity control in use",
+      "path": [
+        "deleteVelocityControl"
+      ],
+      "extensions": {
+        "code": "BAD_REQUEST",
+        "retriableError": false
+      }
+    }
+  ],
+  "data": {
+    "deleteVelocityControl": null
+  }
+}

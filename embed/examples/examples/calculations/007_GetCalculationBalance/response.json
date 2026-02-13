@@ -1,0 +1,28 @@
+{
+  "data": {
+    "list": {
+      "nodes": [
+        {
+          "available": {
+            "drBalance": {
+              "units": "0"
+            },
+            "crBalance": {
+              "units": "9.53"
+            }
+          }
+        }
+      ]
+    },
+    "read": {
+      "available": {
+        "drBalance": {
+          "units": "0"
+        },
+        "crBalance": {
+          "units": "9.53"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "data": {
+    "schema": {
+      "createHistoricalIndex": {
+        "name": "negative balance history"
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+mutation createTransactionIndex {
+  schema {
+    createIndex(
+      input: {name: "classification", on: Transaction, unique: false, partition: [{alias: "classification", value: "string(document.metadata.classification)"}], sort: [], constraints: {a: "1 + 1 == 2"}}
+    ) {
+      name
+      range {
+        alias
+        value
+        sort
+      }
+      partition {
+        alias
+        value
+      }
+      on
+      constraints
+      unique
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "data": {
+    "schema": {
+      "index": {
+        "name": "Account.metadata.type",
+        "on": "Account",
+        "unique": false,
+        "range": [{ "alias": "type", "value": "string(document.metadata.type)", "sort": "ASC" }],
+        "partition": [{ "alias": "type", "value": "string(document.metadata.type)" }],
+        "constraints": { "hasCategory": "has(document.metadata.type)" }
+      }
+    }
+  }
+}

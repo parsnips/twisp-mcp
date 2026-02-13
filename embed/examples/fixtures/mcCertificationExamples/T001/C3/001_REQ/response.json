@@ -1,0 +1,12 @@
+{
+  "data": {
+    "account": {
+      "accounts": { "nodes": [{ "accountId": "6c6affb0-5cf5-402b-8d84-01bfc1624a2c" }] }
+    },
+    "create": { "execute": { "executionId": "a6443e76-59e3-479a-a9bc-078c9b3804b7" } },
+    "exceptions": { "transaction": { "exceptions": null } },
+    "pending": { "balance": { "pending": { "normalBalance": { "units": "50.00" } } } },
+    "settled": { "balance": { "settled": { "normalBalance": { "units": "0" } } } },
+    "velocity": { "velocity": [{ "spent": "50.00", "remaining": "950.00" }] }
+  }
+}

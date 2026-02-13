@@ -1,0 +1,90 @@
+extend type Mutation {
+  "Mutations in the `scheduler` namespace are used to manage scheduled jobs"
+  scheduler: SchedulerMutation
+}
+
+type SchedulerMutation {
+  createSchedule("Fields to create a new schedule." input: CreateScheduleInput!): Schedule @goField(forceResolver: true)
+}
+
+input CreateScheduleInput {
+  """
+  The job type to create the schedule for. Currently only one schedule
+  per job-type is supported.
+  """
+  jobType: JobType!
+
+  """
+  A job name that's unique per job type.
+  """
+  jobName: String!
+
+  """
+  The Twisp principal to run the job on a schedule.
+  This should have a matching `client` policy.
+  """
+  principal: String!
+
+  """
+  A schedule expression to run this job on.  cron/rate/once supported
+  see https://docs.aws.amazon.com/scheduler/latest/UserGuide/schedule-types.html for valid syntax.
+  """
+  scheduleExpression: String!
+
+  """
+  The timezone to run this schedule on based on https://www.iana.org/time-zones
+
+  example: "America/Los_Angeles" or "UTC"
+
+  Supports ST rules defined in https://docs.aws.amazon.com/scheduler/latest/UserGuide/schedule-types.html
+  """
+  timezone: String!
+
+  """
+  JSON metadata to pass to running job.
+  """
+  metadata: JSON!
+}
+
+type Schedule {
+   """
+  The job type to create the schedule for. Currently only one schedule
+  per job-type is supported.
+  """
+  jobType: JobType!
+
+  """
+  A job name that's unique per job type.
+  """
+  jobName: String!
+
+  """
+  The Twisp principal to run the job on a schedule.
+  This should have a matching `client` policy.
+  """
+  principal: String!
+
+  """
+  A schedule expression to run this job on.  cron/rate/once supported
+  see https://docs.aws.amazon.com/scheduler/latest/UserGuide/schedule-types.html for valid syntax.
+  """
+  scheduleExpression: String!
+
+  """
+  The timezone to run this schedule on based on https://www.iana.org/time-zones
+
+  example: "America/Los_Angeles" or "UTC"
+
+  Supports ST rules defined in https://docs.aws.amazon.com/scheduler/latest/UserGuide/schedule-types.html
+  """
+  timezone: String!
+
+  """
+  JSON metadata to pass to running job.
+  """
+  metadata: JSON!
+}
+
+enum JobType {
+  SETTLE_WORKFLOW,
+}

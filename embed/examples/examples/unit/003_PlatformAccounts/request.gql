@@ -1,0 +1,81 @@
+mutation PlatformAccounts {
+  cash: createAccount(
+    input: {
+      accountId: "db07e5cf-6cd7-4629-a952-9613578cd8ea"
+      code: "ASSETS.CASH"
+      name: "Cash account"
+      description: "Cash account representing all assets the platform."
+      normalBalanceType: DEBIT
+      config: {
+        enableConcurrentPosting: true
+      }
+    }
+  ) {
+    accountId
+  }
+  cardSettlement: createAccount(
+    input: {
+      accountId: "fabdce1f-6eb9-4630-9472-6338ed3dc6a2"
+      code: "SETTLEMENT.VISA"
+      name: "Visa Settlement Account"
+      description: "Settlement account to use for Visa cards on bin 41200."
+      config: {
+        enableConcurrentPosting: true
+      }
+    }
+  ) {
+    accountId
+  }
+  achSettlement: createAccount(
+    input: {
+      accountId: "7c923aed-a5fc-4ded-b2f0-57db45a8b545"
+      code: "SETTLEMENT.ACH"
+      name: "ACH Settlement Account"
+      description: "Settlement account to use for Bank Partner 1."
+      config: {
+        enableConcurrentPosting: true
+      }
+    }
+  ) {
+    accountId
+  }
+  suspenseAccount: createAccount(
+    input: {
+      accountId: "6e341e23-e35f-488c-b947-b7b8839f4c00"
+      code: "SUSPENSE"
+      name: "Suspense Account"
+      description: "Account to post to when an account doesnt exist or is in a non-postable state."
+      config: {
+        enableConcurrentPosting: true
+      }
+    }
+  ) {
+    accountId
+  }
+  disputes: createAccount(
+    input: {
+      accountId: "08f304d5-6a63-40b9-a182-bfb732994b15"
+      code: "DISPUTES"
+      name: "Disputes Account"
+      description: "Reserve account for dispute resolution."
+      config: {
+        enableConcurrentPosting: true
+      }
+    }
+  ) {
+    accountId
+  }
+  revenueAccount: createAccount(
+    input: {
+      accountId: "4d79af07-acd9-4a44-8291-78a573ced41d"
+      code: "REVENUE"
+      name: "Revenue Account"
+      description: "Interchange and other fees collected from customer accounts."
+      config: {
+        enableConcurrentPosting: true
+      }
+    }
+  ) {
+    accountId
+  }
+}

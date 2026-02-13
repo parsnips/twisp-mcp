@@ -1,0 +1,18 @@
+mutation CreateGeneralLedger($generalJournalId: UUID!, $productJournalId: UUID!) {
+  general: createJournal(
+    input: {journalId: $generalJournalId, name: "General Ledger", description: "Primary journal for Zuzu."}
+  ) {
+    journalId
+    name
+    description
+    status
+  }
+  product: createJournal(
+    input: {journalId: $productJournalId, name: "Product Ledger", description: "Journal for Product Fox."}
+  ) {
+    journalId
+    name
+    description
+    status
+  }
+}

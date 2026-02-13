@@ -1,0 +1,20 @@
+mutation uuid_formatting {
+  warehouse {
+    executeStatementSync(
+      input: {
+        sql: "select accountid, from_varbyte(accountid, 'hex') as uuid from account_history limit 1"
+      }
+    ) {
+      records {
+        fields{
+          value{
+            str
+          }
+        }
+      }
+      columnMetadata {
+        name
+      }
+    }
+  }
+}

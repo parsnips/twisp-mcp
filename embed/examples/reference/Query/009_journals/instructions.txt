@@ -1,0 +1,1 @@
+Get the first 10 active journals using the status index. Retrieve the journalId, name, description, and status for each journal.

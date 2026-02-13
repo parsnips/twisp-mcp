@@ -1,0 +1,100 @@
+{
+  "data": {
+    "a": {
+      "entries": {
+        "nodes": [
+          {
+            "amount": {
+              "units": "101.00"
+            }
+          },
+          {
+            "amount": {
+              "units": "101.00"
+            }
+          }
+        ]
+      },
+      "exceptions": null
+    },
+    "b": {
+      "entries": {
+        "nodes": [
+          {
+            "amount": {
+              "units": "101.00"
+            }
+          },
+          {
+            "amount": {
+              "units": "101.00"
+            }
+          }
+        ]
+      },
+      "exceptions": null
+    },
+    "c": {
+      "entries": {
+        "nodes": [
+          {
+            "amount": {
+              "units": "98.00"
+            }
+          },
+          {
+            "amount": {
+              "units": "98.00"
+            }
+          }
+        ]
+      },
+      "exceptions": null
+    },
+    "d": {
+      "entries": {
+        "nodes": [
+          {
+            "amount": {
+              "units": "100.00"
+            }
+          },
+          {
+            "amount": {
+              "units": "100.00"
+            }
+          }
+        ]
+      },
+      "exceptions": [
+        {
+          "detail": {
+            "accountId": "480ff40e-016c-4677-80ee-2b62bd34182d",
+            "layer": "ENCUMBRANCE",
+            "limit": "300.00",
+            "velocityControlId": "b57b238f-6fd8-42d0-8a99-f88fadf377aa",
+            "velocityLimitId": "370ac19b-a48c-4480-9b1f-18c39d214a0a",
+            "violatingBalance": "400.00 USD"
+          },
+          "type": "VELOCITY_CONTROL"
+        }
+      ]
+    },
+    "eur": {
+      "entries": {
+        "nodes": [
+          {
+            "amount": {
+              "units": "301.00"
+            }
+          },
+          {
+            "amount": {
+              "units": "301.00"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

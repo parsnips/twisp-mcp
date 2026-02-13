@@ -1,0 +1,1 @@
+Initialize card transaction codes for the given journal ID and settlement account ID. Return the account id, name, and code.

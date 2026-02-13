@@ -1,0 +1,123 @@
+{
+  "data": {
+    "general_journal_bert": {
+      "nodes": []
+    },
+    "general_journal_ernie_desc": {
+      "nodes": [
+        {
+          "journalId": "822cb59f-ce51-4837-8391-2af3b7a5fc52",
+          "accountId": "1fd1dd3e-33fe-4ef5-9d58-676ef8d306b6",
+          "settled": {
+            "crBalance": {
+              "units": "0",
+              "currency": "USD"
+            },
+            "drBalance": {
+              "units": "123.45",
+              "currency": "USD"
+            },
+            "normalBalance": {
+              "units": "-123.45",
+              "currency": "USD"
+            }
+          }
+        },
+        {
+          "journalId": "822cb59f-ce51-4837-8391-2af3b7a5fc52",
+          "accountId": "1fd1dd3e-33fe-4ef5-9d58-676ef8d306b6",
+          "settled": {
+            "crBalance": {
+              "units": "0",
+              "currency": "USD"
+            },
+            "drBalance": {
+              "units": "246.90",
+              "currency": "USD"
+            },
+            "normalBalance": {
+              "units": "-246.90",
+              "currency": "USD"
+            }
+          }
+        },
+        {
+          "journalId": "822cb59f-ce51-4837-8391-2af3b7a5fc52",
+          "accountId": "1fd1dd3e-33fe-4ef5-9d58-676ef8d306b6",
+          "settled": {
+            "crBalance": {
+              "units": "0",
+              "currency": "USD"
+            },
+            "drBalance": {
+              "units": "370.35",
+              "currency": "USD"
+            },
+            "normalBalance": {
+              "units": "-370.35",
+              "currency": "USD"
+            }
+          }
+        }
+      ]
+    },
+    "general_journal_ernie": {
+      "nodes": [
+        {
+          "journalId": "822cb59f-ce51-4837-8391-2af3b7a5fc52",
+          "accountId": "1fd1dd3e-33fe-4ef5-9d58-676ef8d306b6",
+          "settled": {
+            "crBalance": {
+              "units": "0",
+              "currency": "USD"
+            },
+            "drBalance": {
+              "units": "370.35",
+              "currency": "USD"
+            },
+            "normalBalance": {
+              "units": "-370.35",
+              "currency": "USD"
+            }
+          }
+        },
+        {
+          "journalId": "822cb59f-ce51-4837-8391-2af3b7a5fc52",
+          "accountId": "1fd1dd3e-33fe-4ef5-9d58-676ef8d306b6",
+          "settled": {
+            "crBalance": {
+              "units": "0",
+              "currency": "USD"
+            },
+            "drBalance": {
+              "units": "246.90",
+              "currency": "USD"
+            },
+            "normalBalance": {
+              "units": "-246.90",
+              "currency": "USD"
+            }
+          }
+        },
+        {
+          "journalId": "822cb59f-ce51-4837-8391-2af3b7a5fc52",
+          "accountId": "1fd1dd3e-33fe-4ef5-9d58-676ef8d306b6",
+          "settled": {
+            "crBalance": {
+              "units": "0",
+              "currency": "USD"
+            },
+            "drBalance": {
+              "units": "123.45",
+              "currency": "USD"
+            },
+            "normalBalance": {
+              "units": "-123.45",
+              "currency": "USD"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

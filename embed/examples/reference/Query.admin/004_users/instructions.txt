@@ -1,0 +1,1 @@
+Query the first 5 admin users. Retrieve the email, organizationId, and groupIds for each user.

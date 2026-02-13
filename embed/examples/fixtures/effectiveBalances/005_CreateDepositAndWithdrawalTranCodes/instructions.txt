@@ -1,0 +1,1 @@
+Create two transaction codes using specified tranCodeIds: ACH_CREDIT and ACH_DEBIT for customer accounts. Define the required parameters and entries for each transaction code. Then, return the tranCodeId for both ACH_CREDIT and ACH_DEBIT.

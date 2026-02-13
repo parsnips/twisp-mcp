@@ -1,0 +1,1 @@
+Get the journal information for the specified journal ID. Retrieve the journal's name, description, status, and version.

@@ -1,0 +1,1 @@
+Retrieve the balances for Ernie and Bert's accounts using the provided UUIDs. For each account, get the settled normal balance in units. Additionally, fetch the balance for Ernie's account using a specific global ID. Return the accountId and settled drBalance in units for the global ID balance query.

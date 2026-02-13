@@ -1,0 +1,7 @@
+query ListSetsByCode {
+  accountSets(index: { name: CODE }, where: { code: { eq: "A" } }, first: 1) {
+    nodes {
+      code
+    }
+  }
+}

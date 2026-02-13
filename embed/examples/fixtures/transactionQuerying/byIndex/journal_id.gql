@@ -1,0 +1,14 @@
+query {
+  journal_transactions: transactions(
+    params: {
+      index: { name: JOURNAL_ID }
+      where: { journalId: { eq: "822cb59f-ce51-4837-8391-2af3b7a5fc51" } }
+    }
+    first: 10
+  ) {
+    nodes {
+      transactionId
+      journalId
+    }
+  }
+}

@@ -1,0 +1,8 @@
+query PartitionKeyRequired {
+  accounts(index: { name: ACCOUNT_ID }, where: { name: { eq: "TESTACCT" } }, first: 10) {
+    nodes {
+      accountId
+      name
+    }
+  }
+}

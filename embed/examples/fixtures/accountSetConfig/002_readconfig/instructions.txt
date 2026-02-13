@@ -1,0 +1,1 @@
+Get account sets for the provided account set IDs. Retrieve the accountSetId and enableConcurrentPosting configuration for each account set.

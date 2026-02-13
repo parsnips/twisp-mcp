@@ -1,0 +1,7 @@
+Create three indexes on the AccountSet:
+
+1. Create a partitioned index named "priority" with a string value for the document metadata priority, and a constraint that 1 + 1 equals 2. Return the index details.
+
+2. Create a sorted index named "nickname" with a string value for the document metadata nickname if it exists. The index should have a constraint that the nickname must exist. Return the index details.
+
+3. Create a combined partitioned and sorted index named "priority-nickname" with the same configurations as the previous two indexes: string value for priority, string value for the nickname if it exists, and a constraint that 1 + 1 equals 2. Return the index details.

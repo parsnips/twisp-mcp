@@ -1,0 +1,46 @@
+{
+  "data": {
+    "xfr_j1": {
+      "transactionId": "a3501651-3550-40a3-a5e4-a07d983348f8",
+      "entries": {
+        "nodes": [
+          {
+            "journalId": "41ee64d6-dcde-46dc-bdc5-c9164517402a",
+            "accountId": "80c06296-7afb-4725-8cdd-57c2ce881af2",
+            "direction": "DEBIT",
+            "units": "11.33",
+            "currency": "USD"
+          },
+          {
+            "journalId": "41ee64d6-dcde-46dc-bdc5-c9164517402a",
+            "accountId": "6d808949-437f-4f23-a345-b09225104808",
+            "direction": "CREDIT",
+            "units": "11.33",
+            "currency": "USD"
+          }
+        ]
+      }
+    },
+    "xfr_j2": {
+      "transactionId": "87e0c5f2-fc1e-4450-9129-aba1c00533c3",
+      "entries": {
+        "nodes": [
+          {
+            "journalId": "2d9355ac-1844-4378-8fae-7ccb104e98c9",
+            "accountId": "6d808949-437f-4f23-a345-b09225104808",
+            "direction": "DEBIT",
+            "units": "22.44",
+            "currency": "USD"
+          },
+          {
+            "journalId": "2d9355ac-1844-4378-8fae-7ccb104e98c9",
+            "accountId": "80c06296-7afb-4725-8cdd-57c2ce881af2",
+            "direction": "CREDIT",
+            "units": "22.44",
+            "currency": "USD"
+          }
+        ]
+      }
+    }
+  }
+}

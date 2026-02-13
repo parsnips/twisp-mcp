@@ -1,0 +1,79 @@
+{
+  "data": {
+    "originalAuth": {
+      "executeTask": {
+        "transactions": [
+          {
+            "transactionId": "edcc3942-3c4f-5d40-8fa7-0a2cbc068631",
+            "entries": {
+              "nodes": [
+                {
+                  "entryType": "CARD_HOLD_DR",
+                  "direction": "DEBIT",
+                  "amount": {
+                    "units": "10.00"
+                  }
+                },
+                {
+                  "entryType": "CARD_HOLD_CR",
+                  "direction": "CREDIT",
+                  "amount": {
+                    "units": "10.00"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "updatedAuth": {
+      "executeTask": {
+        "transactions": [
+          {
+            "transactionId": "fed601a6-ce71-5760-8dbc-5ec5e392ff29",
+            "entries": {
+              "nodes": [
+                {
+                  "entryType": "CARD_HOLD_DR_VOID",
+                  "direction": "DEBIT",
+                  "amount": {
+                    "units": "-10.00"
+                  }
+                },
+                {
+                  "entryType": "CARD_HOLD_CR_VOID",
+                  "direction": "CREDIT",
+                  "amount": {
+                    "units": "-10.00"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "transactionId": "bdcdac07-29fc-5f5f-9e65-9b9a37241c9c",
+            "entries": {
+              "nodes": [
+                {
+                  "entryType": "CARD_HOLD_DR",
+                  "direction": "DEBIT",
+                  "amount": {
+                    "units": "15.00"
+                  }
+                },
+                {
+                  "entryType": "CARD_HOLD_CR",
+                  "direction": "CREDIT",
+                  "amount": {
+                    "units": "15.00"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

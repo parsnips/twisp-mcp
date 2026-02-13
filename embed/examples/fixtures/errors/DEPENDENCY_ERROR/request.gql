@@ -1,0 +1,13 @@
+mutation DEPENDENCY_ERRORS {
+  missingRequiredParam: postTransaction(
+    input: {
+      transactionId: "f82391bb-90a7-4328-b5ad-8629a7602de8"
+      tranCode: "TESTTC"
+      params: {
+        accountId: "7052f9fd-dd15-40d0-b0b6-df8c4c372e41"
+      }
+    }
+  ) {
+    transactionId
+  }
+}

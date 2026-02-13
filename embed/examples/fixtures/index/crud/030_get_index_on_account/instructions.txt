@@ -1,0 +1,1 @@
+Fetch the index information based on the provided name and on value from the schema. Include the name, range, partition, on, constraints, and unique fields in the result.

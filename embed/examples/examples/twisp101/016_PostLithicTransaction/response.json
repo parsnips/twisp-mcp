@@ -1,0 +1,35 @@
+{
+  "data": {
+    "cards": {
+      "postLithicTransaction": {
+        "transaction": {
+          "transactionId": "2f05a4d4-07c5-42c1-a567-438737b7a0ad",
+          "metadata": {
+            "acquirer_fee": 0,
+            "amount": 100,
+            "authorization_amount": 100,
+            "created": "2022-10-01T00:00:00Z",
+            "events": [],
+            "settled_amount": 0,
+            "status": "AUTHORIZATION",
+            "token": "2f05a4d4-07c5-42c1-a567-438737b7a0ad"
+          }
+        },
+        "balance": {
+          "settled": {
+            "normalBalance": {
+              "units": "2.95",
+              "currency": "USD"
+            }
+          },
+          "available": {
+            "normalBalance": {
+              "units": "1.95",
+              "currency": "USD"
+            }
+          }
+        }
+      }
+    }
+  }
+}

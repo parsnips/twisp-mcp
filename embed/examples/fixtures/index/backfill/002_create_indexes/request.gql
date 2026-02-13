@@ -1,0 +1,55 @@
+mutation createIndex {
+  schema {
+    a: createIndex(
+      input: {
+        on:AccountSet
+        name: "AccountSets.metadata.stripeId"
+        partition:[]
+        sort: [{
+          alias:"stripeId"
+          value: "string(document.metadata.stripeId)"
+          sort:ASC
+        }]
+        constraints: {
+          hasStripeId:"has(document.metadata) && has(document.metadata.stripeId)"
+        }
+      }
+    ){
+      name
+    }
+    b: createIndex(
+      input: {
+        on:Account
+        name: "Accounts.metadata.stripeId"
+        partition:[]
+        sort: [{
+          alias:"stripeId"
+          value: "string(document.metadata.stripeId)"
+          sort:ASC
+        }]
+        constraints: {
+          hasStripeId:"has(document.metadata) && has(document.metadata.stripeId)"
+        }
+      }
+    ){
+      name
+    }
+  c: createIndex(
+      input: {
+        on:Account
+        name: "Accounts.metadata.externalKey"
+        partition:[]
+        sort: [{
+          alias:"stripeId"
+          value: "string(document.metadata.externalKey)"
+          sort:ASC
+        }]
+        constraints: {
+          hasStripeId:"has(document.metadata) && has(document.metadata.externalKey)"
+        }
+      }
+    ){
+      name
+    }
+  }
+}

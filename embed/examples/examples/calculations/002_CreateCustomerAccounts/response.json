@@ -1,0 +1,12 @@
+{
+  "data": {
+    "ernie_checking": {
+      "accountId": "1fd1dd3e-33fe-4ef5-9d58-676ef8d306b5",
+      "name": "Ernie Bishop - Checking"
+    },
+    "bert_checking": {
+      "accountId": "6c6affb0-5cf5-402b-8d84-01bfc1624a2c",
+      "name": "Bert - Checking"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "data": {
+    "accounts": {
+      "nodes": [
+        {
+          "accountId": "42a38778-5e50-4291-8457-a68332d6e26c",
+          "name": "Elmo - Checking",
+          "metadata": {
+            "customIndex": {
+              "alpha": "no"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "data": {
+    "account": {
+      "accounts": { "nodes": [{ "accountId": "6c6affb0-5cf5-402b-8d84-01bfc1624a2c" }] }
+    },
+    "create": {
+      "execute": {
+        "executionId": "ebf54636-2a80-11f0-823d-069b540ea27b",
+        "output": {
+          "state": {
+            "0": "0230",
+            "1": "742040000200A002",
+            "11": "000017",
+            "18": "5541",
+            "2": "100194444740300",
+            "3": "000000",
+            "39": "94",
+            "4": "10000",
+            "49": "840",
+            "51": "840",
+            "6": "10000",
+            "63": {
+              "01": "    ",
+              "02": "    ",
+              "03": "1234567812345678",
+              "04": "111111111",
+              "05": "A",
+              "06": "123456123456123456123456",
+              "07": "MASTERCARD  "
+            }
+          }
+        }
+      }
+    },
+    "exceptions": { "transaction": null },
+    "pending": { "balance": { "pending": { "normalBalance": { "units": "0" } } } },
+    "settled": { "balance": { "settled": { "normalBalance": { "units": "100.00" } } } },
+    "velocity": { "velocity": [{ "spent": "100.00", "remaining": "900.00" }] }
+  }
+}

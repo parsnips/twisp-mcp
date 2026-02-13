@@ -1,0 +1,66 @@
+fragment F_BalanceAmount_Standard on BalanceAmount {
+  normalBalance {
+    formatted(as: { locale: "en-US" })
+  }
+  drBalance {
+    formatted(as: { locale: "en-US" })
+  }
+  crBalance {
+    formatted(as: { locale: "en-US" })
+  }
+}
+
+fragment F_Transaction_Standard on Transaction {
+  transactionId
+  effective
+
+  tranCode {
+    tranCodeId
+    code
+    version
+  }
+}
+
+# Using fragment: F_AccountSet_Summary
+query GetBertAccountSummary($set_bertId: UUID!) {
+  accountSet(id: $set_bertId) {
+    accountSetId
+    name
+    balance(currency: "USD") {
+      currency
+      available(layer: ENCUMBRANCE) {
+        ...F_BalanceAmount_Standard
+      }
+      settled {
+        ...F_BalanceAmount_Standard
+      }
+      pending {
+        ...F_BalanceAmount_Standard
+      }
+      encumbrance {
+        ...F_BalanceAmount_Standard
+      }
+    }
+    entries(first: 10) {
+      nodes {
+        direction
+        layer
+        entryType
+
+        account {
+          accountId
+          code
+          name
+        }
+        amount {
+          units
+          currency
+          formatted(as: { locale: "en-US" })
+        }
+        transaction {
+          ...F_Transaction_Standard
+        }
+      }
+    }
+  }
+}

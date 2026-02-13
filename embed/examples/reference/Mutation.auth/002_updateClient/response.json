@@ -1,0 +1,16 @@
+{
+  "data": {
+    "auth": {
+      "updateClient": {
+        "policies": [
+          {
+            "effect": "ALLOW",
+            "actions": ["SELECT", "INSERT"],
+            "resources": ["financial.*"],
+            "assertions": { "isTrue": "true" }
+          }
+        ]
+      }
+    }
+  }
+}

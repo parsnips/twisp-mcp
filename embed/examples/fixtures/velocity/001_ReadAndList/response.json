@@ -1,0 +1,76 @@
+{
+  "data": {
+    "a": {
+      "velocityControlId": "f6f27892-dfd8-480b-9213-d6adf7ef04ef",
+      "limits": [
+        {
+          "velocityLimitId": "1be4132a-a389-45c3-9a61-0fe601d1ba8b"
+        }
+      ]
+    },
+    "b": {
+      "nodes": [
+        {
+          "velocityControlId": "f6f27892-dfd8-480b-9213-d6adf7ef04ef"
+        }
+      ]
+    },
+    "attached": {
+      "controls": {
+        "nodes": [
+          {
+            "velocityControlId": "f6f27892-dfd8-480b-9213-d6adf7ef04ef",
+            "limits": [
+              {
+                "velocityLimitId": "1be4132a-a389-45c3-9a61-0fe601d1ba8b",
+                "limit": {
+                  "balance": [
+                    {
+                      "layer": "ENCUMBRANCE",
+                      "amount": "100.00",
+                      "normalBalanceType": "DEBIT"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "velocityControlId": "b57b238f-6fd8-42d0-8a99-f88fadf377aa",
+            "limits": [
+              {
+                "velocityLimitId": "370ac19b-a48c-4480-9b1f-18c39d214a0a",
+                "limit": {
+                  "balance": [
+                    {
+                      "layer": "ENCUMBRANCE",
+                      "amount": "300.00",
+                      "normalBalanceType": "DEBIT"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "c": {
+      "nodes": [
+        {
+          "velocityControlId": "f6f27892-dfd8-480b-9213-d6adf7ef04ef"
+        }
+      ]
+    },
+    "d": {
+      "velocityLimitId": "1be4132a-a389-45c3-9a61-0fe601d1ba8b"
+    },
+    "e": {
+      "nodes": [
+        {
+          "velocityLimitId": "1be4132a-a389-45c3-9a61-0fe601d1ba8b"
+        }
+      ]
+    }
+  }
+}

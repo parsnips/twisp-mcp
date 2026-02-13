@@ -1,0 +1,21 @@
+query transactions {
+  transactions(
+    index: {name: TRANSACTION_IDS, sort: ASC}
+    where: {
+      transactionIds: [
+        "39d2288d-96f9-40c7-b587-e7e75df083fb"
+        "39d2288d-96f9-40c7-b587-e7e75df083fc"
+        "39d2288d-96f9-40c7-b587-e7e75df083fd"
+        "39d2288d-96f9-40c7-b587-e7e75df083fe"
+      ]
+    }
+    first: 0
+  ) {
+    nodes {
+      transactionId
+      tranCodeId
+      effective
+      metadata
+    }
+  }
+}

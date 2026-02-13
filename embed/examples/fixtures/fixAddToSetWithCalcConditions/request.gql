@@ -1,0 +1,128 @@
+mutation Setup {
+  journal: createJournal(
+    input: { journalId: "9f8c2446-87b8-11f0-b9c1-069b540ea27c", code: "TEST", name: "TEST" }
+  ) {
+    journalId
+  }
+  code: createTranCode(
+    input: {
+      tranCodeId: "ea7454aa-8809-11f0-9e87-069b540ea27c"
+      code: "BOOK_TRANSFER"
+      description: "Book transfer between two internal accounts."
+      metadata: { category: "Internal" }
+      params: [
+        { name: "crAccount", type: UUID, description: "Account to credit." }
+        { name: "drAccount", type: UUID, description: "Account to debit." }
+        { name: "amount", type: DECIMAL, description: "Amount with decimal, e.g. `1.23`." }
+        { name: "currency", type: STRING, description: "Currency used for transaction." }
+        { name: "effective", type: DATE, description: "Effective date for transaction." }
+        { name: "journalId", type: UUID, description: "Journal" }
+        {
+          name: "correlationId"
+          type: STRING
+          description: "Correlation Id"
+          default: "_unspecified_"
+        }
+        { name: "metadata", type: JSON, description: "Metadata", default: "{}" }
+        { name: "crMetadata", type: JSON, description: "Metadata", default: "{}" }
+        { name: "drMetadata", type: JSON, description: "Metadata", default: "{}" }
+        { name: "layer", type: INTEGER, description: "layer", default: 0 }
+      ]
+      transaction: {
+        journalId: "params.journalId"
+        effective: "params.effective"
+        description: "'Book transfer for $' + string(params.amount)"
+        correlationId: "string(params.correlationId != '_unspecified_' ? params.correlationId:uuid.New())"
+        metadata: "params.metadata"
+      }
+      entries: [
+        {
+          accountId: "params.drAccount"
+          units: "params.amount"
+          currency: "params.currency"
+          entryType: "'BOOK_TRANSFER_DR'"
+          direction: "DEBIT"
+          layer: "params.layer"
+          metadata: "params.drMetadata"
+        }
+        {
+          accountId: "params.crAccount"
+          units: "params.amount"
+          currency: "params.currency"
+          entryType: "'BOOK_TRANSFER_CR'"
+          direction: "CREDIT"
+          layer: "params.layer"
+          metadata: "params.crMetadata"
+        }
+      ]
+    }
+  ) {
+    tranCodeId
+  }
+  calc: createCalculation(
+    input: {
+      calculationId: "83b8362d-afe2-41e5-84de-1fb9505fd0d8"
+      code: "PerFeeCategoryId"
+      description: "Track balances per metadata.feeCategoryId."
+      dimensions: [
+        {
+          alias: "feeCategoryId"
+          value: "string(context.vars.entry.metadata.?feeCategoryId.orValue(''))"
+        }
+      ]
+      condition: "'metadata' in context.vars.entry && 'feeCategoryId' in context.vars.entry.metadata && context.vars.entry.metadata.feeCategoryId != null"
+    }
+  ) {
+    calculationId
+  }
+  set: createAccountSet(
+    input: {
+      accountSetId: "fb4fe8a8-4415-11f0-84f4-069b540ea27d"
+      journalId: "9f8c2446-87b8-11f0-b9c1-069b540ea27c"
+      name: "set"
+      description: "set"
+      config: { enableConcurrentPosting: false }
+    }
+  ) {
+    accountSetId
+  }
+  cash: createAccount(
+    input: {
+      accountId: "bdcedeec-87b5-11f0-b1ae-069b540ea27c"
+      name: "cash"
+      code: "cash"
+      description: "cash"
+      normalBalanceType: CREDIT
+      config: { enableConcurrentPosting: false }
+    }
+  ) {
+    accountId
+    name
+  }
+  a: createAccount(
+    input: {
+      accountId: "6c6affb0-5cf5-402b-8d84-01bfc1624a2c"
+      name: "Bert - Checking"
+      code: "BERT.CHECKING"
+      description: "Bert's checking account"
+      normalBalanceType: CREDIT
+      config: { enableConcurrentPosting: false }
+    }
+  ) {
+    accountId
+    name
+  }
+  b: createAccount(
+    input: {
+      accountId: "bf716346-9eee-4ec5-bbc3-64c47de7d929"
+      name: "Earni - Checking"
+      code: "EARNIE.CHECKING"
+      description: "Earnie's checking account"
+      normalBalanceType: CREDIT
+      config: { enableConcurrentPosting: false }
+    }
+  ) {
+    accountId
+    name
+  }
+}

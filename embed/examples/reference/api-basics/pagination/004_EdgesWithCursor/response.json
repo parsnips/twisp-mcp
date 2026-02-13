@@ -1,0 +1,44 @@
+{
+  "data": {
+    "journals": {
+      "edges": [
+        {
+          "cursor": "Ad70l6_nkaCU5AFDVVNULkNlbGVzdGlubwABAAAA_wD_AP8A_wD_AP8A_wD_AP8A_wD_AP8A_wD_AP8A_wABIg",
+          "node": {
+            "code": "CUST.Celestino"
+          }
+        },
+        {
+          "cursor": "Ad70l6_nkaCU5AFDVVNULkRhbWlvbgABAAAA_wD_AP8A_wD_AP8A_wD_AP8A_wD_AP8A_wD_AP8A_wABIg",
+          "node": {
+            "code": "CUST.Damion"
+          }
+        },
+        {
+          "cursor": "Ad70l6_nkaCU5AFDVVNULkV1bmljZQABAAAA_wD_AP8A_wD_AP8A_wD_AP8A_wD_AP8A_wD_AP8A_wABIg",
+          "node": {
+            "code": "CUST.Eunice"
+          }
+        },
+        {
+          "cursor": "Ad70l6_nkaCU5AFDVVNULkpheWRlAAEAAAD_AP8A_wD_AP8A_wD_AP8A_wD_AP8A_wD_AP8A_wD_AAEi",
+          "node": {
+            "code": "CUST.Jayde"
+          }
+        },
+        {
+          "cursor": "Ad70l6_nkaCU5AFDVVNULk1hcnRpbmEAAQAAAP8A_wD_AP8A_wD_AP8A_wD_AP8A_wD_AP8A_wD_AP8AASI",
+          "node": {
+            "code": "CUST.Martina"
+          }
+        }
+      ],
+      "pageInfo": {
+        "hasPreviousPage": true,
+        "hasNextPage": true,
+        "startCursor": "Ad70l6_nkaCU5AFDVVNULkNlbGVzdGlubwABAAAA_wD_AP8A_wD_AP8A_wD_AP8A_wD_AP8A_wD_AP8A_wABIg",
+        "endCursor": "Ad70l6_nkaCU5AFDVVNULk1hcnRpbmEAAQAAAP8A_wD_AP8A_wD_AP8A_wD_AP8A_wD_AP8A_wD_AP8AASI"
+      }
+    }
+  }
+}

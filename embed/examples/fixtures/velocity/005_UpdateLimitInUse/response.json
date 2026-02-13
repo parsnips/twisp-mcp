@@ -1,0 +1,17 @@
+{
+  "errors": [
+    {
+      "message": "input: updateVelocityLimit velocity limit in use",
+      "path": [
+        "updateVelocityLimit"
+      ],
+      "extensions": {
+        "code": "BAD_REQUEST",
+        "retriableError": false
+      }
+    }
+  ],
+  "data": {
+    "updateVelocityLimit": null
+  }
+}

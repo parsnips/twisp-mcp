@@ -1,0 +1,22 @@
+{
+  "data": {
+    "cash": {
+      "accountId": "db07e5cf-6cd7-4629-a952-9613578cd8ea"
+    },
+    "cardSettlement": {
+      "accountId": "fabdce1f-6eb9-4630-9472-6338ed3dc6a2"
+    },
+    "achSettlement": {
+      "accountId": "7c923aed-a5fc-4ded-b2f0-57db45a8b545"
+    },
+    "suspenseAccount": {
+      "accountId": "6e341e23-e35f-488c-b947-b7b8839f4c00"
+    },
+    "disputes": {
+      "accountId": "08f304d5-6a63-40b9-a182-bfb732994b15"
+    },
+    "revenueAccount": {
+      "accountId": "4d79af07-acd9-4a44-8291-78a573ced41d"
+    }
+  }
+}

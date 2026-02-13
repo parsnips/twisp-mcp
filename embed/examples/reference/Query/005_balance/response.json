@@ -1,0 +1,33 @@
+{
+  "data": {
+    "balance": {
+      "available": {
+        "drBalance": { "units": "4.53" },
+        "crBalance": { "units": "0" },
+        "normalBalance": { "formatted": "-$4.53" }
+      },
+      "entries": {
+        "nodes": [
+          {
+            "entryType": "CARD_HOLD_CLEAR_CR",
+            "amount": { "units": "4.53", "currency": "USD" },
+            "direction": "CREDIT",
+            "layer": "PENDING"
+          },
+          {
+            "entryType": "CARD_SETTLEMENT_DR",
+            "amount": { "units": "4.53", "currency": "USD" },
+            "direction": "DEBIT",
+            "layer": "SETTLED"
+          },
+          {
+            "entryType": "CARD_HOLD_DR",
+            "amount": { "units": "4.53", "currency": "USD" },
+            "direction": "DEBIT",
+            "layer": "PENDING"
+          }
+        ]
+      }
+    }
+  }
+}

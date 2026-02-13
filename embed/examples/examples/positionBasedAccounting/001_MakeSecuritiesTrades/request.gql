@@ -1,0 +1,294 @@
+mutation MakeSecuritiesTrades(
+  $clientACash: UUID!
+  $clientAInvestment: UUID!
+  $clientADividendRev: UUID!
+  $clientAHoldings: UUID!
+  $clientBCash: UUID!
+  $clientBInvestment: UUID!
+  $clientBDividendRev: UUID!
+  $clientBHoldings: UUID!
+) {
+  aliciaBuyAAPL: postTransaction(input: {
+    tranCode: "BUY_SECURITY"
+    transactionId: "f01885c4-9817-4bd1-a953-1873b64ad27d"
+    params: {
+      effective: "2022-10-12"
+      clientHoldingsAcct: $clientAHoldings
+      clientInvestAcct: $clientAInvestment
+      clientCashAcct: $clientACash
+      security: "AAPL"
+      shares: "100"
+      price: "149.45"
+      feeRate: "0.0075"
+    }
+  }) {
+    transactionId
+    effective
+    description
+    entries(first: 10) {
+      nodes {
+        amount {
+          units
+          currency
+          formatted(as: { locale: "en-US" })
+        }
+        direction
+        account {
+          name
+        }
+      }
+    }
+  }
+
+  bobbyBuyAAPL: postTransaction(input: {
+    tranCode: "BUY_SECURITY"
+    transactionId: "b6e11bb5-e7ef-40e0-a58c-838bbe70de98"
+    params: {
+      effective: "2022-10-12"
+      clientHoldingsAcct: $clientBHoldings
+      clientInvestAcct: $clientBInvestment
+      clientCashAcct: $clientBCash
+      security: "AAPL"
+      shares: "25"
+      price: "149.45"
+      feeRate: "0.0075"
+    }
+  }) {
+    transactionId
+    effective
+    description
+    entries(first: 10) {
+      nodes {
+        amount {
+          units
+          currency
+          formatted(as: { locale: "en-US" })
+        }
+        direction
+        account {
+          name
+        }
+      }
+    }
+  }
+
+  bobbyBuyMSFT: postTransaction(input: {
+    tranCode: "BUY_SECURITY"
+    transactionId: "47351a27-82c7-4e04-b9ea-75be9e52499e"
+    params: {
+      effective: "2022-10-12"
+      clientHoldingsAcct: $clientBHoldings
+      clientInvestAcct: $clientBInvestment
+      clientCashAcct: $clientBCash
+      security: "MSFT"
+      shares: "50"
+      price: "225.75"
+      feeRate: "0.0075"
+    }
+  }) {
+    transactionId
+    effective
+    description
+    entries(first: 10) {
+      nodes {
+        amount {
+          units
+          currency
+          formatted(as: { locale: "en-US" })
+        }
+        direction
+        account {
+          name
+        }
+      }
+    }
+  }
+
+  aliciaSellAAPL: postTransaction(input: {
+    tranCode: "SELL_SECURITY"
+    transactionId: "ca91f6bc-1c87-42ba-807d-24a944c18d8a"
+    params: {
+      effective: "2022-10-15"
+      clientHoldingsAcct: $clientAHoldings
+      clientInvestAcct: $clientAInvestment
+      clientCashAcct: $clientACash
+      security: "AAPL"
+      shares: "50"
+      price: "124.72"
+      originalShareCost: "150.570875"
+      feeRate: "0.01"
+    }
+  }) {
+    transactionId
+    effective
+    description
+    entries(first: 10) {
+      nodes {
+        amount {
+          units
+          currency
+          formatted(as: { locale: "en-US" })
+        }
+        direction
+        account {
+          name
+        }
+      }
+    }
+  }
+
+  bobbyBuyAAPLAgain: postTransaction(input: {
+    tranCode: "BUY_SECURITY"
+    transactionId: "25fde18f-3771-4843-8a45-1c0168cc1eab"
+    params: {
+      effective: "2022-10-15"
+      clientHoldingsAcct: $clientBHoldings
+      clientInvestAcct: $clientBInvestment
+      clientCashAcct: $clientBCash
+      security: "AAPL"
+      shares: "10"
+      price: "124.72"
+      feeRate: "0.0075"
+    }
+  }) {
+    transactionId
+    effective
+    description
+    entries(first: 10) {
+      nodes {
+        amount {
+          units
+          currency
+          formatted(as: { locale: "en-US" })
+        }
+        direction
+        account {
+          name
+        }
+      }
+    }
+  }
+
+  aliciaEarnAAPLDividends: postTransaction(input: {
+    tranCode: "EARN_DIVIDENDS"
+    transactionId: "efcf0a69-e5a7-4dc1-97f9-d0bd0c9422b9"
+    params: {
+      effective: "2022-10-18"
+      clientCashAcct: $clientACash
+      clientDividendRevAcct: $clientADividendRev
+      security: "AAPL"
+      shares: "50"
+      dividendsPerShare: "3.62"
+    }
+  }) {
+    transactionId
+    effective
+    description
+    entries(first: 10) {
+      nodes {
+        amount {
+          units
+          currency
+          formatted(as: { locale: "en-US" })
+        }
+        direction
+        account {
+          name
+        }
+      }
+    }
+  }
+
+  bobbyEarnAAPLDividends: postTransaction(input: {
+    tranCode: "EARN_DIVIDENDS"
+    transactionId: "cd83caeb-9670-4b1d-badb-4e82e89fa6d5"
+    params: {
+      effective: "2022-10-18"
+      clientCashAcct: $clientBCash
+      clientDividendRevAcct: $clientBDividendRev
+      security: "AAPL"
+      shares: "35"
+      dividendsPerShare: "3.62"
+    }
+  }) {
+    transactionId
+    effective
+    description
+    entries(first: 10) {
+      nodes {
+        amount {
+          units
+          currency
+          formatted(as: { locale: "en-US" })
+        }
+        direction
+        account {
+          name
+        }
+      }
+    }
+  }
+
+  bobbyEarnMSFTDividends: postTransaction(input: {
+    tranCode: "EARN_DIVIDENDS"
+    transactionId: "77596731-0900-4251-98d4-81e3e3b53a95"
+    params: {
+      effective: "2022-10-19"
+      clientCashAcct: $clientBCash
+      clientDividendRevAcct: $clientBDividendRev
+      security: "MSFT"
+      shares: "50"
+      dividendsPerShare: "2.39"
+    }
+  }) {
+    transactionId
+    effective
+    description
+    entries(first: 10) {
+      nodes {
+        amount {
+          units
+          currency
+          formatted(as: { locale: "en-US" })
+        }
+        direction
+        account {
+          name
+        }
+      }
+    }
+  }
+
+  bobbySellOffAAPL: postTransaction(input: {
+    tranCode: "SELL_SECURITY"
+    transactionId: "0c4e17f4-1703-4a69-a944-6127d09df5cb"
+    params: {
+      effective: "2022-10-22"
+      clientHoldingsAcct: $clientBHoldings
+      clientInvestAcct: $clientBInvestment
+      clientCashAcct: $clientBCash
+      security: "AAPL"
+      shares: "35"
+      price: "158.14"
+      originalShareCost: "142.3842857143"
+      feeRate: "0.01"
+    }
+  }) {
+    transactionId
+    effective
+    description
+    entries(first: 10) {
+      nodes {
+        amount {
+          units
+          currency
+          formatted(as: { locale: "en-US" })
+        }
+        direction
+        account {
+          name
+        }
+      }
+    }
+  }
+}

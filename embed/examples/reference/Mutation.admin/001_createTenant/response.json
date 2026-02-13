@@ -1,0 +1,10 @@
+{
+  "data": {
+    "admin": {
+      "createTenant": {
+        "accountId": "sandbox",
+        "name": "Sandbox"
+      }
+    }
+  }
+}

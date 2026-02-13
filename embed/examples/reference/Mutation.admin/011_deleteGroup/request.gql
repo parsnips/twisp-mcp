@@ -1,0 +1,7 @@
+mutation AdminDeleteGroup {
+  admin {
+    deleteGroup(name: "empty-policy-1") {
+      name
+    }
+  }
+}

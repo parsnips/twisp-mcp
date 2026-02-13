@@ -1,0 +1,1 @@
+Create a non-unique index on the Transaction schema with metadata category as the partition and sort key. Define constraints to check if the category exists in the document metadata. Return partition, sort, constraints, and unique attributes of the created index.

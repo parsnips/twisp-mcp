@@ -1,0 +1,154 @@
+{
+  "data": {
+    "pending": {
+      "executeTask": {
+        "state": {
+          "PENDING": {
+            "correlationId": "5368ff5e-48b5-4c69-a6c3-d4efcf3804ef",
+            "description": "Book transfer for $100.00",
+            "effective": "2023-11-15",
+            "journalId": "822cb59f-ce51-4837-8391-2af3b7a5fc51",
+            "metadata": {
+              "params": {
+                "amount": "100.00",
+                "crAccount": "3be5bca0-8297-4289-818b-a921bcdbf72d",
+                "currency": "USD",
+                "drAccount": "eba175af-f98a-46b7-ba9d-45f99d505445",
+                "effective": "2023-11-15",
+                "journalId": "822cb59f-ce51-4837-8391-2af3b7a5fc51",
+                "metadata": "{}",
+                "tranCode": "SAMPLE_TRANSFER_PENDING"
+              },
+              "transfer_state": "PENDING"
+            },
+            "properties": {},
+            "tranCodeId": "82eaf23c-bcbc-4f48-bee4-9720a81cb3de",
+            "tranCodeVersion": 1,
+            "transactionId": "64ffc9d1-220c-585a-b1fa-4005ab197331"
+          }
+        },
+        "transactions": [
+          {
+            "entries": {
+              "nodes": []
+            },
+            "transactionId": "f0b31084-be4c-5ef9-bb01-170b5511790e"
+          },
+          {
+            "entries": {
+              "nodes": [
+                {
+                  "accountId": "eba175af-f98a-46b7-ba9d-45f99d505445",
+                  "amount": {
+                    "currency": "USD",
+                    "units": "100.00"
+                  },
+                  "layer": "PENDING"
+                },
+                {
+                  "accountId": "3be5bca0-8297-4289-818b-a921bcdbf72d",
+                  "amount": {
+                    "currency": "USD",
+                    "units": "100.00"
+                  },
+                  "layer": "PENDING"
+                }
+              ]
+            },
+            "transactionId": "64ffc9d1-220c-585a-b1fa-4005ab197331"
+          }
+        ]
+      }
+    },
+    "settle": {
+      "executeTask": {
+        "state": {
+          "PENDING": {
+            "correlationId": "5368ff5e-48b5-4c69-a6c3-d4efcf3804ef",
+            "description": "Book transfer for $100.00",
+            "effective": "2023-11-15",
+            "journalId": "822cb59f-ce51-4837-8391-2af3b7a5fc51",
+            "metadata": {
+              "params": {
+                "amount": "100.00",
+                "crAccount": "3be5bca0-8297-4289-818b-a921bcdbf72d",
+                "currency": "USD",
+                "drAccount": "eba175af-f98a-46b7-ba9d-45f99d505445",
+                "effective": "2023-11-15",
+                "journalId": "822cb59f-ce51-4837-8391-2af3b7a5fc51",
+                "metadata": "{}",
+                "tranCode": "SAMPLE_TRANSFER_PENDING"
+              },
+              "transfer_state": "PENDING"
+            },
+            "properties": {},
+            "tranCodeId": "82eaf23c-bcbc-4f48-bee4-9720a81cb3de",
+            "tranCodeVersion": 1,
+            "transactionId": "64ffc9d1-220c-585a-b1fa-4005ab197331"
+          },
+          "SETTLE": {
+            "correlationId": "5368ff5e-48b5-4c69-a6c3-d4efcf3804ef",
+            "description": "Book transfer for $100.00",
+            "effective": "2023-11-15",
+            "journalId": "822cb59f-ce51-4837-8391-2af3b7a5fc51",
+            "metadata": {
+              "transfer_state": "SETTLE"
+            },
+            "properties": {},
+            "tranCodeId": "b8632f0f-2040-4845-81e8-3db542644705",
+            "tranCodeVersion": 1,
+            "transactionId": "af74e8da-02c9-5ef9-8850-3bf7a735bb22"
+          }
+        },
+        "transactions": [
+          {
+            "entries": {
+              "nodes": [
+                {
+                  "accountId": "eba175af-f98a-46b7-ba9d-45f99d505445",
+                  "amount": {
+                    "currency": "USD",
+                    "units": "-100.00"
+                  },
+                  "layer": "PENDING"
+                },
+                {
+                  "accountId": "3be5bca0-8297-4289-818b-a921bcdbf72d",
+                  "amount": {
+                    "currency": "USD",
+                    "units": "-100.00"
+                  },
+                  "layer": "PENDING"
+                }
+              ]
+            },
+            "transactionId": "e270ef86-9ab4-52dc-a3dc-331616ad4767"
+          },
+          {
+            "entries": {
+              "nodes": [
+                {
+                  "accountId": "eba175af-f98a-46b7-ba9d-45f99d505445",
+                  "amount": {
+                    "currency": "USD",
+                    "units": "100.00"
+                  },
+                  "layer": "SETTLED"
+                },
+                {
+                  "accountId": "3be5bca0-8297-4289-818b-a921bcdbf72d",
+                  "amount": {
+                    "currency": "USD",
+                    "units": "100.00"
+                  },
+                  "layer": "SETTLED"
+                }
+              ]
+            },
+            "transactionId": "af74e8da-02c9-5ef9-8850-3bf7a735bb22"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,1 @@
+Retrieve account sets 1 and 2 using their respective IDs. For each account set, fetch the first 10 member accounts, the first 20 entries including the journalId, accountId, entryType, layer, direction, units, and currency. Also, retrieve the balance in USD with the journalId and settled normal balance units.

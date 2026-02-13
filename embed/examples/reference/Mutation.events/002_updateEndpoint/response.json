@@ -1,0 +1,19 @@
+{
+  "data": {
+    "events": {
+      "updateEndpoint": {
+        "endpointId": "345940ed-2726-4b20-88aa-820857ac0e68",
+        "status": "DISABLED",
+        "endpointType": "WEBHOOK",
+        "url": "https://webhook.site/updated-webhook-test",
+        "subscription": [
+          "account.*"
+        ],
+        "description": "updated status",
+        "filters": {
+          "isTrue": "true"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,1 @@
+Attempt to retrieve accounts using the ACCOUNT_ID index without specifying the accountId filter. Use "TESTACCT" as the name filter. Get the first 10 accounts and return the accountId and name.

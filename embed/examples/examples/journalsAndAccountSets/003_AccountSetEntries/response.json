@@ -1,0 +1,101 @@
+{
+  "data": {
+    "acct_set_1": {
+      "members": {
+        "nodes": [
+          {
+            "accountId": "80c06296-7afb-4725-8cdd-57c2ce881af2"
+          },
+          {
+            "accountId": "6d808949-437f-4f23-a345-b09225104808"
+          }
+        ]
+      },
+      "entries": {
+        "nodes": [
+          {
+            "journalId": "41ee64d6-dcde-46dc-bdc5-c9164517402a",
+            "accountId": "6d808949-437f-4f23-a345-b09225104808",
+            "entryType": "XFR_CR",
+            "layer": "SETTLED",
+            "direction": "CREDIT",
+            "units": "11.33",
+            "currency": "USD"
+          },
+          {
+            "journalId": "41ee64d6-dcde-46dc-bdc5-c9164517402a",
+            "accountId": "80c06296-7afb-4725-8cdd-57c2ce881af2",
+            "entryType": "XFR_DR",
+            "layer": "SETTLED",
+            "direction": "DEBIT",
+            "units": "11.33",
+            "currency": "USD"
+          }
+        ]
+      },
+      "balance": {
+        "journalId": "41ee64d6-dcde-46dc-bdc5-c9164517402a",
+        "settled": {
+          "normalBalance": {
+            "units": "0.00"
+          },
+          "drBalance": {
+            "units": "11.33"
+          },
+          "crBalance": {
+            "units": "11.33"
+          }
+        }
+      }
+    },
+    "acct_set_2": {
+      "journalId": "2d9355ac-1844-4378-8fae-7ccb104e98c9",
+      "members": {
+        "nodes": [
+          {
+            "accountId": "80c06296-7afb-4725-8cdd-57c2ce881af2"
+          },
+          {
+            "accountId": "6d808949-437f-4f23-a345-b09225104808"
+          }
+        ]
+      },
+      "entries": {
+        "nodes": [
+          {
+            "journalId": "2d9355ac-1844-4378-8fae-7ccb104e98c9",
+            "accountId": "80c06296-7afb-4725-8cdd-57c2ce881af2",
+            "entryType": "XFR_CR",
+            "layer": "SETTLED",
+            "direction": "CREDIT",
+            "units": "22.44",
+            "currency": "USD"
+          },
+          {
+            "journalId": "2d9355ac-1844-4378-8fae-7ccb104e98c9",
+            "accountId": "6d808949-437f-4f23-a345-b09225104808",
+            "entryType": "XFR_DR",
+            "layer": "SETTLED",
+            "direction": "DEBIT",
+            "units": "22.44",
+            "currency": "USD"
+          }
+        ]
+      },
+      "balance": {
+        "journalId": "2d9355ac-1844-4378-8fae-7ccb104e98c9",
+        "settled": {
+          "normalBalance": {
+            "units": "0.00"
+          },
+          "drBalance": {
+            "units": "22.44"
+          },
+          "crBalance": {
+            "units": "22.44"
+          }
+        }
+      }
+    }
+  }
+}

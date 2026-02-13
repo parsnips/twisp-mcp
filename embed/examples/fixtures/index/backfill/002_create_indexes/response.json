@@ -1,0 +1,15 @@
+{
+  "data": {
+    "schema": {
+      "a": {
+        "name": "AccountSets.metadata.stripeId"
+      },
+      "b": {
+        "name": "Accounts.metadata.stripeId"
+      },
+      "c": {
+        "name": "Accounts.metadata.externalKey"
+      }
+    }
+  }
+}

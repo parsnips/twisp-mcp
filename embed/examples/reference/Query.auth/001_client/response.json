@@ -1,0 +1,17 @@
+{
+  "data": {
+    "auth": {
+      "client": {
+        "principal": "arn:aws:iam::048962233173:user/github.action",
+        "name": "Github",
+        "policies": [
+          {
+            "effect": "ALLOW",
+            "actions": ["SELECT", "INSERT", "UPDATE", "DELETE"],
+            "resources": ["financial.*"]
+          }
+        ]
+      }
+    }
+  }
+}

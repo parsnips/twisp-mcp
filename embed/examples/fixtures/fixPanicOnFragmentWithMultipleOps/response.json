@@ -1,0 +1,12 @@
+{
+  "errors": [
+    {
+      "message": "operation  not found",
+      "extensions": {
+        "code": "GRAPHQL_VALIDATION_FAILED",
+        "retriableError": false
+      }
+    }
+  ],
+  "data": null
+}

@@ -1,0 +1,1 @@
+Create a user in the admin namespace with the specified ID, email, and groupIds. Return the id, email, and groupIds.

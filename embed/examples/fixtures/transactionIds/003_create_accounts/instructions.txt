@@ -1,0 +1,1 @@
+Create three checking accounts for Ernie, Bert, and Elmo. Use variables for account IDs, and account codes should follow the format <NAME>.<TYPE>.<TEST_NAME>. All accounts should have a credit-normal balance type. Include metadata with a custom index containing an "alpha" key with values "yes" for Ernie and Bert, and "no" for Elmo. Return the account id, name, and metadata.

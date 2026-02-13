@@ -1,0 +1,31 @@
+{
+  "data": {
+    "ernie_checking": {
+      "accountId": "1fd1dd3e-33fe-4ef5-9d58-676ef8d306b6",
+      "name": "Ernie Bishop - Checking",
+      "metadata": {
+        "customIndex": {
+          "alpha": "yes"
+        }
+      }
+    },
+    "bert_checking": {
+      "accountId": "6c6affb0-5cf5-402b-8d84-01bfc1624a2d",
+      "name": "Bert - Checking",
+      "metadata": {
+        "customIndex": {
+          "alpha": "yes"
+        }
+      }
+    },
+    "elmo_checking": {
+      "accountId": "42a38778-5e50-4291-8457-a68332d6e26c",
+      "name": "Elmo - Checking",
+      "metadata": {
+        "customIndex": {
+          "alpha": "no"
+        }
+      }
+    }
+  }
+}

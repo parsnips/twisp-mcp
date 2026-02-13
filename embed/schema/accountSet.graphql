@@ -1,0 +1,409 @@
+extend type Query {
+  "Get a single account set by its `accountSetId`."
+  accountSet("Unique identifier." id: UUID!): AccountSet
+
+  "Select one or more account sets. Specify the index to use and apply filters to your query."
+  accountSets(
+    """
+    Select from a list of pre-defined indexes. For optimal performance, choose specific indexes on unique fields over more general ones.
+    """
+    index: AccountSetIndexInput!
+    """
+    Filter the query according to specified conditions. Depending on the index chosen, different filters will be allowed.
+    """
+    where: AccountSetFilterInput
+    "Number of sets to return on the connection."
+    first: Int!
+    "Cursor indicating the start point to retrieve sets. When no cursor is provided, the query uses the default starting cursor."
+    after: String
+  ): AccountSetConnection! @goField(forceResolver: true)
+}
+
+extend type Mutation {
+  "Create a new account set."
+  createAccountSet("Fields to create a new account set." input: AccountSetInput!): AccountSet!
+
+  "Update fields on an existing account set. To ensure data integrity, only a subset of fields are allowed."
+  updateAccountSet(
+    "Unique identifier."
+    id: UUID!
+    "Fields to update."
+    input: AccountSetUpdateInput!
+  ): AccountSet!
+
+  "Add a new member to a set. Members can be an Account or another AccountSet."
+  addToAccountSet(
+    "Unique identifier for set."
+    id: UUID!
+    "Account or AccountSet to add as a member of this set."
+    member: AccountSetMemberInput!
+  ): AccountSet!
+
+  "Remove a member from a set."
+  removeFromAccountSet(
+    "Unique identifier for set."
+    id: UUID!
+    "Account or AccountSet to add as a member of this set."
+    member: AccountSetMemberInput!
+  ): AccountSet!
+
+  "Delete an account set."
+  deleteAccountSet("Unique identifier." id: UUID!): AccountSet
+}
+
+"""
+A set of accounts.
+
+Account sets contain _members_ which can include accounts as well as other account sets.
+
+Every account set has multiple _balances_ which represent the sum of all balances of member accounts and member account sets. Like balances for accounts, account set balances are computed for every currency used by the entries posted to accounts in a set and all of its sub-sets.
+
+Because account sets are tied to a specific journal, they only compute balances using entries posted to their journal.
+"""
+type AccountSet implements Node {
+  """
+  Globally unique identifier for a record to support Global Object Identification.
+  Uses format `as:<key>` where `key` is `base64(json({ 1: accountSetId }))`.
+  """
+  id: ID!
+
+  "Unique identifier for the set."
+  accountSetId: UUID!
+
+  """
+  The journal for the set.
+  Account sets are confined to a single journal and roll up balances for entries on their journal. Account sets can only contain other sets using the same journal.
+  """
+  journalId: UUID!
+
+  "Name for the set."
+  name: String!
+
+  "code for the account set. Unique value."
+  code: String!
+
+  "Description of the account set."
+  description: String!
+
+  "Metadata attached to this account set."
+  metadata: JSON
+
+  "System config for this account set."
+  config: AccountSetConfig!
+
+  """
+  Indicates whether this account set uses a "debit normal" or a "credit normal" balance.
+
+  In double-entry accounting, a debit normal balance uses the calculation `balance = debits - credits`.
+
+  A credit normal balance, in contrast, is calculated with the equation `balance = credits - debits`.
+  """
+  normalBalanceType: DebitOrCredit!
+
+  "Date and time when the account set was first created."
+  created: Timestamp!
+
+  "Time of the last change. Especially useful when reviewing the `history`."
+  modified: Timestamp!
+
+  "The current version number of this account set. Previous versions are tracked in `history`."
+  version: Int!
+
+  _accountId: UUID!
+  _recordId: UUID!
+
+  """
+  Reference to the balance for a specific currency (defaults to "USD").
+  """
+  balance(
+    "Currency of the balance."
+    currency: CurrencyCode! = "USD"
+    "If provided, look up based on calculation id and dimensions for calculation."
+    calculationId: UUID
+    "If provided, look up based on calculation id and dimensions for calculation. The values in this should be string representation of values."
+    dimension: JSON
+    "When provided use effective balance."
+    effective: Effective
+    "If concurrent enabled, compute balance with all visible transactions."
+    materialize: Boolean
+    "If concurrent enabled, the isolation level of the balance returned."
+    type: BalanceType
+  ): Balance @goField(forceResolver: true)
+
+  """
+  Reference to the balances for this account set.
+
+  Each balance reflects the current sum of debits and credits for all entries on accounts in this set and all accounts in any sub-sets, on the current layer and all layers above.
+
+  Because account sets are tied to a specific journal, they only compute balances using entries posted to their journal.
+  """
+  balances(
+    """
+    Select from a list of pre-defined indexes. Defaults to `BalanceIndex.ACCOUNT_ID`.
+    """
+    index: BalanceIndexInput
+    "Query conditions to filter the balances returned."
+    where: BalanceFilterInput
+    "Number of nodes to return on the connection."
+    first: Int!
+    "Cursor indicating the start point to retrieve nodes. When no cursor is provided, the query uses the default starting cursor."
+    after: String
+  ): BalanceConnection! @goField(forceResolver: true)
+
+  "All ledger entries associated with accounts in this set and in all subsets."
+  entries(
+    "Query conditions to filter the entries returned."
+    where: AccountSetEntriesFilterInput
+    "Number of nodes to return on the connection."
+    first: Int!
+    "Cursor indicating the start point to retrieve nodes. When no cursor is provided, the query uses the default starting cursor."
+    after: String
+  ): EntryConnection! @goField(forceResolver: true)
+
+  """
+  History of changes to this AccountSet record.
+  Because ledgers are immutable and append-only, all changes are recorded as sequenced versions of the record, providing an unbroken lineage of the current state.
+  """
+  history(
+    "Number of nodes to return on the connection."
+    first: Int!
+    "Cursor indicating the start point to retrieve nodes. When no cursor is provided, the query uses the default starting cursor."
+    after: String
+  ): AccountSetConnection! @goField(forceResolver: true)
+
+  "All members of the account set. Sets can include other account sets."
+  members(
+    "Query conditions to filter the members returned."
+    where: AccountSetMembersFilterInput
+    "Number of nodes to return on the connection."
+    first: Int!
+    "Cursor indicating the start point to retrieve nodes. When no cursor is provided, the query uses the default starting cursor."
+    after: String
+  ): AccountSetMemberConnection! @goField(forceResolver: true)
+
+  """
+  Account sets can be organized into sets. Each account set can belong to zero or multiple account sets.
+  """
+  sets(
+    "Query conditions to filter the account sets returned."
+    where: AccountSetFilterInput
+    "Number of nodes to return on the connection."
+    first: Int!
+    "Cursor indicating the start point to retrieve nodes. When no cursor is provided, the query uses the default starting cursor."
+    after: String
+  ): AccountSetConnection! @goField(forceResolver: true)
+
+  """
+  Check the velocity balance for this account set.
+  """
+  velocity(
+    """
+    The window of the balance to look up. If
+    `velocityLimitId` not provided, will look up
+    all velocity limits that support the defined
+    window.
+    @example({year: "2022", month:"9"})
+    """
+    window: JSON!
+    "The currency for the velocity to look up."
+    currency: CurrencyCode! = "USD"
+    "If provided, retrieve this specific velocity limit."
+    velocityLimitId: UUID
+  ): [VelocityBalance] @goField(forceResolver: true)
+
+  "Set of controls attached to this account set."
+  controls(first: Int!, after: String! = ""): ResolvedVelocityControlConnection!
+    @goField(forceResolver: true)
+
+  """
+  Retrieve the calculations that are explicitly attached to this account set.
+  """
+  calculations: [Calculation!]! @goField(forceResolver: true)
+}
+
+"System configuration for an account set."
+type AccountSetConfig {
+  """
+  When `true`, allow concurrent posting to the account.
+  See `BalanceType` for balance retrieval options available for concurrent-enabled accounts.
+  Defaults to `false`.
+  """
+  enableConcurrentPosting: Boolean
+}
+
+"""
+Connection to a list of AccountSet nodes.
+Access AccountSet nodes directly through the `nodes` field, or access information about the connection edges with the `edges` field.
+Use `pageInfo` to paginate responses using the cursors provided.
+"""
+type AccountSetConnection implements Connection {
+  nodes: [AccountSet]!
+  edges: [AccountSetConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+"""
+Edges represent links connecting a parent or query field to a list of AccountSet nodes.
+They contain a reference to the AccountSet node and metadata like the `cursor` position for the edge.
+"""
+type AccountSetConnectionEdge {
+  "Cursor position at this edge."
+  cursor: String!
+  "Reference to the AccountSet node at this edge."
+  node: AccountSet
+}
+
+"Account set members can be of type Account or AccountSet."
+union AccountSetMember = Account | AccountSet
+
+"""
+Connection to a list of AccountSetMember nodes.
+Access AccountSetMember nodes directly through the `nodes` field, or access information about the connection edges with the `edges` field.
+Use `pageInfo` to paginate responses using the cursors provided.
+"""
+type AccountSetMemberConnection implements Connection {
+  nodes: [AccountSetMember!]!
+  edges: [AccountSetMemberConnectionEdge]!
+  pageInfo: PageInfo!
+}
+
+"""
+Edges represent links connecting a parent or query field to a list of AccountSetMember nodes.
+They contain a reference to the AccountSetMember node and metadata like the `cursor` position for the edge.
+"""
+type AccountSetMemberConnectionEdge {
+  "Cursor position at this edge."
+  cursor: String!
+  "Reference to the AccountSetMember node at this edge."
+  node: AccountSetMember
+}
+
+"Specify the pre-defined AccountSetIndex and sort order to use in a query."
+input AccountSetIndexInput {
+  name: AccountSetIndex!
+  sort: SortOrder
+}
+
+"Indexes for querying AccountSets. To optimize query performance and apply desired filters, choose the appropriate index."
+enum AccountSetIndex {
+  "Index by `accountSetId` field. Must supply an `accountSetId: { eq: <id> }` filter to the `where` object."
+  ACCOUNT_SET_ID
+  "Index by `name` field. Use to apply query filters on the value of `name`."
+  NAME
+  "Index by `code` field. Use to apply query filters on teh value of `code`."
+  CODE
+  "Use a custom-defined index. Must supply a `custom` filter to the `where` object."
+  CUSTOM
+  "Use eventually consisent search. Must supply a `search` filter to the `where` object."
+  SEARCH
+}
+
+"""
+Filter conditions to apply to an account set query.
+Filters are only applied if the field is used by the specified index.
+"""
+input AccountSetFilterInput {
+  "Filter on the `accountSetId` field. Required when using index `AccountSetIndex.ACCOUNT_SET_ID`."
+  accountSetId: FilterValue
+  "Specify the Journal to use with `eq`. Required for all indexes."
+  journalId: FilterValue
+  "Filter on the `name` field. Only available when using index `AccountSetIndex.NAME`."
+  name: FilterValue
+  "Fitler on the `code` field. Only available when using index `AccountSetIndex.CODE`."
+  code: FilterValue
+  "Filter conditions for a custom index. Only available when using index `AccountSetIndex.CUSTOM`."
+  custom: CustomIndexFilter
+  "Filter conditions for a search.  Only available when using index `AccountSetIndex.SEARCH`."
+  search: SearchFilter
+}
+
+"""
+Filter conditions to apply when querying members of an account set.
+"""
+input AccountSetMembersFilterInput {
+  "Filter on the `accountSetId` field."
+  accountSetId: FilterValue
+  "Filter on the `memberId` field: the UUID of a member `Account` or `AccountSet`."
+  memberId: FilterValue
+}
+
+"Fields to create a new account set."
+input AccountSetInput {
+  "Unique identifier for the set."
+  accountSetId: UUID!
+  "The journal for the set. If omitted, the default journal will be used."
+  journalId: UUID
+  "Name for the set."
+  name: String!
+  "Description of the account set."
+  description: String
+  "Determines whether the account set should use a debit- or credit-normal balance."
+  normalBalanceType: DebitOrCredit! = CREDIT
+  "Metadata attached to this account set."
+  metadata: JSON
+  "System config for the account set."
+  config: AccountSetConfigInput
+  "IDs of AccountSets to add this account set to."
+  accountSetIds: [UUID]
+  "Shorthand code for the account set. If not provided, a default code will be generated."
+  code: String
+}
+
+"Fields to create a system configuration for an account set."
+input AccountSetConfigInput {
+  """
+  When `true`, allow concurrent posting to the account.
+  See `BalanceType` for balance retrieval options available for concurrent-enabled accounts.
+  Defaults to `false`.
+  """
+  enableConcurrentPosting: Boolean
+
+  """
+  When `true` use an upsert on the accountSetId index to upsert and avoid unique constraint violation.
+
+  If account set already created, the existing account set is unchanged.
+  """
+  upsert: Boolean
+}
+
+"AccountSet fields to update."
+input AccountSetUpdateInput {
+  "Name for the set."
+  name: String
+  "Description of the account set."
+  description: String
+  "Determines whether the account set should use a debit- or credit-normal balance."
+  normalBalanceType: DebitOrCredit
+  "Metadata attached to this account set."
+  metadata: JSON
+  "System config for the account set."
+  config: AccountSetConfigInput
+  "Shorthand code for the account set."
+  code: String
+}
+
+"Account set members can be of type Account or AccountSet."
+enum AccountSetMemberType {
+  ACCOUNT
+  ACCOUNT_SET
+}
+
+input AccountSetMemberInput {
+  "Whether the member to add is an Account or AccountSet"
+  memberType: AccountSetMemberType
+  """
+  Identifier for the member to add.
+  When adding accounts, this is the `accountId`.
+  When adding account sets, this is the `accountSetId`.
+  """
+  memberId: UUID!
+}
+
+"""
+Filter conditions for entries on an AccountSet.
+Since accountId and journalId are already known from the parent AccountSet, only currency filtering is needed.
+"""
+input AccountSetEntriesFilterInput {
+  "Filter by currency. Defaults to USD if not specified."
+  currency: FilterValue
+}

@@ -1,0 +1,17 @@
+{
+  "errors": [
+    {
+      "message": "input: deleteVelocityLimit velocity limit in use",
+      "path": [
+        "deleteVelocityLimit"
+      ],
+      "extensions": {
+        "code": "BAD_REQUEST",
+        "retriableError": false
+      }
+    }
+  ],
+  "data": {
+    "deleteVelocityLimit": null
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "data": {
+    "schema": {
+      "transactionCategoryIndex": {
+        "name": "Transaction.metadata.category"
+      },
+      "accountTypeIndex": {
+        "name": "Account.metadata.type"
+      },
+      "accountSetTypeIndex": {
+        "name": "AccountSet.metadata.type"
+      }
+    }
+  }
+}

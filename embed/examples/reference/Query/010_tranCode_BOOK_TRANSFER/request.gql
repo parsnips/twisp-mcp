@@ -1,0 +1,26 @@
+query GetBookTransferTranCode {
+  tranCode(id: "e0ffa94d-ca03-4ae2-aa69-cbaaa21d3855") {
+    code
+    description
+    params {
+      name
+      type
+      description
+    }
+    transaction {
+      journalId
+      effective
+      correlationId
+      description
+    }
+    entries {
+      accountId
+      layer
+      direction
+      units
+      currency
+    }
+    status
+    metadata
+  }
+}

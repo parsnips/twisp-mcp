@@ -1,0 +1,7 @@
+mutation CreateTranCode($journalIdExp: Expression!) {
+  createTranCode(
+    input: {tranCodeId: "22ac3a38-1f70-4bbf-a599-1e5566839f4b", code: "TRANSFER", description: "Book Transfer", params: [{name: "source", type: UUID, description: "Source account ID."}, {name: "destination", type: UUID, description: "Destination account ID."}, {name: "classification", type: STRING, description: "Transaction classification"}, {name: "amount", type: DECIMAL, description: "Amount with decimal, e.g. `1.23`."}, {name: "effective", type: DATE, description: "Effective date for transaction."}], transaction: {journalId: $journalIdExp, effective: "params.effective"}, entries: [{accountId: "params.destination", units: "params.amount", currency: "'USD'", entryType: "'TransferIn'", direction: "CREDIT", layer: "SETTLED"}, {accountId: "params.source", units: "params.amount", currency: "'USD'", entryType: "'TransferOut'", direction: "DEBIT", layer: "SETTLED"}]}
+  ) {
+    tranCodeId
+  }
+}

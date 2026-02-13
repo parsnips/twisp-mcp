@@ -1,0 +1,20 @@
+query ListISO8583Configs {
+  iso8583 {
+    configs(first: 10) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+      }
+      edges {
+        node {
+          configId
+          journalId
+          settlementAccountId
+          timeZone
+          description
+          processor
+        }
+      }
+    }
+  }
+}

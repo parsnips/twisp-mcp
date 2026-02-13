@@ -1,0 +1,1 @@
+Create an account set for customer wallets with a debit-normal balance type. Use the variables for the account set ID and journal ID. Return the account set id, name, and description.

@@ -1,0 +1,35 @@
+mutation PostACHCredit(
+  $userAcctId: UUID!
+  $amount: String!
+  $effective: String!
+) {
+  postTransaction(
+    input: {
+      transactionId: "66fcf002-f815-4608-ad38-8455a46d7f02"
+      tranCode: "ACH_CREDIT"
+      params: {
+        account: $userAcctId
+        amount: $amount
+        effective: $effective
+      }
+    }
+  ) {
+    transactionId
+    tranCode {
+      code
+    }
+    effective
+    entries(first: 2) {
+      nodes {
+        amount {
+          money: formatted(as: { locale: "en-US" })
+        }
+        direction
+        layer
+        account {
+          name
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+mutation DeleteAccount($accountCustomerBobbyId: UUID!) {
+  deleteAccount(id: $accountCustomerBobbyId) {
+    accountId
+    status
+  }
+}

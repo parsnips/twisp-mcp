@@ -1,0 +1,8 @@
+query MutationOnly($journalId: UUID! = "") {
+  a:journal(id: "9957f532-405c-4681-9c0d-fc3786346206") {
+    journalId @export(as: "journalId")
+  }
+  b:journal(id: $journalId) {
+    journalId
+  }
+}

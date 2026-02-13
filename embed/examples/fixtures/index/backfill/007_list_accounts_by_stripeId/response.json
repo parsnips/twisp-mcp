@@ -1,0 +1,28 @@
+{
+  "data": {
+    "accounts": {
+      "nodes": [
+        {
+          "metadata": {
+            "stripeId": "test0"
+          }
+        },
+        {
+          "metadata": {
+            "stripeId": "test00"
+          }
+        },
+        {
+          "metadata": {
+            "stripeId": "test01"
+          }
+        },
+        {
+          "metadata": {
+            "stripeId": "test1"
+          }
+        }
+      ]
+    }
+  }
+}

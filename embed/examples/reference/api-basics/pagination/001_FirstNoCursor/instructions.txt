@@ -1,0 +1,1 @@
+Get the first 5 customer accounts sorted by code. Filter the accounts using a code pattern "CUST.". Return the account code for each account.

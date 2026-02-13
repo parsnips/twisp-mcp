@@ -1,0 +1,6 @@
+mutation CreateAccountMutation($a: AccountInput!) {
+  createAccount(input: $a) {
+    accountId
+    externalId
+  }
+}

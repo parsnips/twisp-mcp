@@ -1,0 +1,1 @@
+Create a non-unique index on the TranCode schema named "tier". The partition should be an alias "tier" with a value based on the document.metadata.tier. The index should have a constraint expression "1 + 1 == 2". Return the index details including name, range, partition, constraints, and uniqueness.

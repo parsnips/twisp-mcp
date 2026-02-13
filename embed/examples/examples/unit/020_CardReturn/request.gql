@@ -1,0 +1,27 @@
+mutation CardReturn(
+  $settlementId: UUID!
+  $accountId: UUID!
+  $correlation: String
+  $direction: String
+  $amount: Decimal!
+  $effective: Date
+  $settleHook: JSON
+){
+  # Received clearing webhook.
+  forcePost: postTransaction(
+    input:{
+      transactionId: $settlementId
+      tranCode: "CARD_SETTLE"
+      params: {
+        account: $accountId
+        amount: $amount
+        correlation: $correlation
+        effective: $effective
+        metadata: $settleHook
+        direction: $direction
+      }
+    }
+  ) {
+    transactionId
+  }
+}

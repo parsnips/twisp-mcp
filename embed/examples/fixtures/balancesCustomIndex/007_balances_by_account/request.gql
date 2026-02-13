@@ -1,0 +1,20 @@
+query balances($ernieId: String) {
+  all_journals: balances(
+    index: {name: CUSTOM, sort: ASC}
+    where: {
+      custom: { index: "account", partition: { alias: "account_id", value: { eq: $ernieId }} }
+    }
+    first: 10
+  ) {
+    nodes {
+      journalId
+      settled {
+        drBalance {
+          units
+          currency
+        }
+      }
+    }
+  }
+}
+

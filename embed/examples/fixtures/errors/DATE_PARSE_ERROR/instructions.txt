@@ -1,0 +1,1 @@
+Post a transaction with an incorrect date format. Use a transactionId and accountId as input parameters. The effectiveDate should be incorrectly wrapped in curly braces. Return the transactionId.

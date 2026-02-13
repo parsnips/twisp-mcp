@@ -1,0 +1,21 @@
+{
+  "data": {
+    "schema": {
+      "createIndex": {
+        "name": "tier",
+        "range": [],
+        "partition": [
+          {
+            "alias": "tier",
+            "value": "string(document.metadata.tier)"
+          }
+        ],
+        "on": "TranCode",
+        "constraints": {
+          "a": "1 + 1 == 2"
+        },
+        "unique": false
+      }
+    }
+  }
+}

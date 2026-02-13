@@ -1,0 +1,21 @@
+{
+  "data": {
+    "schema": {
+      "createIndex": {
+        "name": "alpha",
+        "range": [],
+        "partition": [
+          {
+            "alias": "alpha",
+            "value": "string(document.metadata.customIndex.alpha)"
+          }
+        ],
+        "on": "Account",
+        "constraints": {
+          "a": "1 + 1 == 2"
+        },
+        "unique": false
+      }
+    }
+  }
+}

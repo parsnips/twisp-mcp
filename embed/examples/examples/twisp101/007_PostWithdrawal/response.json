@@ -1,0 +1,27 @@
+{
+  "data": {
+    "postTransaction": {
+      "transactionId": "39d2288d-96f9-40c7-b587-e7e75df083fa",
+      "tranCodeId": "fab492ae-2fe4-4fcd-9bf7-cf06eb5f796b",
+      "effective": "2022-09-21",
+      "entries": {
+        "nodes": [
+          {
+            "units": "4.28",
+            "direction": "CREDIT",
+            "account": {
+              "name": "Assets"
+            }
+          },
+          {
+            "units": "4.28",
+            "direction": "DEBIT",
+            "account": {
+              "name": "Ernie Bishop - Checking"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

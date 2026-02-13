@@ -1,0 +1,28 @@
+{
+  "data": {
+    "admin": {
+      "tenants": {
+        "nodes": [
+          {
+            "accountId": "test_account_id",
+            "description": "this is a test tenant",
+            "name": "TestTenant",
+            "version": 1
+          },
+          {
+            "accountId": "preprod",
+            "description": "tenant for preprod integrations",
+            "name": "PreProduction",
+            "version": 1
+          },
+          {
+            "accountId": "sandbox",
+            "description": "Sandbox tenant for testing",
+            "name": "Sandbox",
+            "version": 1
+          }
+        ]
+      }
+    }
+  }
+}

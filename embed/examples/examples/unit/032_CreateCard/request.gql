@@ -1,0 +1,52 @@
+mutation CreateCard(
+  $depositAccountSetId: UUID!
+  $cardAccountSetId: UUID!
+  $cardAccountId: UUID!
+  $cardAccountCode: String!
+  $cardAccountSetName: String! = "Card Account Set" 
+  $cardAccountName: String! = "Card Default Account"
+  $journalId: UUID! = "00000000-0000-0000-0000-000000000000"
+  $cardMetadata: JSON
+  $description: String = "Create a card."
+) {
+  cardSet:createAccountSet(
+    input: {
+      accountSetId: $cardAccountSetId
+      name: $cardAccountSetName
+      description: $description
+      metadata: $cardMetadata
+      journalId: $journalId
+    }
+  ) {
+    accountSetId
+  }
+  cardDefault:createAccount(
+    input: {
+      accountId: $cardAccountId
+      name: $cardAccountName
+      description: $description
+      code:$cardAccountCode
+      metadata: $cardMetadata
+    }
+  ) {
+    accountId
+  }
+  cardToDeposit:addToAccountSet(
+    id: $depositAccountSetId
+    member: {
+      memberType: ACCOUNT_SET
+      memberId: $cardAccountSetId
+    }
+  ) {
+    accountSetId
+  }
+  defaultCardToSet:addToAccountSet(
+    id: $cardAccountSetId
+    member: {
+      memberType: ACCOUNT
+      memberId: $cardAccountId
+    }
+  ) {
+    accountSetId
+  }
+}

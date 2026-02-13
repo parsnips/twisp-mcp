@@ -1,0 +1,1 @@
+Create an assets account with a specified account ID, name, code, description, and a debit-normal balance type. Return the account ID, name, and normal balance type.

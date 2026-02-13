@@ -1,0 +1,24 @@
+{
+  "data": {
+    "balances": {
+      "nodes": [
+        {
+          "settled": {
+            "normalBalance": {
+              "units": "-123.45",
+              "currency": "USD"
+            }
+          }
+        },
+        {
+          "settled": {
+            "normalBalance": {
+              "units": "-12.34",
+              "currency": "USD"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,82 @@
+mutation MakeTransfer($ernieId: UUID!, $bertId: UUID!) {
+  general_a:postTransaction(
+    input: {transactionId: "39d2288d-96f9-40c7-b587-e7e75df083cb", tranCode: "TRANSFER", params: {source: $ernieId, destination: $bertId, amount: "123.45", effective: "2022-09-21", classification: "internal"}}
+  ) {
+    transactionId
+    tranCodeId
+    effective
+    entries(first: 2) {
+      nodes {
+        units
+        direction
+        account {
+          name
+        }
+      }
+    }
+  }
+  general_b:postTransaction(
+    input: {transactionId: "39d2288d-96f9-40c7-b587-e7e75df083cc", tranCode: "TRANSFER", params: {source: $ernieId, destination: $bertId, amount: "123.45", effective: "2022-10-21", classification: "internal"}}
+  ) {
+    transactionId
+    tranCodeId
+    effective
+    entries(first: 2) {
+      nodes {
+        units
+        direction
+        account {
+          name
+        }
+      }
+    }
+  }
+  general_c:postTransaction(
+    input: {transactionId: "39d2288d-96f9-40c7-b587-e7e75df083cd", tranCode: "TRANSFER", params: {source: $ernieId, destination: $bertId, amount: "123.45", effective: "2022-11-21", classification: "internal"}}
+  ) {
+    transactionId
+    tranCodeId
+    effective
+    entries(first: 2) {
+      nodes {
+        units
+        direction
+        account {
+          name
+        }
+      }
+    }
+  }
+  product_a:postTransaction(
+    input: {transactionId: "39d2288d-96f9-40c7-b587-e7e75df083aa", tranCode: "TRANSFER_PRODUCT", params: {source: $ernieId, destination: $bertId, amount: "1000.00", effective: "2022-09-21", classification: "internal"}}
+  ) {
+    transactionId
+    tranCodeId
+    effective
+    entries(first: 2) {
+      nodes {
+        units
+        direction
+        account {
+          name
+        }
+      }
+    }
+  }
+  product_b:postTransaction(
+    input: {transactionId: "39d2288d-96f9-40c7-b587-e7e75df083ab", tranCode: "TRANSFER_PRODUCT", params: {source: $ernieId, destination: $bertId, amount: "1300.00", effective: "2022-09-21", classification: "internal"}}
+  ) {
+    transactionId
+    tranCodeId
+    effective
+    entries(first: 2) {
+      nodes {
+        units
+        direction
+        account {
+          name
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "data": {
+    "balance": {
+      "settled": { "normalBalance": { "units": "100.00" } },
+      "pending": { "normalBalance": { "units": "0.00" } },
+      "entry": {
+        "transaction": {
+          "workflows": {
+            "nodes": [
+              {
+                "executionId": "5368ff5e-48b5-4c69-a6c3-d4efcf3804ef",
+                "version": 2,
+                "task": "SETTLE"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

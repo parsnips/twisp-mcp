@@ -1,0 +1,26 @@
+query GetBalance($journalGLId: UUID!, $accountCardSettlementId: UUID!) {
+  balance(accountId: $accountCardSettlementId, journalId: $journalGLId, currency: "USD") {
+    available(layer: SETTLED) {
+      drBalance {
+        units
+      }
+      crBalance {
+        units
+      }
+      normalBalance {
+        formatted(as: { locale: "en-US" })
+      }
+    }
+    entries(first: 10) {
+      nodes {
+        entryType
+        amount {
+          units
+          currency
+        }
+        direction
+        layer
+      }
+    }
+  }
+}

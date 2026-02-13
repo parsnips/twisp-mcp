@@ -1,0 +1,18 @@
+query GetNext5Accounts {
+  journals(
+    index: { name: CODE }
+    where: { code: { like: "CUST." } }
+    first: 5
+    after: "Ad70l6_nkaCU5AFDVVNULkNhcnJpZQABAAAA_wD_AP8A_wD_AP8A_wD_AP8A_wD_AP8A_wD_AP8A_wABIg"
+  ) {
+    nodes {
+      code
+    }
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+  }
+}

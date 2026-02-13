@@ -1,0 +1,8 @@
+mutation SchemaDeleteIndex {
+  schema {
+    deleteIndex(name: "Transaction.metadata.category", on: Transaction) {
+      name
+      on
+    }
+  }
+}

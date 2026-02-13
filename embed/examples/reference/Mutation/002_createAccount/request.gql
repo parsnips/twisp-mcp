@@ -1,0 +1,18 @@
+mutation CreateAccount($accountCardSettlementId: UUID!) {
+  createAccount(
+    input: {
+      accountId: $accountCardSettlementId
+      name: "Card Settlement"
+      code: "SETTLE.CARD"
+      description: "Settlement account for card transactions."
+      normalBalanceType: CREDIT
+      status: ACTIVE
+    }
+  ) {
+    accountId
+    name
+    code
+    description
+    normalBalanceType
+  }
+}

@@ -1,0 +1,29 @@
+query CheckBalance {
+  balance(
+    accountId: "3be5bca0-8297-4289-818b-a921bcdbf72d"
+    journalId: "822cb59f-ce51-4837-8391-2af3b7a5fc51"
+    currency: "USD"
+  ) {
+    settled {
+      normalBalance {
+        units
+      }
+    }
+    pending {
+      normalBalance {
+        units
+      }
+    }
+    entry {
+      transaction {
+        workflows(all: true, first: 100) {
+          nodes {
+            executionId
+            version
+            task
+          }
+        }
+      }
+    }
+  }
+}

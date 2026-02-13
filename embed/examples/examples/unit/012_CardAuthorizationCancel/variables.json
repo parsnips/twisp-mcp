@@ -1,0 +1,12 @@
+{
+  "accountId": "7a17b0f1-b04f-46a4-ba45-d52a861c21d9",
+  "amount": "10.00",
+  "initialAuthorizationId": "a9551772-ca3d-4dc2-9da2-0d74c1ac1c7c",
+  "authorizationId": "b73a6058-d423-4543-9aba-0ff54c4e0c27",
+  "expireId": "db083442-d2a3-45a9-abe5-24023fdb10fb",
+  "correlation": "a9551772-ca3d-4dc2-9da2-0d74c1ac1c7c",
+  "effective": "2022-10-01",
+  "initAuthHook": "{\n      \"status\": \"AUTHORIZATION\",\n      \"amount\": 1000,\n      \"acquirer_fee\": 100,\n      \"authorization_amount\": 1000,\n      \"settled_amount\": 0,\n      \"events\": [],\n      \"created\": \"2022-10-01T00:00:00Z\",\n      \"token\": \"a9551772-ca3d-4dc2-9da2-0d74c1ac1c7c\"\n    }",
+  "authHook": "{\n      \"status\": \"PENDING\",\n      \"amount\": 1000,\n      \"acquirer_fee\": 100,\n      \"authorization_amount\": 1000,\n      \"settled_amount\": 0,\n      \"events\": [\n        {\n          \"amount\": 1000,\n          \"type\": \"AUTHORIZATION\",\n          \"result\": \"APPROVED\",\n          \"token\": \"b73a6058-d423-4543-9aba-0ff54c4e0c27\"\n        }\n      ],\n      \"created\": \"2022-10-01T00:00:00Z\",\n      \"token\": \"a9551772-ca3d-4dc2-9da2-0d74c1ac1c7c\"\n    }",
+  "expireHook": "{\n      \"status\": \"VOIDED\",\n      \"amount\": 0,\n      \"acquirer_fee\": 0,\n      \"authorization_amount\": 0,\n      \"settled_amount\": 0,\n      \"events\": [\n        {\n          \"amount\": 1000,\n          \"type\": \"AUTHORIZATION\",\n          \"result\": \"APPROVED\",\n          \"token\": \"b73a6058-d423-4543-9aba-0ff54c4e0c27\"\n        },\n        {\n          \"amount\": -1000,\n          \"type\": \"AUTHORIZATION_EXPIRY\",\n          \"result\": \"APPROVED\",\n          \"token\": \"db083442-d2a3-45a9-abe5-24023fdb10fb\"\n        }\n      ],\n      \"created\": \"2022-10-01T00:00:00Z\",\n      \"token\": \"a9551772-ca3d-4dc2-9da2-0d74c1ac1c7c\"\n    }"
+}

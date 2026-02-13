@@ -1,0 +1,124 @@
+mutation Setup($journalId: UUID!, $ernieAcctId: UUID!, $bertAcctId: UUID!) {
+  journal: createJournal(
+    input: {journalId:$journalId, description: "some journal", name: "main book"}
+  ) {
+    journalId
+    name
+    description
+  }
+
+  ernie_checking: createAccount(
+    input: {accountId: $ernieAcctId, name: "Ernie Bishop - Checking", code: "ERNIE.CHECKING", description: "Ernie's checking account", normalBalanceType: CREDIT}
+  ) {
+    accountId
+    name
+  }
+
+  bert_checking: createAccount(
+    input: {accountId: $bertAcctId, name: "Bert - Checking", code: "BERT.CHECKING", description: "Bert's checking account", normalBalanceType: CREDIT}
+  ) {
+    accountId
+    name
+  }
+
+  transfer: createTranCode(
+    input: {tranCodeId: "3fa2116e-675b-4970-97b2-c36252629695", code: "TRANSFER", description: "A transfer between two accounts", params: [{name: "journalId", type: UUID }, {name: "toAccount", type: UUID, description: "transfer to this account"}, {name: "fromAccount", type: UUID, description: "transfer from this account"}, {name: "amount", type: DECIMAL, description: "Amount with decimal, e.g. `1.23`."}, {name: "effective", type: DATE, description: "Effective date for transaction."}], transaction: {journalId: "params.journalId", effective: "params.effective"}, entries: [{accountId: "params.fromAccount", units: "params.amount", currency: "'USD'", entryType: "'TRANSFER_DR'", direction: "DEBIT", layer: "SETTLED"}, {accountId: "params.toAccount", units: "params.amount", currency: "'USD'", entryType: "'TRANSFER_CR'", direction: "CREDIT", layer: "SETTLED"}]}
+  ) {
+    tranCodeId
+  }
+
+  createAccountSet(
+    input:{
+      accountSetId: "a390b05c-5442-4db7-b114-a4e90e444253"
+      journalId: $journalId
+      name:"set"
+      normalBalanceType:DEBIT
+      description:"test"
+    }
+  ) {
+    name
+    journalId
+  }
+
+  schema {
+    normal_balance_idx: createHistoricalIndex(
+      input: {
+        name: "normal_balance",
+        on: Balance,
+        unique: false,
+        partition: [
+          {alias: "journal_id", value: "document.journal_id"}
+          {alias: "account_id", value: "document.account_id"}
+        ],
+        sort: [
+          {alias: "normal_balance", value: "(money(document.settled.cr_balance) - money(document.settled.dr_balance)).decimal()", sort: ASC}
+        ],
+        constraints: {}
+      }
+    ) {
+      name
+      unique
+      historical
+      range {
+        alias
+        value
+        sort
+      }
+      partition {
+        alias
+        value
+      }
+      on
+      constraints
+      unique
+    }
+  }
+
+  Transaction_A: postTransaction(
+    input: {transactionId: "48a428bd-c1ba-47e6-abc2-ae024adfe5d3", tranCode: "TRANSFER", params: {journalId: $journalId, toAccount: $ernieAcctId, fromAccount: $bertAcctId, amount: "100.00", effective: "2023-01-01"}}
+  ) {
+    effective
+  }
+
+  Transaction_B: postTransaction(
+    input: {transactionId: "5d24491d-80d4-40bf-abff-f03687fd6b4b", tranCode: "TRANSFER", params: {journalId: $journalId, toAccount: $ernieAcctId, fromAccount: $bertAcctId, amount: "100.00", effective: "2023-01-05"}}
+  ) {
+    effective
+  }
+
+  Transaction_C: postTransaction(
+    input: {transactionId: "33529c21-5a3b-4913-a4bd-fca8f7eef12d", tranCode: "TRANSFER", params: {journalId: $journalId, toAccount: $bertAcctId, fromAccount: $ernieAcctId, amount: "100.00", effective: "2023-01-10"}}
+  ) {
+    effective
+  }
+
+  Transaction_D: postTransaction(
+    input: {transactionId: "2b4607af-2235-42d9-9660-53e6863d39f7", tranCode: "TRANSFER", params: {journalId: $journalId, toAccount: $bertAcctId, fromAccount: $ernieAcctId, amount: "100.00", effective: "2023-01-15"}}
+  ) {
+    effective
+  }
+
+  auth {
+    createClient(
+      input: {
+        principal: "arn:aws:iam::123456789012:role/S3Access"
+        name: "test"
+        policies: [
+          {
+            effect: ALLOW
+            actions: [SELECT]
+            resources: ["*"]
+          }
+        ]
+      }
+    ) {
+      principal
+      name
+      policies {
+        effect
+        actions
+        resources
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+mutation createAccountIndex {
+  schema {
+    createIndex(
+      input: {name: "alpha", on: Account, unique: false, partition: [{alias: "alpha", value: "string(document.metadata.customIndex.alpha)"}], sort: [], constraints: {a: "1 + 1 == 2"}}
+    ) {
+      name
+      range {
+        alias
+        value
+        sort
+      }
+      partition {
+        alias
+        value
+      }
+      on
+      constraints
+      unique
+    }
+  }
+}

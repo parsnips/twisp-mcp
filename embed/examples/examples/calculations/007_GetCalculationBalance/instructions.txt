@@ -1,0 +1,1 @@
+Get the balance details using the DIMENSION index for a specific account, journal, currency, and effective date. Retrieve the first 100 nodes and return the available settled debit and credit balances in units.
