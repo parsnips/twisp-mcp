@@ -19,20 +19,56 @@ flowchart LR
     Bridge -->|local mode GraphQL only| Local[Local Twisp]
 ```
 
-## Build and install
+## Installation
 
-Requires **Go 1.25.5 or newer**. To use the launcher, install the
-[Codex CLI](https://learn.chatgpt.com/docs/extend/mcp?surface=cli) on `PATH`.
+The commands below use a macOS or Linux shell. Install these prerequisites:
+
+- [Go 1.25.5 or newer](https://go.dev/doc/install), with `go` on `PATH`.
+- [Codex CLI](https://learn.chatgpt.com/docs/codex/cli), with `codex` on `PATH`,
+  if you want to launch Codex. Start `codex` once to complete its sign-in.
+- [AWS CLI v2](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+  if you use the AWS SSO setup and login commands below. The bridge itself uses
+  the AWS SDK and does not require the AWS CLI for other credential sources.
+
+### Install or update from main
+
+Run this from any directory; no repository checkout or GitHub SSH key is needed:
 
 ```bash
-git clone git@github.com:parsnips/twisp-mcp.git
-cd twisp-mcp
-make install
+GOBIN="$HOME/bin" GOWORK=off go install github.com/parsnips/twisp-mcp@main
+~/bin/twisp-mcp --version
 ```
 
-This builds `./twisp-mcp` and installs it in `~/bin/twisp-mcp`. For an existing
-checkout, pull `main` and run `make install` again. If your shell exports a
-`GOWORK` pointing to another repository, run `GOWORK=off make install`.
+This builds the current `main` branch and installs `~/bin/twisp-mcp`. Run the
+same command whenever you want to update. `GOWORK=off` keeps installation
+independent of any Go workspace configured by your current project.
+
+You can use `~/bin/twisp-mcp` directly in every command below. To also run it as
+`twisp-mcp`, add this line to your shell startup file (`~/.zshrc` for zsh or
+`~/.bashrc` for interactive bash), then open a new terminal:
+
+```bash
+export PATH="$HOME/bin:$PATH"
+```
+
+### Build from a checkout
+
+If you want to modify the source, install Git and Make as well, then run:
+
+```bash
+git clone https://github.com/parsnips/twisp-mcp.git
+cd twisp-mcp
+GOWORK=off make install
+~/bin/twisp-mcp --version
+```
+
+This builds `./twisp-mcp` and copies it to `~/bin/twisp-mcp`. To update an
+existing checkout on `main`:
+
+```bash
+git pull --ff-only origin main
+GOWORK=off make install
+```
 
 ## Launch Codex against the cloud
 
@@ -98,6 +134,28 @@ AWS_PROFILE=twisp-dev ~/bin/twisp-mcp \
 The default target is `https://api.us-east-1.dev.twisp.com/mcp`. Other environments
 or regions work only when MCP is deployed there; selecting a target does not
 deploy it. The core branch that introduced hosted MCP enables dev / us-east-1.
+
+### Verify cloud access
+
+Replace `<tenant>` with your Twisp account ID or alias. From the directory where
+you want to work, run a preflight without opening an interactive Codex session:
+
+```bash
+AWS_PROFILE=twisp-dev ~/bin/twisp-mcp \
+  --mode cloud --env dev --region us-east-1 --account '<tenant>' codex --version
+```
+
+With the Twisp wrapper, run this from the core checkout instead:
+
+```bash
+./aws/env us-east-1 dev-ro \
+  ~/bin/twisp-mcp --mode cloud --account '<tenant>' codex --version
+```
+
+Success prints the Codex version after authenticating and listing the cloud
+tools. Remove `--version` to start a session, then use `/mcp` to check that the
+Twisp bridge is connected. If preflight fails, see
+[Troubleshooting preflight](#troubleshooting-preflight).
 
 ### What the launcher does
 
