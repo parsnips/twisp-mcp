@@ -3,11 +3,14 @@ package cloud
 
 import (
 	"context"
+	"errors"
 	"fmt"
+	"io"
 	"net"
 	"net/http"
 	"net/url"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/mark3labs/mcp-go/client"
@@ -83,10 +86,10 @@ func (c *Client) connect(ctx context.Context) error {
 	// Match the hosted MCP's Streamable HTTP handshake rather than probing a
 	// newer discovery protocol on the API proxy.
 	req.Params.ProtocolVersion = "2025-03-26"
-	req.Params.ClientInfo = mcp.Implementation{Name: "twisp-mcp-bridge", Version: "3.1.0"}
+	req.Params.ClientInfo = mcp.Implementation{Name: "twisp-mcp-bridge", Version: "3.1.1"}
 	if _, err = upstream.Initialize(ctx, req); err != nil {
 		_ = upstream.Close()
-		return fmt.Errorf("cloud MCP initialization failed; check connectivity and TWISP_MCP credentials")
+		return connectionError("initialization", err)
 	}
 	c.client = upstream
 	return nil
@@ -103,7 +106,7 @@ func (c *Client) ListTools(ctx context.Context) (*mcp.ListToolsResult, error) {
 	result, err := c.client.ListTools(ctx, mcp.ListToolsRequest{})
 	if err != nil {
 		c.reset()
-		return nil, fmt.Errorf("cloud MCP tool discovery failed; check connectivity and TWISP_MCP credentials")
+		return nil, connectionError("tool discovery", err)
 	}
 	return result, nil
 }
@@ -127,7 +130,7 @@ func (c *Client) CallTool(ctx context.Context, request mcp.CallToolRequest) (*mc
 	result, err := c.client.CallTool(ctx, outbound)
 	if err != nil {
 		c.reset()
-		return nil, fmt.Errorf("cloud MCP tool call failed; check connectivity and TWISP_MCP credentials")
+		return nil, connectionError("tool call", err)
 	}
 	return result, nil
 }
@@ -165,7 +168,56 @@ func (t credentialTransport) RoundTrip(r *http.Request) (*http.Response, error) 
 	r = r.Clone(r.Context())
 	r.Header.Set("Authorization", "Bearer "+token)
 	r.Header.Set("X-Twisp-Account-Id", t.config.AccountID)
-	return http.DefaultTransport.RoundTrip(r)
+	response, err := http.DefaultTransport.RoundTrip(r)
+	if err == nil && response.StatusCode >= 300 {
+		// Recognize the ALB's fixed rejection without exposing arbitrary response
+		// bodies (which could contain credentials). Keep diagnostics bounded.
+		body, _ := io.ReadAll(io.LimitReader(response.Body, 256))
+		_ = response.Body.Close()
+		return nil, &httpStatusError{status: response.StatusCode, defaultRejection: response.StatusCode == 401 && strings.TrimSpace(string(body)) == "unauthorized"}
+	}
+	return response, err
+}
+
+// Intercept HTTP failures before the SDK maps initialize's 4xx responses to
+// "legacy SSE" or includes an untrusted response body in its error text.
+type httpStatusError struct {
+	status           int
+	defaultRejection bool
+}
+
+func (e *httpStatusError) Error() string {
+	hint := "check the cloud MCP endpoint"
+	switch e.status {
+	case 400:
+		hint = "check --account; tenant aliases require the alias/ prefix"
+	case 401:
+		hint = "the cloud API rejected the bearer token; check token expiry and issuer"
+		if e.defaultRejection {
+			hint = "plain unauthorized response; check that /mcp is deployed and routed by the load balancer"
+		}
+	case 403:
+		hint = "access denied; check --account (aliases use alias/) and the AWS identity's Twisp client registration"
+	case 404, 405:
+		hint = "check that hosted MCP is deployed at the selected URL"
+	case 502, 503, 504:
+		hint = "the cloud MCP service or runtime is unavailable"
+	}
+	return fmt.Sprintf("HTTP %d: %s", e.status, hint)
+}
+
+func connectionError(operation string, err error) error {
+	var status *httpStatusError
+	if errors.As(err, &status) {
+		return fmt.Errorf("cloud MCP %s failed: %w", operation, status)
+	}
+	if errors.Is(err, context.DeadlineExceeded) {
+		return fmt.Errorf("cloud MCP %s timed out", operation)
+	}
+	if errors.Is(err, context.Canceled) {
+		return fmt.Errorf("cloud MCP %s canceled", operation)
+	}
+	return fmt.Errorf("cloud MCP %s failed; check connectivity, protocol compatibility, and TWISP_MCP credentials", operation)
 }
 
 // CheckCredentials is used before launching the agent or a pure cloud server.

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"sync/atomic"
 	"testing"
 	"time"
@@ -106,5 +107,34 @@ func TestCloudURLValidation(t *testing.T) {
 		if _, err := New(Config{URL: endpoint}); err != nil {
 			t.Fatal(err)
 		}
+	}
+}
+
+func TestHTTPDiagnosticsDoNotExposeResponseBodies(t *testing.T) {
+	for _, test := range []struct {
+		status     int
+		body, hint string
+	}{
+		{401, "unauthorized", "load balancer"},
+		{401, "secret-reflected-token", "token expiry"},
+		{400, "secret-reflected-token", "alias/"},
+		{403, "secret-reflected-token", "Twisp client registration"},
+		{404, "secret-reflected-token", "deployed"},
+		{502, "secret-reflected-token", "runtime is unavailable"},
+		{307, "secret-reflected-token", "endpoint"},
+	} {
+		t.Run(fmt.Sprint(test.status)+test.hint, func(t *testing.T) {
+			host := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) { w.WriteHeader(test.status); fmt.Fprint(w, test.body) }))
+			defer host.Close()
+			c, err := New(Config{URL: host.URL, AccountID: "tenant", BearerToken: "secret-reflected-token"})
+			if err != nil {
+				t.Fatal(err)
+			}
+			defer c.Close()
+			_, err = c.ListTools(context.Background())
+			if err == nil || !strings.Contains(err.Error(), fmt.Sprintf("HTTP %d", test.status)) || !strings.Contains(err.Error(), test.hint) || strings.Contains(err.Error(), "secret-reflected-token") {
+				t.Fatalf("wrong diagnostic: %v", err)
+			}
+		})
 	}
 }

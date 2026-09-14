@@ -204,6 +204,21 @@ URLs require HTTPS except loopback HTTP for development. Neither GraphQL nor
 cloud requests follow redirects. Tool arguments cannot change endpoints or
 credential configuration.
 
+## Troubleshooting preflight
+
+An HTTP 401 with a plain `unauthorized` response can come from the load balancer's
+fixed default action, before the request reaches Twisp authentication. Check that
+`/mcp` has a forwarding rule and that the MCP-enabled API service has been deployed.
+A running AgentCore runtime alone is not sufficient. If the same identity and
+account can query GraphQL but MCP gets this response, check deployment/routing
+before changing credentials.
+
+Other 401 responses suggest a rejected bearer token. A 403 indicates an access
+rejection: check the account and the identity's Twisp client registration. Pass
+literal account IDs as-is; use `alias/<name>` when selecting a tenant alias.
+HTTP errors include their status and a troubleshooting hint without printing
+response bodies or credentials.
+
 ## Tool behavior
 
 Cloud tool definitions, descriptions, schemas, annotations, results, errors, and
