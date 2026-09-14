@@ -1,1 +1,0 @@
-Create a journal using the provided JournalInput variable. Return the journal ID. Create three account sets using the provided AccountSetInput variables. Return the account set ID and enableConcurrentPosting configuration for each account set.

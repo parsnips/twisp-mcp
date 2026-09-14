@@ -1,2 +1,0 @@
-1. Create a transaction code "ABC123" with an invalid CEL syntax in the transaction.effective field. Return the code and status.
-2. Create a transaction code "DEF456" with an invalid CEL syntax in the transaction.journalId field. Return the code and status.

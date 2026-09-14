@@ -1,1 +1,0 @@
-Post a withdrawal transaction using the ACH debit transaction code. Provide the transaction ID, account ID, amount, and effective date. Return the transaction ID, tranCode ID, effective date, and the first two entries with units, direction, and account name.

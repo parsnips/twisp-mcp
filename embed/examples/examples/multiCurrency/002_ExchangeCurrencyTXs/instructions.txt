@@ -1,1 +1,0 @@
-Execute three foreign exchange transactions for the exchanger account: USD to INR, USD to JPY, and INR to JPY. For each transaction, use the specified transaction ID, sell and buy currencies, exchange rate, and the effective date. Return the transaction IDs and entries for each transaction, including direction, units, currencies, and formatted amounts in their respective locales.

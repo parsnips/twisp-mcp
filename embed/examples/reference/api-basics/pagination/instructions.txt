@@ -1,1 +1,0 @@
-Create 20 customer accounts with unique IDs, names, and codes following the "CUST." pattern. Set the description to each customer's wallet, normal balance type as DEBIT, and associate the accounts with the provided account set ID. Set the status of each account as ACTIVE. Return the account ID for each created account.

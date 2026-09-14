@@ -1,1 +1,0 @@
-Create a general ledger as the primary journal for Zuzu using the provided journal ID. Return the journal id, name, description, and status.

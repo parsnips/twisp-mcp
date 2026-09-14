@@ -1,1 +1,0 @@
-Retrieve the account balances by currency (USD, INR, JPY) for the specified exchanger account and journal ID. Return the account code and settled normal balance formatted in the en-US locale. Also include the history for each currency with version and settled normal balance formatted in the en-US locale. Limit history to the first 10 nodes.

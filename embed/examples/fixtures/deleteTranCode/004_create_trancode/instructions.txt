@@ -1,3 +1,0 @@
-Create a transaction code with a given tranCodeId, code, description, and parameters such as source, destination, classification, amount, and effective date. Set the journalId to the provided expression. Create entries with specified accountId, units, currency, entryType, direction, and layer. Add metadata with a tier key. Return the tranCodeId and metadata.
-
-Then, delete the transaction code using the same tranCodeId. Return the deletion status.

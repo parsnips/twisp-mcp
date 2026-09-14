@@ -1,1 +1,0 @@
-Create three accounts using input variables a, b, and c. For each account, return the accountId and the config setting for enableConcurrentPosting.

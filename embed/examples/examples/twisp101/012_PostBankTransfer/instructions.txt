@@ -1,1 +1,0 @@
-Post a bank transfer transaction using the bank transfer transaction code. Provide the transaction ID, fromAccount ID, toAccount ID, amount, fee, and effective date. Return the transaction ID and the first 10 entries with units, direction, entry type, and account name.

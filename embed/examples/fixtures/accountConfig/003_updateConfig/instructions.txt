@@ -1,1 +1,0 @@
-Update three accounts using account IDs and input variables a, b, and c. For each account, return the accountId and the config setting for enableConcurrentPosting.

@@ -1,1 +1,0 @@
-Query the first 10 account sets with a custom index named "priority" where the partition value for priority equals "none". Return account set id, name, and metadata for each node.

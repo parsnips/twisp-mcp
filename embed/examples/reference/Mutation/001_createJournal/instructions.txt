@@ -1,1 +1,0 @@
-Create a General Ledger journal with an active status. Use the variable for the journal ID. Return the journal id, name, description, and status.

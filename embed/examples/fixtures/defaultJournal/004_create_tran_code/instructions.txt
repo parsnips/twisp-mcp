@@ -1,1 +1,0 @@
-Create a transaction code with a unique tranCodeId, code "TRANSFER", and description for a transfer between two accounts. Include required parameters for toAccount, fromAccount, amount, and effective date. Define the transaction effective date and the corresponding debit and credit entries with their respective attributes. Return the created tranCodeId.

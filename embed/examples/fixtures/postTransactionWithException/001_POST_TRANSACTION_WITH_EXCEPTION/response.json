@@ -1,8 +1,0 @@
-{
-  "data": {
-    "postTransaction": {
-      "voidedBy": "09d998dc-9363-5c21-9b0b-e5d1239bd163",
-      "exceptions": [{ "type": "FRAUD", "detail": { "score1": 1, "score2": 33, "score3": 61 } }]
-    }
-  }
-}

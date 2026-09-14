@@ -1,1 +1,0 @@
-Post an ACH debit transaction with the given user account ID, amount, and effective date. Use the transaction ID "7aae6811-3ae1-4d48-9d41-0b4d6fae91a2" and the transaction code "ACH_DEBIT". Return the transaction id, transaction code, effective date, amount (in formatted dollars), direction, layer, and account name for the first two entries.

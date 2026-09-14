@@ -1,1 +1,0 @@
-Create a general ledger with the given journal ID, name, and description. Return the journal id, name, description, and status. Then, delete the created journal and return the status.

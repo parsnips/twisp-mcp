@@ -1,1 +1,0 @@
-Get a summary of Bert's account using the specified fragment. Retrieve the account set name, balances (available, settled, pending, and encumbrance) in USD, and the first 10 entries with their details, including account information and transaction details. Use a variable for Bert's account set ID.

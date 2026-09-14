@@ -1,1 +1,0 @@
-Delete the group with the name "empty-policy-1" in the admin namespace. Return the name.

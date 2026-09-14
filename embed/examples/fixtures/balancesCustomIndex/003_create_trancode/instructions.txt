@@ -1,1 +1,0 @@
-Create two transaction codes for book transfers: one for the general journal and one for the product journal, using provided expressions for the journal IDs. Specify transaction code details, including code, description, parameters, transaction properties, and entries. Return the tranCodeId for both created transaction codes.

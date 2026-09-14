@@ -1,1 +1,0 @@
-Retrieve the first 10 balances for Ernie's account across all journals using a custom index named "account". For each balance, return the journalId and settled drBalance with units and currency.

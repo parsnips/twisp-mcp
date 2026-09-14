@@ -1,1 +1,0 @@
-Delete the index with the name "Transaction.metadata.category" on the Transaction schema. Return the name and schema of the deleted index.

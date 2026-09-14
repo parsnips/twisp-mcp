@@ -1,1 +1,0 @@
-Get the first 10 account sets with a blank name and given journalId. Retrieve the accountSetId, name, and description for each account set.

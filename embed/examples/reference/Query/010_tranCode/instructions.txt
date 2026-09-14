@@ -1,1 +1,0 @@
-Get the tranCode for the specified tranCode ID. Retrieve code, description, params (name, type, and description), transaction details (journalId, effective, correlationId, and description), entries details (accountId, layer, direction, units, and currency), status, and metadata.

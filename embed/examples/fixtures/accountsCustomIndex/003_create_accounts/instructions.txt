@@ -1,1 +1,0 @@
-Create three checking accounts for Ernie, Bert, and Elmo. The account code should include ".accounts_test" and have a credit-normal balance type. Use variables for the account IDs. Include metadata with a customIndex.alpha value set to "yes" for Ernie and Bert, and "no" for Elmo. Return the account id, name, and metadata for each account.

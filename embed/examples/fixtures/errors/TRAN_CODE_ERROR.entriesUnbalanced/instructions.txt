@@ -1,1 +1,0 @@
-Create a transaction code "TFR_TEST" with a description, parameters, a transaction, entries, and metadata. Use a UUID for the tranCodeId and journalId. Return the tranCodeId, code, transaction effective date, entries with accountId, units, entryType, direction, layer, and the metadata.

@@ -1,1 +1,0 @@
-Create an assets account with a specified accountId for Zuzu, using the provided code and description. The account should have a debit-normal balance type. Return the account id, name, and normalBalanceType.

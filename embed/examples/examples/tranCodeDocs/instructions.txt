@@ -1,1 +1,0 @@
-Create a general ledger journal with a specified journal ID, name, and description. Then, create two accounts: an ACH settlement account with a debit-normal balance type and an example user account with a debit-normal balance type. Use specified account IDs, names, codes, descriptions, and statuses for each account. Return the journal ID and account IDs for both accounts.

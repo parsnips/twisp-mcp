@@ -8,6 +8,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"time"
 )
 
 // Client is a GraphQL client for the Twisp API.
@@ -56,7 +57,7 @@ func NewClient() *Client {
 		accountID:   accountID,
 		apiKey:      os.Getenv("TWISP_API_KEY"),
 		bearerToken: os.Getenv("TWISP_BEARER_TOKEN"),
-		httpClient:  &http.Client{},
+		httpClient:  &http.Client{Timeout: 2 * time.Minute, CheckRedirect: func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }},
 	}
 }
 
@@ -73,7 +74,7 @@ func NewClientWithConfig(endpoint, accountID, apiKey, bearerToken string) *Clien
 		accountID:   accountID,
 		apiKey:      apiKey,
 		bearerToken: bearerToken,
-		httpClient:  &http.Client{},
+		httpClient:  &http.Client{Timeout: 2 * time.Minute, CheckRedirect: func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }},
 	}
 }
 
@@ -168,3 +169,5 @@ func (c *Client) ExecuteRaw(ctx context.Context, query string, variables map[str
 
 	return string(output), nil
 }
+
+func (c *Client) Endpoint() string { return c.endpoint }

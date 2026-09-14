@@ -1,1 +1,0 @@
-Remove the index specified by the given name and on value from the schema. In the response, include the deleted index details such as name, range, partition, on, constraints, and unique fields.

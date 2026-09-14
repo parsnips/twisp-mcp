@@ -1,1 +1,0 @@
-Make three transfers between Ernie and Bert's accounts using the provided UUIDs. For each transfer, use the "TRANSFER" transaction code with the specified parameters (toAccount, fromAccount, amount, and effective date). Return the transactionId for each transfer.

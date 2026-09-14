@@ -1,1 +1,0 @@
-Create an effective calculation with no custom dimensions. Child calculations should only have effective date dimensions.

@@ -1,6 +1,0 @@
-mutation DeleteTranCode($tcBookTransferId: UUID!) {
-  deleteTranCode(id: $tcBookTransferId) {
-    tranCodeId
-    status
-  }
-}

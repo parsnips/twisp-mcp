@@ -1,1 +1,0 @@
-Create two accounts: an ACH settlement account and an example user account. Use the given IDs and return the account IDs. The ACH settlement account should use the code "ACH_SETTLE" and have a debit-normal balance type. The example user account should use the code "USER_ACCT" and have a debit-normal balance type. Both accounts should have an ACTIVE status.

@@ -1,7 +1,0 @@
-mutation AdminDeleteTenant {
-  admin {
-    deleteTenant(accountId: "sandbox") {
-      accountId
-    }
-  }
-}

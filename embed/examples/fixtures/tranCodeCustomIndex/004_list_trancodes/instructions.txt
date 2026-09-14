@@ -1,1 +1,0 @@
-Query the first 10 tranCodes with a "banking" tier. Use the CUSTOM index and sort in ascending order. Return the tranCodeId, code, and metadata for each tranCode.

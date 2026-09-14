@@ -1,1 +1,0 @@
-Check the account balances for Ernie, Bert, and Assets accounts using their respective IDs and a specified journal ID. Return the name and settled normal balance units for each account.

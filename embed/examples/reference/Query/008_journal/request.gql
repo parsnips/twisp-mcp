@@ -1,8 +1,0 @@
-query GetJournal($journalGLId: UUID!) {
-  journal(id: $journalGLId) {
-    name
-    description
-    status
-    version
-  }
-}

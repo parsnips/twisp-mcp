@@ -1,1 +1,0 @@
-Create two transaction codes, one for ACH credit and one for ACH debit, with specified tranCode IDs, codes, descriptions, and parameters. Set up journal and entries for both codes. Return the tranCode ID for each code.

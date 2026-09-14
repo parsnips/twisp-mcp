@@ -1,6 +1,0 @@
-mutation DeleteJournal($journalGLId: UUID!) {
-  deleteJournal(id: $journalGLId) {
-    journalId
-    status
-  }
-}

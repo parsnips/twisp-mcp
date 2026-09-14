@@ -1,8 +1,0 @@
-{
-  "data": {
-    "auth": {
-      "client_gh": { "principal": "arn:aws:iam::048962233173:user/github.action" },
-      "client_ro": { "principal": "arn:aws:iam::048962233173:user/feed.action" }
-    }
-  }
-}

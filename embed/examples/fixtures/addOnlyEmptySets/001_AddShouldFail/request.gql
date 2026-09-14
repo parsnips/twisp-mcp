@@ -1,9 +1,0 @@
-mutation AddShouldFail {
-  # Should Fail
-  addToAccountSet(
-    id: "f2a7145e-0b55-11f0-8437-069b540ea27c"
-    member: { memberType: ACCOUNT_SET, memberId: "c8645918-0b55-11f0-b54b-069b540ea27c" }
-  ) {
-    accountSetId
-  }
-}

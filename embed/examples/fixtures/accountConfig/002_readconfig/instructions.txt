@@ -1,1 +1,0 @@
-Retrieve the accountId and config setting for enableConcurrentPosting for three accounts with the specified account IDs.

@@ -1,7 +1,0 @@
-Create five account sets with the given journal ID:
-
-1. Create an account set named "sample" with a description and a metadata priority of "top". Return its account set id and name.
-2. Create an account set named "sample-0" with a description, metadata priority of "top," and a nickname of "alpha". Return its account set id and name.
-3. Create an account set named "sample-1" with a description, metadata priority of "low," and a nickname of "beta". Return its account set id and name.
-4. Create an account set named "sample-2" with a description, metadata priority of "low," and a nickname of "gamma". Return its account set id and name.
-5. Create an account set named "sample-3" with a description, metadata priority of "low," and a nickname of "delta". Return its account set id and name.

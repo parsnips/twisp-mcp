@@ -1,8 +1,0 @@
-mutation AddToAccountSet($accountSetId: UUID!, $memberId: UUID!, $memberType: AccountSetMemberType!) {
-  addToAccountSet(
-    id: $accountSetId
-    member: {memberId: $memberId, memberType: $memberType}
-  ) {
-    accountSetId
-  }
-}

@@ -1,1 +1,0 @@
-Create a general ledger and a product ledger using the provided UUIDs. The general ledger should have a description indicating it's the primary journal for Zuzu, while the product ledger should have a description for Product Fox. Return the journalId, name, description, and status for both ledgers.

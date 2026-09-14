@@ -1,1 +1,0 @@
-Post a Lithic webhook transaction for a specified account ID. Provide the webhook information, including status, amount, fees, and event details. Return the transaction ID, metadata, and the settled and available balances with normal balance units and currency.

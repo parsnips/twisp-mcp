@@ -11,10 +11,10 @@ import (
 )
 
 // GraphQLExecuteTool returns the tool definition and handler for graphql_execute.
-func GraphQLExecuteTool() (mcp.Tool, server.ToolHandlerFunc) {
+func GraphQLExecuteTool(client *graphql.Client) (mcp.Tool, server.ToolHandlerFunc) {
 	tool := mcp.Tool{
 		Name:        "graphql_execute",
-		Description: "Execute arbitrary GraphQL queries or mutations against the Twisp API. Authentication is configured via environment variables: TWISP_ENDPOINT (default: http://localhost:8080/financial/v1/graphql), TWISP_ACCOUNT_ID (default: 000000000000), and optionally TWISP_API_KEY or TWISP_BEARER_TOKEN.",
+		Description: "Execute a GraphQL query or mutation directly against " + client.Endpoint() + ". This tool runs locally; queries and results are not sent through the cloud MCP.",
 		InputSchema: mcp.ToolInputSchema{
 			Type: "object",
 			Properties: map[string]interface{}{
@@ -35,19 +35,21 @@ func GraphQLExecuteTool() (mcp.Tool, server.ToolHandlerFunc) {
 		},
 	}
 
-	return tool, handleGraphQLExecute
+	return tool, func(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		return handleGraphQLExecute(ctx, request, client)
+	}
 }
 
-func handleGraphQLExecute(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func handleGraphQLExecute(ctx context.Context, request mcp.CallToolRequest, client *graphql.Client) (*mcp.CallToolResult, error) {
 	// Extract query
-	query, ok := request.Params.Arguments["query"].(string)
+	query, ok := request.GetArguments()["query"].(string)
 	if !ok || query == "" {
 		return mcp.NewToolResultError("query is required and must be a string"), nil
 	}
 
 	// Extract optional variables
 	var variables map[string]interface{}
-	if vars, ok := request.Params.Arguments["variables"]; ok && vars != nil {
+	if vars, ok := request.GetArguments()["variables"]; ok && vars != nil {
 		switch v := vars.(type) {
 		case map[string]interface{}:
 			variables = v
@@ -61,12 +63,11 @@ func handleGraphQLExecute(ctx context.Context, request mcp.CallToolRequest) (*mc
 
 	// Extract optional operation name
 	var operationName string
-	if opName, ok := request.Params.Arguments["operationName"].(string); ok {
+	if opName, ok := request.GetArguments()["operationName"].(string); ok {
 		operationName = opName
 	}
 
 	// Execute the query
-	client := graphql.NewClient()
 	result, err := client.ExecuteRaw(ctx, query, variables, operationName)
 	if err != nil {
 		return mcp.NewToolResultError(fmt.Sprintf("GraphQL execution failed: %v", err)), nil

@@ -1,1 +1,0 @@
-Delete the index with the provided name and on value from the schema. Return the deleted index information, including the name, range, partition, on, constraints, and unique fields.

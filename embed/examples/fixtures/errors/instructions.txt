@@ -1,3 +1,0 @@
-Create an account with accountId "7052f9fd-dd15-40d0-b0b6-df8c4c372e41", code "TESTACCT", name "TESTACCT", normalBalanceType as DEBIT, and status ACTIVE. Return the accountId.
-
-Create a transaction code with tranCodeId "7c436096-8d2c-4e50-b7a8-fec60894db9f", code "TESTTC", description "TESTTC", and params for effectiveDate and accountId. Set up a transaction with journalId "822cb59f-ce51-4837-8391-2af3b7a5fc51" and effective as "params.effectiveDate". Create two entries, one for debit and one for credit, both with a unit of 1.00 and currency "USD". Return the tranCodeId.

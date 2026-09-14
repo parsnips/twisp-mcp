@@ -1,1 +1,0 @@
-Delete the auth client for Github using the given principal. Return the deleted client's principal.

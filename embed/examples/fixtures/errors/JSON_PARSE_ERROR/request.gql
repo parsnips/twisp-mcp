@@ -1,7 +1,0 @@
-mutation JSON_PARSE_ERROR {
-  invalidParams: postTransaction(
-    input: { transactionId: "e0995c6f-1a25-42f2-b2f2-568cf91f0487", tranCode: "TESTTC", params: "" }
-  ) {
-    transactionId
-  }
-}

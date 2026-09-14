@@ -1,1 +1,0 @@
-Use the auth namespace to get the first 10 clients. Return the principal and name for each client.

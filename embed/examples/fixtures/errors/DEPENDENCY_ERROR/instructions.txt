@@ -1,1 +1,0 @@
-Post a transaction with a missing required parameter. Use a transactionId and accountId as input parameters, but do not include the effectiveDate. Return the transactionId.

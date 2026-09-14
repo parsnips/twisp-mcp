@@ -1,1 +1,0 @@
-Retrieve the first 10 accounts using an incorrect type for the "first" parameter. Instead of an integer, use a string "10". Return the accountId for each account in the response.

@@ -1,1 +1,0 @@
-Record pending transactions for both Bert and Ernie. Post a "Check Hold" transaction for Bert with the amount $20.50 and Ernie with the amount $53.72. Then, record a "Check Clear" transaction for Bert with the original amount of $20.50 and a settled amount of $18.45. Use variables for the account IDs. Return the transaction IDs.

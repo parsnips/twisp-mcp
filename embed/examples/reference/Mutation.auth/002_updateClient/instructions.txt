@@ -1,1 +1,0 @@
-Update the auth client for Github with the given principal. Allow only SELECT and INSERT actions on "financial.*" resources, and include an assertion that is always true. Return the updated policies with their effects, actions, resources, and assertions.

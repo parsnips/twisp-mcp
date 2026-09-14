@@ -1,1 +1,0 @@
-Post two transactions, one ACH_CREDIT for an account with ID 260fd651-8819-4f99-9c8a-87d27e03ee4c and another ACH_CREDIT for an account with ID ae9d36cb-dcf5-41a9-bc1e-99a1cf56ef5b. Use the provided transaction IDs, amounts, and effective dates. Return the transaction ID for each transaction.

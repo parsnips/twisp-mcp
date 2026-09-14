@@ -1,1 +1,0 @@
-Fund Bert's and Ernie's checking accounts using ACH Debit transactions. Post a $100 transaction for Bert and a $500 transaction for Ernie, with an effective date of 2022-10-31. Use variables for the account IDs. Return the transaction IDs.

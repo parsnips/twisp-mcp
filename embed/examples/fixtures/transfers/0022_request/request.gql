@@ -1,7 +1,0 @@
-mutation CreateTransactionOfflineSettlement($accountId: UUID!, $amount: Decimal!, $effective: Date!, $journalId: UUID!, $tranCode: String!, $transactionId: UUID!) {
-  postTransaction(
-    input: {transactionId: $transactionId, tranCode: $tranCode, params: {accountId: $accountId, amount: $amount, effective: $effective, journalId: $journalId}}
-  ) {
-    transactionId
-  }
-}

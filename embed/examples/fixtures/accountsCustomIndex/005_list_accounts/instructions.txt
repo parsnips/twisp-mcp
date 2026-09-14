@@ -1,1 +1,0 @@
-Query the accounts using the custom index "alpha". Retrieve the first 10 accounts with a partition value equal to "no" for the alias "alpha". Return the accountId, name, and metadata for each account.

@@ -1,9 +1,0 @@
-{
-  "data": {
-    "updateAccount": {
-      "name": "changed",
-      "status": "ACTIVE",
-      "metadata": { "baz": "biz", "foo": "bar" }
-    }
-  }
-}

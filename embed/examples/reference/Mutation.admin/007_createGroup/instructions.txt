@@ -1,1 +1,0 @@
-Create a group in the admin namespace with the specified ID, name, description, and an empty policy. Return the name, description, and policy.

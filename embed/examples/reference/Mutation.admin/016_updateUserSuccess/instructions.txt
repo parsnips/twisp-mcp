@@ -1,1 +1,0 @@
-Retrieve the first 10 users in the admin namespace. For each user, return the email, groupIds, and version.

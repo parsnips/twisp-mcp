@@ -1,1 +1,0 @@
-Update the user with the email "george@twisp.com" in the admin namespace. Change the groupIds accordingly. Return the updated email and groupIds.

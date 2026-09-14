@@ -1,1 +1,0 @@
-Make a transfer between Ernie's and Bert's accounts using the provided UUIDs. Create a transaction with a specific transactionId, tranCode, and parameters such as source, destination, amount, effective date, and classification. Return the transactionId, tranCodeId, effective date, and the first 2 entries with units, direction, and account name.

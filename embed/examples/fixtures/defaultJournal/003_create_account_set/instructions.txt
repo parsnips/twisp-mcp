@@ -1,1 +1,0 @@
-Create five account sets with unique names and descriptions. All sets should have a debit-normal balance type. For each account set, use a specific accountSetId and provide additional metadata. Return the accountSetId and name for each created account set.

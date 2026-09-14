@@ -1,1 +1,0 @@
-Update the description and entries of the transaction code using the variable for the transaction code ID. Return the transaction code id, updated description, updated entry metadata and the first 2 historical versions of the description.

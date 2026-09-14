@@ -1,1 +1,0 @@
-Attempt to create an account with an existing accountId. Use "DUP_TESTACCT" for the code and name, set the normalBalanceType to DEBIT, and status to ACTIVE. Return the accountId.

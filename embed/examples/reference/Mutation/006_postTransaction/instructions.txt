@@ -1,1 +1,0 @@
-Post a book transfer transaction between Alicia's and Bobby's accounts using the provided transaction ID and input parameters. Use variables for account IDs. Return the transaction id.

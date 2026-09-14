@@ -1,1 +1,0 @@
-Retrieve the first 10 balances with a normalBalance less than or equal to 0 in the general journal using a custom index named "normal_balance". For each balance, return the journalId, accountId, and settled balances including crBalance, drBalance, and normalBalance with units and currency.

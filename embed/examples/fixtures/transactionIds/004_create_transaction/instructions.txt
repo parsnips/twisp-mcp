@@ -1,1 +1,0 @@
-Make a transfer transaction between Ernie and Bert using the given transactionId and a "TRANSFER" tranCode. Use variables for the account IDs, an amount of 123.45, an effective date of 2022-09-21, and a classification of "internal." Return the transactionId, tranCodeId, effective date, and details of the first 2 entries, including units, direction, and account name.

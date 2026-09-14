@@ -1,7 +1,0 @@
-1. Create a journal with a given journalId, a description "some journal" and a name "main book". Return journalId, name, and description.
-2. Create two checking accounts for Ernie and Bert with given account IDs, names, codes, descriptions, and normal balance type as CREDIT. Return accountId and name.
-3. Create a transfer transaction code with a given tranCodeId, code, and description. Define input parameters and transaction properties.
-4. Create an account set with a specified accountSetId, journalId, name, normal balance type, and description. Return name and journalId.
-5. Create a historical index for normal_balance with specified partition and sort parameters, and no constraints. Return index properties.
-6. Post four transactions (Transaction_A, Transaction_B, Transaction_C, Transaction_D) using the "TRANSFER" transaction code with specified parameters and journalId. Return effective date for each transaction.
-7. Create a client in the auth namespace with given principal, name and policies. Return principal, name, and policies.

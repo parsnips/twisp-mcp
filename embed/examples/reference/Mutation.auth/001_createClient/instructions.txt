@@ -1,1 +1,0 @@
-Create an auth client for Github with the given principal. Allow SELECT, INSERT, UPDATE, and DELETE actions on "financial.*" resources, and include an assertion that is always true. Return the principal.

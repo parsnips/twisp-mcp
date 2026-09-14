@@ -8,3 +8,7 @@ go.sum.bak
 # Old build artifacts
 indexes/
 .search/
+
+# Local credentials
+token.txt
+.env

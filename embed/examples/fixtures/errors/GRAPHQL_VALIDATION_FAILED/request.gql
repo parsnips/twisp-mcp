@@ -1,8 +1,0 @@
-query first_should_be_int {
-  accounts(first: "10") {
-    nodes {
-      accountId
-    }
-  }
-}
-

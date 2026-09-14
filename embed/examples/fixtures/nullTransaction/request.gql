@@ -1,5 +1,0 @@
-query nullTransaction {
-  transaction(id: "03fff098-b0ad-4eca-8a7e-9f4c7e3effb6") {
-    transactionId
-  }
-}

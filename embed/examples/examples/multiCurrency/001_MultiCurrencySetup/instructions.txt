@@ -1,1 +1,0 @@
-Create a multi-currency setup with a general ledger, an account for User A, a foreign exchange broker account, and a foreign exchange transaction code. Use variables for journal ID, exchanger account ID, and foreign exchange account ID. Return the created journal id, account IDs, and transaction code ID.

@@ -1,1 +1,0 @@
-Create three admin entities: a pre-production tenant, a group with a deny policy, and a group with a read-only policy. Use provided UUIDs for the tenant and group ids. Return the account id for the tenant and the names of the two groups.

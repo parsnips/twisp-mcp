@@ -1,7 +1,0 @@
-{
-  "journalId": "eaa20f6f-561a-4759-bd64-409cc3a3a93c",
-  "journalIdExpr": "uuid('eaa20f6f-561a-4759-bd64-409cc3a3a93c')",
-  "exchangerAcctId": "4562b9c7-af2c-4304-9415-432993801698",
-  "fxAcctId": "16d1b1c2-5a2c-4c4c-8138-dbaa4e7b21ee",
-  "fxAcctIdExpr": "uuid('16d1b1c2-5a2c-4c4c-8138-dbaa4e7b21ee')"
-}

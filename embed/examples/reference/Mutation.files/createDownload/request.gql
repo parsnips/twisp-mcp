@@ -1,7 +1,0 @@
-mutation CreateDownload {
-  files {
-    createDownload(key: "some-file.json") {
-      downloadURL
-    }
-  }
-}

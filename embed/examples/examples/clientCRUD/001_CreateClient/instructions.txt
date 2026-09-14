@@ -1,1 +1,0 @@
-Create a new client in the auth namespace with the principal "arn:aws:iam::048962233173:user/github.action" and the name "Github". Grant the client ALLOW access to SELECT, INSERT, UPDATE, and DELETE actions on "financial.*" resources. Return the principal.

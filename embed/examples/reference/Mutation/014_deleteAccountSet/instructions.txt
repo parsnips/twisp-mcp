@@ -1,1 +1,0 @@
-Delete the Customers account set using the variable for the account set ID. Return the account set id.

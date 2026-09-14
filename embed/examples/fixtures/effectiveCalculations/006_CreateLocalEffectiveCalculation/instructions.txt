@@ -1,1 +1,0 @@
-Create a LOCAL scope effective calculation with dimensions. This will be used for subsequent attach/detach tests.

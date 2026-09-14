@@ -1,1 +1,0 @@
-Post an ACH credit transaction using the user account ID, amount, and effective date as variables. The transaction should have a transaction code of "ACH_CREDIT". Return the transaction id, transaction code, effective date, and the first two entries with their respective amount, direction, layer, and account name.

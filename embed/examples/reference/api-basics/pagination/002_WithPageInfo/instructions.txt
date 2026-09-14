@@ -1,1 +1,0 @@
-Get the first 5 customer accounts sorted by code and filtered by the code pattern "CUST.". Return the account code for each account and provide pageInfo including hasPreviousPage, hasNextPage, startCursor, and endCursor.

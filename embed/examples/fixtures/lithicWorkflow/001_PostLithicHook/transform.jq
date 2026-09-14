@@ -1,1 +1,0 @@
-walk(if type == "object" then del(.created, .modified, .entryId,  .balanceRecordId, .recordId) else . end)

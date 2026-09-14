@@ -1,1 +1,0 @@
-Create a customers account set with a specified accountSet ID, journal ID, name, description, and a credit-normal balance type. Return the accountSet ID, journal ID, name, description, and normal balance type.

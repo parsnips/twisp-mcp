@@ -1,1 +1,0 @@
-Update the metadata of the transaction using the provided transaction ID. Set the reconciled value to true. Return the transaction id, updated metadata, and the first 2 historical versions of the metadata.

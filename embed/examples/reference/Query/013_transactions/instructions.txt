@@ -1,1 +1,0 @@
-Get the first 10 transactions with the specified correlationId and journalId using the correlation_id index. Retrieve transactionId, description, effective, and tranCode code for each transaction.

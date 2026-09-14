@@ -1,1 +1,0 @@
-Update the name of the Customers account set using the variable for the account set ID. Return the account set id, updated name, and the first 2 historical versions of the name.

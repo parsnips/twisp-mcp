@@ -1,9 +1,0 @@
-mutation AdminUpdateTenant {
-  admin {
-    updateTenant(input: { accountId: "sandbox", description: "This is the sandbox tenant." }) {
-      accountId
-      description
-      version
-    }
-  }
-}

@@ -1,6 +1,0 @@
-Create a position ledger with the following setup:
-
-1. Create a general ledger with a journal ID, name as "GL", and description as "General Ledger".
-2. Create account sets for the broker, Alicia, and Bobby with specified account set IDs and descriptions.
-3. Create accounts with respective IDs, codes, names, descriptions, normal balance types, and account set IDs for the broker, Alicia, and Bobby.
-4. Create transaction codes for buying securities, selling securities, and earning dividends with relevant parameters, transactions, and entries for each code.

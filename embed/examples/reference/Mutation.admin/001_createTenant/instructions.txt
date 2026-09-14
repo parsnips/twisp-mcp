@@ -1,1 +1,0 @@
-Create a tenant in the admin namespace with the specified ID, accountId, name, and description. Return the accountId and name.

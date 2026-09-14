@@ -1,1 +1,0 @@
-Attempt to retrieve accounts using the ACCOUNT_ID index with an incorrect "like" filter for the accountId. Get the first 10 accounts and return the accountId and name.

@@ -1,1 +1,0 @@
-Create three indexes within the schema - one each for Transaction, Account, and AccountSet. Use the metadata category or type as the partition and sorting value. Ensure these indexes are non-unique and have the corresponding constraints. Return the index names.

@@ -1,9 +1,0 @@
-query GetAdminOrganization {
-  admin {
-    organization {
-      id
-      name
-      description
-    }
-  }
-}

@@ -1,8 +1,0 @@
-query Configuration {
-  ach {
-    configuration(id: "1dc71d60-f463-4bb6-b82a-ab42e2f923ff") {
-      configId
-      timeZone
-    }
-  }
-}

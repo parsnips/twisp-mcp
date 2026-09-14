@@ -1,1 +1,0 @@
-Query the first 10 transactions using a custom index named "effective" and filter by sort values where effective date is greater than or equal to "2022-10-21." Return the transactionId, tranCodeId, effective date, and metadata for each transaction.

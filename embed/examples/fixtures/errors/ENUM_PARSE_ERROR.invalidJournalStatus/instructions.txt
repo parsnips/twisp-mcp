@@ -1,1 +1,0 @@
-Retrieve journals with an invalid status value "FOO". Use the STATUS index. Get the first 100 journals and return the name, status, and created timestamp.

@@ -1,1 +1,0 @@
-Retrieve the admin organization's id, name, and description.

@@ -1,1 +1,0 @@
-Create a general ledger with a specified journal ID, name, and description. Return the journal ID, name, description, and status.

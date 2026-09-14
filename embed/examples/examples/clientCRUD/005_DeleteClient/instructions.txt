@@ -1,1 +1,0 @@
-Delete the client with the principal "arn:aws:iam::048962233173:user/github.action" in the auth namespace. Return the principal.

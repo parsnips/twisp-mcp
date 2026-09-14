@@ -1,1 +1,0 @@
-Create two checking accounts, one for Ernie and one for Bert, with metadata for customIndex alpha set to "yes." The account code should follow the format <NAME>.<TYPE>.accounts_test. Both accounts should have a credit-normal balance type. Use variables for the account IDs. Return the account id, name, and metadata.

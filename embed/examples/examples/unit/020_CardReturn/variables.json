@@ -1,9 +1,0 @@
-{
-  "accountId": "7a17b0f1-b04f-46a4-ba45-d52a861c21d9",
-  "amount": "10.00",
-  "direction": "CREDIT",
-  "settlementId": "fa5cb793-0739-4eb8-8db2-9b452ed71930",
-  "correlation": "265a9120-e42a-4c02-b3dc-eb80a2e3cf00",
-  "effective": "2022-10-01",
-  "settleHook": "{\n      \"status\": \"SETTLED\",\n      \"amount\": -1000,\n      \"acquirer_fee\": 0,\n      \"authorization_amount\": -1000,\n      \"settled_amount\": -1000,\n      \"events\": [\n        {\n          \"amount\": -1000,\n          \"type\": \"RETURN\",\n          \"result\": \"APPROVED\",\n          \"token\": \"fa5cb793-0739-4eb8-8db2-9b452ed71930\"\n        }\n      ],\n      \"created\": \"2022-10-01T00:00:00Z\",\n      \"token\": \"265a9120-e42a-4c02-b3dc-eb80a2e3cf00\"\n    }"
-}
