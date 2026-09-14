@@ -140,3 +140,71 @@ func TestLocalGraphQLAndCloudTools(t *testing.T) {
 		t.Fatal("removed cloud tool retained")
 	}
 }
+
+func TestPureCloudRoutesGraphQLAndPreservesCatalog(t *testing.T) {
+	ctx := context.Background()
+	var calls atomic.Int32
+	remote := sdk.NewMCPServer("cloud", "test")
+	tool := mcp.NewTool("graphql_execute", mcp.WithDescription("Execute against hosted Twisp"), mcp.WithString("query", mcp.Required()))
+	expected := mcp.NewToolResultText("hosted result")
+	expected.Meta = &mcp.Meta{AdditionalFields: map[string]any{"upstream": "preserved"}}
+	remote.AddTool(tool, func(_ context.Context, r mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		calls.Add(1)
+		if r.GetString("query", "") != "mutation { something }" {
+			t.Error("changed arguments")
+		}
+		return expected, nil
+	})
+	transport := sdk.NewStreamableHTTPServer(remote, sdk.WithStateLess(true))
+	var offline atomic.Bool
+	host := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Header.Get("Authorization") != "Bearer cloud" || r.Header.Get("X-Twisp-Account-Id") != "tenant" {
+			t.Error("wrong cloud credentials")
+		}
+		if offline.Load() {
+			http.Error(w, "offline", 503)
+			return
+		}
+		transport.ServeHTTP(w, r)
+	}))
+	defer host.Close()
+	upstream, err := cloud.New(cloud.Config{URL: host.URL, AccountID: "tenant", BearerToken: "cloud", ForwardGraphQL: true})
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer upstream.Close()
+	s := New(nil, upstream)
+	if err := s.CheckCloud(ctx); err != nil {
+		t.Fatal(err)
+	}
+	c, err := client.NewInProcessClient(s.mcp)
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer c.Close()
+	init := mcp.InitializeRequest{}
+	init.Params.ProtocolVersion = "2025-03-26"
+	if _, err := c.Initialize(ctx, init); err != nil {
+		t.Fatal(err)
+	}
+	list, err := c.ListTools(ctx, mcp.ListToolsRequest{})
+	if err != nil || len(list.Tools) != 1 || list.Tools[0].Description != tool.Description || !reflect.DeepEqual(list.Tools[0].InputSchema, tool.InputSchema) {
+		t.Fatal("cloud catalog changed", list, err)
+	}
+	call := mcp.CallToolRequest{}
+	call.Params.Name = "graphql_execute"
+	call.Params.Arguments = map[string]any{"query": "mutation { something }"}
+	result, err := c.CallTool(ctx, call)
+	if err != nil || !reflect.DeepEqual(result, expected) || calls.Load() != 1 {
+		t.Fatal("cloud GraphQL routing failed", result, err)
+	}
+	offline.Store(true)
+	result, err = c.CallTool(ctx, call)
+	if err != nil || !result.IsError || calls.Load() != 1 {
+		t.Fatal("failed write was replayed or routed locally", result, err)
+	}
+	fresh := New(nil, upstream)
+	if err := fresh.CheckCloud(ctx); err == nil || len(fresh.mcp.ListTools()) != 0 {
+		t.Fatal("cloud startup did not fail closed")
+	}
+}

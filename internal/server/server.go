@@ -14,7 +14,7 @@ import (
 	"github.com/parsnips/twisp-mcp/internal/tools"
 )
 
-const Version = "3.0.0"
+const Version = "3.1.0"
 
 type Upstream interface {
 	ListTools(context.Context) (*mcp.ListToolsResult, error)
@@ -27,41 +27,52 @@ type Server struct {
 	local     server.ServerTool
 	refreshMu sync.Mutex
 	catalog   []mcp.Tool
+	cloudOnly bool
 }
 
 func New(local *graphql.Client, upstream Upstream) *Server {
-	tool, handler := tools.GraphQLExecuteTool(local)
-	s := &Server{upstream: upstream, local: server.ServerTool{Tool: tool, Handler: handler}}
+	s := &Server{upstream: upstream, cloudOnly: local == nil}
+	if local != nil {
+		tool, handler := tools.GraphQLExecuteTool(local)
+		s.local = server.ServerTool{Tool: tool, Handler: handler}
+	}
 	hooks := &server.Hooks{}
 	hooks.AddBeforeListTools(func(ctx context.Context, _ any, _ *mcp.ListToolsRequest) { s.refresh(ctx) })
 	s.mcp = server.NewMCPServer("twisp-mcp", Version, server.WithHooks(hooks), server.WithToolCapabilities(true))
-	s.mcp.AddTools(s.local)
+	if !s.cloudOnly {
+		s.mcp.AddTools(s.local)
+	}
 	return s
 }
 
 // Refresh on tools/list, retaining the last successful catalog during an
 // outage. GraphQL registration never depends on cloud discovery succeeding.
-func (s *Server) refresh(ctx context.Context) {
+func (s *Server) refresh(ctx context.Context) { _ = s.refreshWithin(ctx, 5*time.Second) }
+
+func (s *Server) refreshWithin(ctx context.Context, timeout time.Duration) error {
 	s.refreshMu.Lock()
 	defer s.refreshMu.Unlock()
-	ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
+	ctx, cancel := context.WithTimeout(ctx, timeout)
 	defer cancel()
 	result, err := s.upstream.ListTools(ctx)
 	if err != nil {
-		log.Print("cloud tool discovery unavailable; local GraphQL remains available")
-		return
+		log.Print("cloud tool discovery unavailable; retaining existing tools")
+		return err
 	}
 	catalog := make([]mcp.Tool, 0, len(result.Tools))
 	for _, tool := range result.Tools {
-		if tool.Name != "graphql_execute" {
+		if s.cloudOnly || tool.Name != "graphql_execute" {
 			catalog = append(catalog, tool)
 		}
 	}
 	if reflect.DeepEqual(catalog, s.catalog) {
-		return
+		return nil
 	}
 	s.catalog = catalog
-	registered := []server.ServerTool{s.local}
+	registered := []server.ServerTool{}
+	if !s.cloudOnly {
+		registered = append(registered, s.local)
+	}
 	for _, tool := range catalog {
 		name := tool.Name
 		registered = append(registered, server.ServerTool{Tool: tool, Handler: func(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
@@ -76,6 +87,13 @@ func (s *Server) refresh(ctx context.Context) {
 		}})
 	}
 	s.mcp.SetTools(registered...)
+	return nil
 }
 
 func (s *Server) Serve() error { return server.ServeStdio(s.mcp) }
+
+// CheckCloud establishes authenticated access and fills the initial catalog.
+// Pure cloud startup must not silently succeed with no usable tools.
+func (s *Server) CheckCloud(ctx context.Context) error {
+	return s.refreshWithin(ctx, 30*time.Second)
+}
