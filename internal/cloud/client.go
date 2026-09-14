@@ -86,7 +86,7 @@ func (c *Client) connect(ctx context.Context) error {
 	// Match the hosted MCP's Streamable HTTP handshake rather than probing a
 	// newer discovery protocol on the API proxy.
 	req.Params.ProtocolVersion = "2025-03-26"
-	req.Params.ClientInfo = mcp.Implementation{Name: "twisp-mcp-bridge", Version: "3.1.1"}
+	req.Params.ClientInfo = mcp.Implementation{Name: "twisp-mcp-bridge", Version: "3.1.2"}
 	if _, err = upstream.Initialize(ctx, req); err != nil {
 		_ = upstream.Close()
 		return connectionError("initialization", err)

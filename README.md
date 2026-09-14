@@ -52,7 +52,9 @@ Run from your Twisp core checkout:
 ```
 
 The bridge infers `dev` from `ZONE` and `us-east-1` from `AWS_REGION`, both set by
-that wrapper. It uses the AWS session supplied by `aws-vault`. To avoid repeating
+that wrapper. It uses the AWS session supplied by `aws-vault` and restores
+Codex to your original working directory after Bazel enters its runfiles tree.
+Relative credential-file paths are preserved. To avoid repeating
 the account, set `TWISP_MCP_ACCOUNT_ID` before launching.
 
 ### With a standard AWS profile

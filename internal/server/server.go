@@ -14,7 +14,7 @@ import (
 	"github.com/parsnips/twisp-mcp/internal/tools"
 )
 
-const Version = "3.1.1"
+const Version = "3.1.2"
 
 type Upstream interface {
 	ListTools(context.Context) (*mcp.ListToolsResult, error)

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"sort"
 	"strings"
 )
@@ -44,6 +45,10 @@ func launchCodex(o options) error {
 	if err != nil {
 		return fmt.Errorf("codex is not on PATH; install the Codex CLI first")
 	}
+	binary, err = filepath.Abs(binary)
+	if err != nil {
+		return err
+	}
 	executable, err := os.Executable()
 	if err != nil {
 		return fmt.Errorf("cannot find the twisp-mcp executable")
@@ -52,8 +57,52 @@ func launchCodex(o options) error {
 	if err != nil {
 		return err
 	}
+	// Bazel's generated aws/env launcher changes into its runfiles tree.
+	// Restore the user's directory for Codex, keeping the bridge's original
+	// cwd and converting credential-file paths before changing directories.
+	launchDir, environment := launchEnvironment(cwd, os.Environ())
+	args := codexArgs(o, "twisp_bridge_"+strings.ToLower(rand.Text()[:10]), executable, cwd, environment)
+	if err := os.Chdir(launchDir); err != nil {
+		return fmt.Errorf("cannot return to the original working directory: %w", err)
+	}
 	// Codex merges configuration tables. A fresh name prevents stale settings
 	// (including credentials or a conflicting HTTP transport) from being inherited.
-	name := "twisp_bridge_" + strings.ToLower(rand.Text()[:10])
-	return replaceProcess(binary, append([]string{binary}, codexArgs(o, name, executable, cwd, os.Environ())...), os.Environ())
+	return replaceProcess(binary, append([]string{binary}, args...), environment)
+}
+
+func launchEnvironment(cwd string, environment []string) (string, []string) {
+	directory := ""
+	for _, entry := range environment {
+		if name, value, _ := strings.Cut(entry, "="); name == "BUILD_WORKING_DIRECTORY" {
+			directory = value
+		}
+	}
+	if directory == "" || !strings.Contains(filepath.ToSlash(cwd), ".runfiles/") {
+		return cwd, environment
+	}
+	if !filepath.IsAbs(directory) {
+		directory = filepath.Join(cwd, directory)
+	}
+	result := make([]string, 0, len(environment)+1)
+	for _, entry := range environment {
+		name, value, _ := strings.Cut(entry, "=")
+		switch name {
+		case "PWD":
+			continue
+		case "AWS_CONFIG_FILE", "AWS_SHARED_CREDENTIALS_FILE", "AWS_WEB_IDENTITY_TOKEN_FILE", "AWS_CONTAINER_AUTHORIZATION_TOKEN_FILE", "AWS_CA_BUNDLE", "TWISP_MCP_TOKEN_FILE", "SSL_CERT_FILE":
+			if value != "" && !filepath.IsAbs(value) {
+				value = filepath.Join(cwd, value)
+			}
+		case "PATH", "SSL_CERT_DIR":
+			paths := filepath.SplitList(value)
+			for i, path := range paths {
+				if path != "" && !filepath.IsAbs(path) {
+					paths[i] = filepath.Join(cwd, path)
+				}
+			}
+			value = strings.Join(paths, string(os.PathListSeparator))
+		}
+		result = append(result, name+"="+value)
+	}
+	return directory, append(result, "PWD="+directory)
 }

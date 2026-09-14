@@ -87,6 +87,46 @@ func TestCodexLauncherPreflightAndExec(t *testing.T) {
 	if _, err := os.Stat(filepath.Join(dir, ".codex", "config.toml")); !os.IsNotExist(err) {
 		t.Fatal("launcher wrote global config")
 	}
+
+	// Reproduce the Bazel wrapper: execute from runfiles with a relative AWS
+	// config path, but launch Codex in BUILD_WORKING_DIRECTORY.
+	runfiles := filepath.Join(dir, "vault.runfiles", "_main")
+	workspace := filepath.Join(dir, "workspace")
+	for _, path := range []string{runfiles, workspace} {
+		if err := os.MkdirAll(path, 0700); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if err := os.WriteFile(filepath.Join(runfiles, "awsconfig"), []byte("fixture"), 0600); err != nil {
+		t.Fatal(err)
+	}
+	wrapperScript := "#!/bin/sh\n[ -f \"$AWS_CONFIG_FILE\" ] || exit 26\n[ \"$PWD\" = \"$BUILD_WORKING_DIRECTORY\" ] || exit 27\npwd > \"$TWISP_TEST_CAPTURE\"\nexit 17\n"
+	if err := os.WriteFile(filepath.Join(dir, "codex"), []byte(wrapperScript), 0700); err != nil {
+		t.Fatal(err)
+	}
+	wrapped := command(host.URL)
+	wrapped.Dir = runfiles
+	wrapped.Env = append(wrapped.Env, "BUILD_WORKING_DIRECTORY="+workspace, "AWS_CONFIG_FILE=awsconfig")
+	if output, err := wrapped.CombinedOutput(); err == nil {
+		t.Fatal("lost wrapped exit code")
+	} else if exit, ok := err.(*exec.ExitError); !ok || exit.ExitCode() != 17 {
+		t.Fatalf("wrapped launch failed: %v %s", err, output)
+	}
+	launched, err := os.ReadFile(capture)
+	if err != nil {
+		t.Fatal(err)
+	}
+	resolvedWorkspace, err := filepath.EvalSymlinks(workspace)
+	if err != nil {
+		t.Fatal(err)
+	}
+	actualWorkspace, err := filepath.EvalSymlinks(strings.TrimSpace(string(launched)))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if actualWorkspace != resolvedWorkspace {
+		t.Fatalf("wrong working directory: %q", launched)
+	}
 	if err := os.Remove(capture); err != nil {
 		t.Fatal(err)
 	}
